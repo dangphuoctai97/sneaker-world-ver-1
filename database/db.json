@@ -17,7 +17,7 @@
     {
       "id": 1,
       "name": "jordan 1",
-      "price": "1000000",
+      "price": 1000000,
       "gender": 1,
       "size": [39, 40, 41, 42],
       "discount": 30,
@@ -26,7 +26,7 @@
     {
       "id": 2,
       "name": "nike 1",
-      "price": "2000000",
+      "price": 2000000,
       "gender": 1,
       "size": [39, 40, 41, 42],
       "discount": 20,
@@ -35,7 +35,7 @@
     {
       "id": 3,
       "name": "adidas 1",
-      "price": "1200000",
+      "price": 1200000,
       "gender": 2,
       "size": [39, 40, 41, 42],
       "discount": 40,
@@ -44,7 +44,7 @@
     {
       "id": 4,
       "name": "adidas 2",
-      "price": "1000000",
+      "price": 1000000,
       "gender": 1,
       "size": [39, 40, 41, 42],
       "discount": 50,
@@ -53,7 +53,7 @@
     {
       "id": 5,
       "name": "jordan 2",
-      "price": "3000000",
+      "price": 3000000,
       "gender": 2,
       "size": [39, 40, 41, 42],
       "discount": 30,
@@ -62,7 +62,7 @@
     {
       "id": 6,
       "name": "nike 2",
-      "price": "3000000",
+      "price": 3000000,
       "gender": 2,
       "size": [39, 40, 41, 42],
       "discount": 50,
