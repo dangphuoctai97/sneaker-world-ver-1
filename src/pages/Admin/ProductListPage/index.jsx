@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Button, Table, Space, Pagination, Avatar } from "antd";
+import { Button, Table, Space, Pagination, Avatar, Tag } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 
 import {
@@ -58,7 +58,7 @@ const AdminProductListPage = () => {
       title: "Category",
       dataIndex: "category",
       key: "category",
-      render: (category) => category.name,
+      render: (category) => category.name.toUpperCase(),
     },
     {
       title: "Price",
@@ -71,6 +71,28 @@ const AdminProductListPage = () => {
       dataIndex: "gender",
       key: "gender",
       render: (gender) => (gender === 1 ? "Nam" : "Nữ"),
+    },
+    {
+      title: "Size",
+      dataIndex: "size",
+      key: "size",
+      render: (sizes) => (
+        <>
+          {sizes.map((size) => {
+            return (
+              <Tag color="geekblue" key={size}>
+                {size}
+              </Tag>
+            );
+          })}
+        </>
+      ),
+    },
+    {
+      title: "Discount",
+      dataIndex: "discount",
+      key: "discount",
+      render: (discount) => `${discount}%`,
     },
     {
       title: "Action",
