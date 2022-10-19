@@ -7,7 +7,7 @@ export const MainContainer = styled.div`
 `;
 
 export const MainContent = styled.div`
-  margin-left: 0px;
+  margin: 0 100px;
   padding: 16px;
   width: 100%;
   transition: all 0.3s;
