@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Button, Table, Space, Pagination, Avatar, Tag } from "antd";
 import { useSelector, useDispatch } from "react-redux";
+import { generatePath, useNavigate } from "react-router-dom";
 
 import {
   getProductListAction,
@@ -14,6 +15,8 @@ const AdminProductListPage = () => {
   const { productList, createProductData } = useSelector(
     (state) => state.product
   );
+
+  const navigate = useNavigate();
 
   const { categoryList } = useSelector((state) => state.category);
 
@@ -101,7 +104,7 @@ const AdminProductListPage = () => {
       render: () => {
         return (
           <Space>
-            <Button>Update</Button>
+            <Button onClick={() => navigate(generatePath())}>Update</Button>
             <Button>Delete</Button>
           </Space>
         );
