@@ -96,7 +96,7 @@ const productReducer = createReducer(initialState, {
     };
   },
 
-  CREATE_PRODUCT_REQUEST: (state, action) => {
+  [REQUEST(PRODUCT_ACTION.CREATE_PRODUCT)]: (state, action) => {
     return {
       ...state,
       createProductData: {
@@ -106,7 +106,7 @@ const productReducer = createReducer(initialState, {
       },
     };
   },
-  CREATE_PRODUCT_SUCCESS: (state, action) => {
+  [SUCCESS(PRODUCT_ACTION.CREATE_PRODUCT)]: (state, action) => {
     return {
       ...state,
       createProductData: {
@@ -115,7 +115,7 @@ const productReducer = createReducer(initialState, {
       },
     };
   },
-  CREATE_PRODUCT_FAIL: (state, action) => {
+  [FAIL(PRODUCT_ACTION.CREATE_PRODUCT)]: (state, action) => {
     const { error } = action.payload;
     return {
       ...state,

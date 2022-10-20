@@ -8,6 +8,7 @@ import {
   getCategoryListAction,
 } from "../../../redux/actions";
 import { ADMIN_TABLE_LIMIT } from "../../../constants/pagination";
+import { ROUTES } from "../../../constants/routes";
 import * as S from "./styles";
 
 const AdminProductListPage = () => {
@@ -119,7 +120,12 @@ const AdminProductListPage = () => {
       <S.Wrapper>
         <S.TopWrapper>
           <h2>Product List</h2>
-          <Button type="primary">Create Product</Button>
+          <Button
+            type="primary"
+            onClick={() => navigate(ROUTES.ADMIN.CREATE_PRODUCT)}
+          >
+            Create Product
+          </Button>
         </S.TopWrapper>
         <Table
           columns={tableColumn}
