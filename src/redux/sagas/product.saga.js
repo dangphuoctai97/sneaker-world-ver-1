@@ -68,15 +68,15 @@ function* createProductSaga(action) {
     const { values } = action.payload;
     const result = yield axios.post("http://localhost:4000/products", values);
     yield put({
-      type: "CREATE_PRODUCT_SUCCESS",
+      type: SUCCESS(PRODUCT_ACTION.CREATE_PRODUCT),
       payload: {
         data: result.data,
       },
     });
-    yield put({ type: "GET_PRODUCT_LIST_REQUEST" });
+    yield put({ type: REQUEST(PRODUCT_ACTION.GET_PRODUCT_LIST) });
   } catch (e) {
     yield put({
-      type: "CREATE_PRODUCT_FAIL",
+      type: FAIL(PRODUCT_ACTION.CREATE_PRODUCT),
       payload: {
         error: "Đã có lỗi xảy ra!",
       },

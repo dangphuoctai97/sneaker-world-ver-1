@@ -1,13 +1,16 @@
 import { Routes, Route } from "react-router-dom";
 
 import AdminLayout from "./layouts/AdminLayout";
-import UserLayout from "./layouts/UserLayout";
-import LoginLayout from "./layouts/LoginLayout";
 import AdminHomePage from "./pages/Admin/HomePage";
-import UserHomePage from "./pages/User/HomePage";
-import AboutPage from "./pages/AboutPage";
 import AdminProductListPage from "./pages/Admin/ProductListPage";
+import AdminCreateProductPage from "./pages/Admin/CreateProductPage";
+
+import UserLayout from "./layouts/UserLayout";
+import UserHomePage from "./pages/User/HomePage";
 import UserProductListPage from "./pages/User/ProductListPage";
+
+import LoginLayout from "./layouts/LoginLayout";
+import AboutPage from "./pages/AboutPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import ProductDetailPage from "./pages/ProductDetailPage";
@@ -28,6 +31,10 @@ function App() {
           <Route
             path={ROUTES.ADMIN.PRODUCT_LIST}
             element={<AdminProductListPage />}
+          ></Route>
+          <Route
+            path={ROUTES.ADMIN.CREATE_PRODUCT}
+            element={<AdminCreateProductPage />}
           ></Route>
         </Route>
         <Route element={<UserLayout />}>
