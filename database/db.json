@@ -69,5 +69,24 @@
       "categoryId": 2
     }
   ],
-  "users": []
+  "users": [
+    {
+      "email": "hieple@gmail.com",
+      "password": "$2a$10$7kycWHjxK/gN7gErkeOeDuivPnq2d2mr9esjWifxYfMob0ENePthS",
+      "fullName": "Hiep",
+      "role": "user",
+      "createdAt": 1666191759181,
+      "updatedAt": 1666191759181,
+      "id": 1
+    },
+    {
+      "email": "hieple-admin@gmail.com",
+      "password": "$2a$10$0SMG/nWAJSMFKKQapXbPFOc8j.6VL4MBLxSfhbajKMf0VbFBSWSxi",
+      "fullName": "Hiep",
+      "role": "admin",
+      "createdAt": 1666197747095,
+      "updatedAt": 1666197747095,
+      "id": 2
+    }
+  ]
 }

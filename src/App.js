@@ -1,25 +1,41 @@
+import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
+import jwtDecode from "jwt-decode";
+import { useDispatch } from "react-redux";
 
+import LoginLayout from "./layouts/LoginLayout";
+import UserLayout from "./layouts/UserLayout";
 import AdminLayout from "./layouts/AdminLayout";
+
 import AdminHomePage from "./pages/Admin/HomePage";
 import AdminProductListPage from "./pages/Admin/ProductListPage";
 import AdminCreateProductPage from "./pages/Admin/CreateProductPage";
 
-import UserLayout from "./layouts/UserLayout";
 import UserHomePage from "./pages/User/HomePage";
-import UserProductListPage from "./pages/User/ProductListPage";
-
-import LoginLayout from "./layouts/LoginLayout";
 import AboutPage from "./pages/AboutPage";
-import LoginPage from "./pages/LoginPage";
-import RegisterPage from "./pages/RegisterPage";
+import UserProductListPage from "./pages/User/ProductListPage";
 import ProductDetailPage from "./pages/ProductDetailPage";
 
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
+
 import { ROUTES } from "./constants/routes";
+import { getUserInfoAction } from "./redux/actions/";
 
 import * as S from "./styles";
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+
+    if (accessToken) {
+      const decodeInfo = jwtDecode(accessToken);
+      dispatch(getUserInfoAction({ id: decodeInfo.sub }));
+    }
+  }, []);
+
   return (
     <S.GlobalContainer>
       <Routes>
