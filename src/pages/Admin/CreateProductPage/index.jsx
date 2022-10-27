@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
   Button,
   Card,
@@ -16,10 +17,12 @@ import {
   createProductAction,
 } from "../../../redux/actions";
 import { SIZE_OPTIONS } from "./constants";
+import { ROUTES } from "../../../constants/routes";
 import * as S from "./styles";
 
 const AdminCreateProductPage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { categoryList } = useSelector((state) => state.category);
 
   useEffect(() => {
@@ -37,7 +40,12 @@ const AdminCreateProductPage = () => {
   };
 
   const handleCreateProduct = (values) => {
-    dispatch(createProductAction({ data: values }));
+    dispatch(
+      createProductAction({
+        values: { ...values, categoryId: parseInt(values.categoryId) },
+      })
+    );
+    navigate(ROUTES.ADMIN.PRODUCT_LIST);
   };
   return (
     <>

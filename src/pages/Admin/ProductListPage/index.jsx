@@ -1,11 +1,12 @@
 import { useEffect } from "react";
 import { Button, Table, Space, Pagination, Avatar, Tag } from "antd";
 import { useSelector, useDispatch } from "react-redux";
-import { generatePath, useNavigate } from "react-router-dom";
+import { generatePath, useNavigate, useParams } from "react-router-dom";
 
 import {
   getProductListAction,
   getCategoryListAction,
+  deleteProductAction,
 } from "../../../redux/actions";
 import { ADMIN_TABLE_LIMIT } from "../../../constants/pagination";
 import { ROUTES } from "../../../constants/routes";
@@ -13,9 +14,8 @@ import * as S from "./styles";
 
 const AdminProductListPage = () => {
   const dispatch = useDispatch();
-  const { productList, createProductData } = useSelector(
-    (state) => state.product
-  );
+
+  const { productList } = useSelector((state) => state.product);
 
   const navigate = useNavigate();
 
@@ -38,6 +38,18 @@ const AdminProductListPage = () => {
       getProductListAction({
         params: {
           page: page,
+          limit: ADMIN_TABLE_LIMIT,
+        },
+      })
+    );
+  };
+
+  const handleDeleteProduct = (id) => {
+    dispatch(deleteProductAction({ id: id }));
+    dispatch(
+      getProductListAction({
+        params: {
+          page: productList.meta.page,
           limit: ADMIN_TABLE_LIMIT,
         },
       })
@@ -96,17 +108,27 @@ const AdminProductListPage = () => {
       title: "Discount",
       dataIndex: "discount",
       key: "discount",
-      render: (discount) => `${discount}%`,
+      render: (discount) => (discount === undefined ? 0 : `${discount}%`),
     },
     {
       title: "Action",
       dataIndex: "action",
       key: "action",
-      render: () => {
+      render: (_, record) => {
         return (
           <Space>
-            <Button onClick={() => navigate(generatePath())}>Update</Button>
-            <Button>Delete</Button>
+            <Button
+              onClick={() =>
+                navigate(
+                  generatePath(ROUTES.ADMIN.UPDATE_PRODUCT, { id: record.id })
+                )
+              }
+            >
+              Update
+            </Button>
+            <Button onClick={(id) => handleDeleteProduct(record.id)}>
+              Delete
+            </Button>
           </Space>
         );
       },
