@@ -158,7 +158,7 @@ const productReducer = createReducer(initialState, {
     };
   },
 
-  DELETE_PRODUCT_REQUEST: (state, action) => {
+  [REQUEST(PRODUCT_ACTION.DELETE_PRODUCT)]: (state, action) => {
     return {
       ...state,
       deleteProductData: {
@@ -168,7 +168,7 @@ const productReducer = createReducer(initialState, {
       },
     };
   },
-  DELETE_PRODUCT_SUCCESS: (state, action) => {
+  [SUCCESS(PRODUCT_ACTION.DELETE_PRODUCT)]: (state, action) => {
     return {
       ...state,
       deleteProductData: {
@@ -177,7 +177,7 @@ const productReducer = createReducer(initialState, {
       },
     };
   },
-  DELETE_PRODUCT_FAIL: (state, action) => {
+  [FAIL(PRODUCT_ACTION.DELETE_PRODUCT)]: (state, action) => {
     const { error } = action.payload;
     return {
       ...state,

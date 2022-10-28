@@ -15,58 +15,74 @@
   ],
   "products": [
     {
-      "id": 1,
-      "name": "jordan 1",
-      "price": 1000000,
-      "gender": 1,
-      "size": [39, 40, 41, 42],
-      "discount": 30,
-      "categoryId": 1
+      "id": 2,
+      "name": "jordan 22",
+      "price": 2000000,
+      "gender": 2,
+      "size": [38, 39, 40, 41, 42],
+      "discount": 20,
+      "categoryId": 1,
+      "updatedAt": 1666864565396
     },
     {
-      "id": 2,
+      "id": 3,
       "name": "nike 1",
       "price": 2000000,
       "gender": 1,
-      "size": [39, 40, 41, 42],
+      "size": [38, 39, 40, 41, 42],
       "discount": 20,
       "categoryId": 2
     },
     {
-      "id": 3,
-      "name": "adidas 1",
-      "price": 1200000,
-      "gender": 2,
-      "size": [39, 40, 41, 42],
-      "discount": 40,
-      "categoryId": 3
-    },
-    {
-      "id": 4,
-      "name": "adidas 2",
-      "price": 1000000,
-      "gender": 1,
-      "size": [39, 40, 41, 42],
-      "discount": 50,
-      "categoryId": 3
-    },
-    {
-      "id": 5,
-      "name": "jordan 2",
-      "price": 3000000,
-      "gender": 2,
-      "size": [39, 40, 41, 42],
-      "discount": 30,
-      "categoryId": 1
-    },
-    {
       "id": 6,
-      "name": "nike 2",
-      "price": 3000000,
+      "name": "adidas 2",
+      "price": 2000000,
+      "gender": 1,
+      "size": [38, 39, 40, 41, 42],
+      "discount": 20,
+      "categoryId": 3
+    },
+    {
+      "id": 9,
+      "name": "adidas 2",
+      "price": 2000000,
+      "gender": 1,
+      "size": [38, 39, 40, 41, 42],
+      "discount": 20,
+      "categoryId": 3
+    },
+    {
+      "name": "nike 5",
+      "categoryId": 2,
+      "price": 4000000,
+      "gender": 1,
+      "size": [38, 39, 39.5],
+      "discount": 30,
+      "createdAt": 1666698524980,
+      "updatedAt": 1666698524980,
+      "id": 12
+    },
+    {
+      "name": "jordan 3",
+      "categoryId": 1,
+      "price": 2000000,
       "gender": 2,
-      "size": [39, 40, 41, 42],
-      "discount": 50,
-      "categoryId": 2
+      "size": [37, 38, 39],
+      "discount": 20,
+      "createdAt": 1666700294653,
+      "updatedAt": 1666700294653,
+      "id": 13
+    },
+    {
+      "name": "nike 5",
+      "categoryId": 2,
+      "price": 2000000,
+      "gender": 1,
+      "size": [39, 39.5, 40, 40.5, 41],
+      "discount": 10,
+      "createdAt": 1666794652453,
+      "updatedAt": 1666794652454,
+      "id": 14
     }
   ],
   "users": [

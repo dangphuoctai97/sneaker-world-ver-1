@@ -1,4 +1,4 @@
-import { takeEvery, put } from "redux-saga/effects";
+import { takeEvery, put, debounce } from "redux-saga/effects";
 import axios from "axios";
 
 import { PRODUCT_ACTION, REQUEST, SUCCESS, FAIL } from "../constants";
@@ -14,8 +14,19 @@ function* getProductListSaga(action) {
         ...(params.categoryId && {
           categoryId: params.categoryId,
         }),
+        ...(params.gender && {
+          gender: params.gender,
+        }),
         ...(params.keyword && {
           q: params.keyword,
+        }),
+        ...(params.price && {
+          price_gte: params.price[0],
+          price_lte: params.price[1],
+        }),
+        ...(params.order && {
+          _sort: params.order.split(".")[0],
+          _order: params.order.split(".")[1],
         }),
       },
     });
@@ -92,15 +103,14 @@ function* updateProductSaga(action) {
       values
     );
     yield put({
-      type: "UPDATE_PRODUCT_SUCCESS",
+      type: SUCCESS(PRODUCT_ACTION.UPDATE_PRODUCT),
       payload: {
         data: result.data,
       },
     });
-    yield put({ type: "GET_PRODUCT_LIST_REQUEST" });
   } catch (e) {
     yield put({
-      type: "UPDATE_PRODUCT_FAIL",
+      type: FAIL(PRODUCT_ACTION.UPDATE_PRODUCT),
       payload: {
         error: "Đã có lỗi xảy ra!",
       },
@@ -112,11 +122,10 @@ function* deleteProductSaga(action) {
   try {
     const { id } = action.payload;
     yield axios.delete(`http://localhost:4000/products/${id}`);
-    yield put({ type: "DELETE_PRODUCT_SUCCESS" });
-    yield put({ type: "GET_PRODUCT_LIST_REQUEST" });
+    yield put({ type: SUCCESS(PRODUCT_ACTION.DELETE_PRODUCT) });
   } catch (e) {
     yield put({
-      type: "DELETE_PRODUCT_FAIL",
+      type: FAIL(PRODUCT_ACTION.DELETE_PRODUCT),
       payload: {
         error: "Đã có lỗi xảy ra!",
       },
@@ -125,12 +134,16 @@ function* deleteProductSaga(action) {
 }
 
 export default function* productSaga() {
-  yield takeEvery(REQUEST(PRODUCT_ACTION.GET_PRODUCT_LIST), getProductListSaga);
+  yield debounce(
+    500,
+    REQUEST(PRODUCT_ACTION.GET_PRODUCT_LIST),
+    getProductListSaga
+  );
   yield takeEvery(
     REQUEST(PRODUCT_ACTION.GET_PRODUCT_DETAIL),
     getProductDetailSaga
   );
-  yield takeEvery("CREATE_PRODUCT_REQUEST", createProductSaga);
-  yield takeEvery("UPDATE_PRODUCT_REQUEST", updateProductSaga);
-  yield takeEvery("DELETE_PRODUCT_REQUEST", deleteProductSaga);
+  yield takeEvery(REQUEST(PRODUCT_ACTION.CREATE_PRODUCT), createProductSaga);
+  yield takeEvery(REQUEST(PRODUCT_ACTION.UPDATE_PRODUCT), updateProductSaga);
+  yield takeEvery(REQUEST(PRODUCT_ACTION.DELETE_PRODUCT), deleteProductSaga);
 }
