@@ -1,5 +1,6 @@
 import { Outlet, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { Spin } from "antd";
 
 import Header from "../Admin/Header";
 import Footer from "../Footer";
@@ -15,7 +16,7 @@ export default function AdminLayout() {
   if (accessToken && userInfo.loading) {
     return (
       <S.LoadingWrapper>
-        <S.LoadingIcon />
+        <Spin size="large" />
       </S.LoadingWrapper>
     );
   } else if (userInfo.data.role !== "admin")
@@ -25,7 +26,6 @@ export default function AdminLayout() {
       <Header />
       <S.MainContainer>
         <Sidebar />
-
         <S.MainContent>
           <Outlet />
         </S.MainContent>
