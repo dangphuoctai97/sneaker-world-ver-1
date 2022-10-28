@@ -12,7 +12,9 @@ import AdminProductListPage from "./pages/Admin/ProductListPage";
 import AdminCreateProductPage from "./pages/Admin/CreateProductPage";
 
 import UserHomePage from "./pages/User/HomePage";
-import AboutPage from "./pages/AboutPage";
+import AboutPage from "./pages/User/AboutPage";
+import BlogPage from "./pages/User/BlogPage";
+import CheckoutPage from "./pages/User/CheckoutPage";
 import UserProductListPage from "./pages/User/ProductListPage";
 import ProductDetailPage from "./pages/ProductDetailPage";
 
@@ -56,6 +58,8 @@ function App() {
         <Route element={<UserLayout />}>
           <Route path={ROUTES.USER.HOME} element={<UserHomePage />}></Route>
           <Route path={ROUTES.USER.ABOUT} element={<AboutPage />}></Route>
+          <Route path={ROUTES.USER.Blog} element={<BlogPage />}></Route>
+          <Route path={ROUTES.USER.CHECKOUT} element={<CheckoutPage />}></Route>
           <Route
             path={ROUTES.USER.PRODUCT_LIST}
             element={<UserProductListPage />}

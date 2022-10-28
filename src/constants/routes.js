@@ -4,6 +4,8 @@ export const ROUTES = {
   USER: {
     HOME: "/",
     ABOUT: "/about",
+    Blog: "/blog",
+    CHECKOUT: "/checkout",
     PRODUCT_LIST: "/products",
     PRODUCT_DETAILS: "/products/:id",
   },

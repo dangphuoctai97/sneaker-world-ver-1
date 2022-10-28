@@ -19,7 +19,7 @@ const initialState = {
 };
 
 const userReducer = createReducer(initialState, {
-  [REQUEST(USER_ACTION.LOGIN)]: (state, action) => {
+  [REQUEST(USER_ACTION.LOGIN)]: (state) => {
     return {
       ...state,
       loginData: {
@@ -35,6 +35,7 @@ const userReducer = createReducer(initialState, {
       userInfo: {
         ...state.userInfo,
         data: data,
+        loading: false,
       },
       loginData: {
         loading: false,
@@ -80,6 +81,18 @@ const userReducer = createReducer(initialState, {
         ...state.registerData,
         loading: false,
         error: error,
+      },
+    };
+  },
+
+  [REQUEST(USER_ACTION.LOGOUT)]: (state) => {
+    localStorage.removeItem("accessToken");
+    return {
+      ...state,
+      userInfo: {
+        data: {},
+        loading: true,
+        error: "",
       },
     };
   },

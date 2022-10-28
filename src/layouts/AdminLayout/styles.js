@@ -1,5 +1,4 @@
 import styled, { css } from "styled-components";
-import { LoadingOutlined } from "@ant-design/icons";
 
 export const MainContainer = styled.div`
   position: relative;
@@ -22,7 +21,4 @@ export const LoadingWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`;
-export const LoadingIcon = styled(LoadingOutlined)`
-  font-size: 80px;
 `;
