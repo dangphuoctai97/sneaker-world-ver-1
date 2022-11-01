@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, Link } from "react-router-dom";
 import {
   Button,
   Card,
@@ -23,6 +23,7 @@ import * as S from "./styles";
 const AdminCreateProductPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const { categoryList } = useSelector((state) => state.category);
 
   useEffect(() => {
@@ -47,6 +48,7 @@ const AdminCreateProductPage = () => {
     );
     navigate(ROUTES.ADMIN.PRODUCT_LIST);
   };
+
   return (
     <>
       <h2>Create product form</h2>
@@ -82,6 +84,18 @@ const AdminCreateProductPage = () => {
             <Select>{renderCategoryListOptions()}</Select>
           </Form.Item>
           <Form.Item
+            label="Amount"
+            name="amount"
+            rules={[
+              {
+                required: true,
+                message: "This field is required!",
+              },
+            ]}
+          >
+            <InputNumber min={1} />
+          </Form.Item>
+          <Form.Item
             label="Price"
             name="price"
             rules={[
@@ -93,6 +107,7 @@ const AdminCreateProductPage = () => {
           >
             <InputNumber
               addonAfter={"VND"}
+              min={1}
               max={100000000}
               formatter={(value) =>
                 `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
@@ -126,6 +141,9 @@ const AdminCreateProductPage = () => {
             ]}
           >
             <Checkbox.Group options={SIZE_OPTIONS} />
+          </Form.Item>
+          <Form.Item label="New Product" name="isNew" valuePropName="checked">
+            <Checkbox />
           </Form.Item>
           <Form.Item label="Discount" name="discount">
             <InputNumber

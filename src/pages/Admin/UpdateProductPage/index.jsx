@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Button,
@@ -25,6 +25,7 @@ import {
 
 const AdminUpdateProductPage = () => {
   const { id } = useParams();
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -40,6 +41,8 @@ const AdminUpdateProductPage = () => {
     size: productDetail.data.size,
     discount: productDetail.data.discount,
     categoryId: productDetail.data.categoryId,
+    amount: productDetail.data.amount,
+    isNew: productDetail.data.isNew,
   };
 
   useEffect(() => {
@@ -77,7 +80,12 @@ const AdminUpdateProductPage = () => {
     <S.Wrapper>
       <S.TopWrapper>
         <h3>Update Product</h3>
-        <Button type="primary" onClick={() => updateForm.submit()}>
+        <Button
+          type="primary"
+          onClick={() => {
+            updateForm.submit();
+          }}
+        >
           Update
         </Button>
       </S.TopWrapper>
@@ -112,6 +120,18 @@ const AdminUpdateProductPage = () => {
               ]}
             >
               <Select>{renderCategoryOptions}</Select>
+            </Form.Item>
+            <Form.Item
+              label="Amount"
+              name="amount"
+              rules={[
+                {
+                  required: true,
+                  message: "This field is required!",
+                },
+              ]}
+            >
+              <InputNumber />
             </Form.Item>
             <Form.Item
               label="Price"
@@ -158,6 +178,9 @@ const AdminUpdateProductPage = () => {
               ]}
             >
               <Checkbox.Group options={SIZE_OPTIONS} />
+            </Form.Item>
+            <Form.Item label="New Product" name="isNew" valuePropName="checked">
+              <Checkbox />
             </Form.Item>
             <Form.Item label="Discount" name="discount">
               <InputNumber

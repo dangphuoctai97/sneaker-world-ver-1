@@ -15,74 +15,221 @@
   ],
   "products": [
     {
-      "id": 2,
-      "name": "jordan 22",
-      "price": 2000000,
-      "gender": 2,
-      "size": [38, 39, 40, 41, 42],
-      "discount": 20,
+      "name": "Future Z 4.2 TT Soccer Cleats JR",
       "categoryId": 1,
-      "updatedAt": 1666864565396
-    },
-    {
-      "id": 3,
-      "name": "nike 1",
-      "price": 2000000,
+      "amount": 1,
+      "price": 5000000,
       "gender": 1,
-      "size": [38, 39, 40, 41, 42],
+      "size": [
+        38,
+        39.5,
+        40.5
+      ],
+      "isNew": false,
       "discount": 20,
-      "categoryId": 2
+      "createdAt": 1667213495059,
+      "updatedAt": 1667289657388,
+      "id": 1
     },
     {
-      "id": 6,
-      "name": "adidas 2",
-      "price": 2000000,
-      "gender": 1,
-      "size": [38, 39, 40, 41, 42],
-      "discount": 20,
-      "categoryId": 3
-    },
-    {
-      "id": 9,
-      "name": "adidas 2",
-      "price": 2000000,
-      "gender": 1,
-      "size": [38, 39, 40, 41, 42],
-      "discount": 20,
-      "categoryId": 3
-    },
-    {
-      "name": "nike 5",
+      "name": "Deviate Nitro Elite Racer SP Men's Running Sneakers",
       "categoryId": 2,
+      "amount": 10,
+      "price": 1000000,
+      "gender": 1,
+      "size": [
+        36,
+        37,
+        38,
+        39,
+        39.5,
+        40,
+        40.5,
+        41,
+        41.5,
+        42,
+        43
+      ],
+      "isNew": false,
+      "discount": 30,
+      "createdAt": 1667213511931,
+      "updatedAt": 1667289661252,
+      "id": 2
+    },
+    {
+      "name": "Future Z 4.2 TT Soccer Cleats JR",
+      "categoryId": 3,
+      "amount": 5,
       "price": 4000000,
       "gender": 1,
-      "size": [38, 39, 39.5],
-      "discount": 30,
-      "createdAt": 1666698524980,
-      "updatedAt": 1666698524980,
-      "id": 12
+      "size": [
+        36,
+        40.5,
+        42
+      ],
+      "isNew": true,
+      "discount": 10,
+      "createdAt": 1667213529026,
+      "updatedAt": 1667289666039,
+      "id": 3
     },
     {
-      "name": "jordan 3",
+      "name": "Deviate Nitro Elite Racer SP Men's Running Sneakers",
       "categoryId": 1,
+      "amount": 7,
+      "price": 4500000,
+      "gender": 2,
+      "size": [
+        41,
+        41.5,
+        42
+      ],
+      "isNew": true,
+      "discount": 15,
+      "createdAt": 1667213563176,
+      "updatedAt": 1667289669678,
+      "id": 4
+    },
+    {
+      "name": "ULTRABOOST 5.0 DNA SHOES",
+      "categoryId": 2,
+      "amount": 3,
       "price": 2000000,
       "gender": 2,
-      "size": [37, 38, 39],
+      "size": [
+        36,
+        37,
+        38,
+        39.5
+      ],
+      "isNew": true,
       "discount": 20,
-      "createdAt": 1666700294653,
-      "updatedAt": 1666700294653,
-      "id": 13
+      "createdAt": 1667288959209,
+      "updatedAt": 1667308699408,
+      "id": 5
     },
     {
-      "name": "nike 5",
+      "name": "Future Z 4.2 TT Soccer Cleats JR",
+      "categoryId": 1,
+      "amount": 5,
+      "price": 2000000,
+      "gender": 2,
+      "size": [
+        37,
+        38,
+        39,
+        39.5,
+        40,
+        40.5,
+        41,
+        41.5,
+        43
+      ],
+      "isNew": true,
+      "discount": 50,
+      "createdAt": 1667289558497,
+      "updatedAt": 1667289558497,
+      "id": 6
+    },
+    {
+      "name": "Future Z 4.2 TT Soccer Cleats JR",
       "categoryId": 2,
+      "amount": 22,
+      "price": 4000000,
+      "gender": 1,
+      "size": [
+        37,
+        38,
+        39,
+        41
+      ],
+      "isNew": true,
+      "discount": 10,
+      "createdAt": 1667289698359,
+      "updatedAt": 1667289698359,
+      "id": 7
+    },
+    {
+      "name": "Deviate Nitro Elite Racer SP Men's Running Sneakers",
+      "categoryId": 1,
+      "amount": 4,
       "price": 2000000,
       "gender": 1,
-      "size": [39, 39.5, 40, 40.5, 41],
+      "size": [
+        39,
+        40,
+        40.5,
+        41.5
+      ],
+      "isNew": false,
+      "discount": 30,
+      "createdAt": 1667289741186,
+      "updatedAt": 1667289741186,
+      "id": 8
+    },
+    {
+      "name": "Future Z 4.2 TT Soccer Cleats JR",
+      "categoryId": 1,
+      "amount": 1,
+      "price": 2000000,
+      "gender": 1,
+      "size": [
+        38,
+        39,
+        39.5
+      ],
+      "isNew": true,
+      "discount": 20,
+      "createdAt": 1667301020546,
+      "updatedAt": 1667301152322,
+      "id": 9
+    },
+    {
+      "name": "test",
+      "categoryId": 1,
+      "amount": 112,
+      "price": 100000000,
+      "gender": 1,
+      "size": [
+        37
+      ],
+      "isNew": true,
+      "discount": 11,
+      "createdAt": 1667308901792,
+      "updatedAt": 1667308901792,
+      "id": 10
+    },
+    {
+      "name": "test 1",
+      "categoryId": 1,
+      "amount": 11,
+      "price": 1000000,
+      "gender": 1,
+      "size": [
+        37,
+        38
+      ],
+      "isNew": true,
       "discount": 10,
-      "createdAt": 1666794652453,
-      "updatedAt": 1666794652454,
-      "id": 14
+      "createdAt": 1667309566864,
+      "updatedAt": 1667309566864,
+      "id": 11
+    },
+    {
+      "name": "test",
+      "categoryId": 1,
+      "amount": 2,
+      "price": 11111111,
+      "gender": 1,
+      "size": [
+        37,
+        38
+      ],
+      "isNew": true,
+      "discount": 10,
+      "createdAt": 1667311687561,
+      "updatedAt": 1667311687561,
+      "id": 12
     }
   ],
   "users": [

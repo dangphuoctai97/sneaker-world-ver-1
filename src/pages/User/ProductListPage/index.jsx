@@ -142,7 +142,7 @@ const UserProductListPage = () => {
       );
       return (
         <Tag
-          color="#08979c"
+          color="royalblue"
           key={filterItem}
           closable
           onClose={() => handleClearCategoryFilter()}
@@ -158,7 +158,7 @@ const UserProductListPage = () => {
     else if (filterParams.gender === 1)
       return (
         <Tag
-          color="#08979c"
+          color="royalblue"
           key={filterParams.gender}
           closable
           onClose={() => handleClearGenderFilter(filterParams.gender)}
@@ -168,7 +168,7 @@ const UserProductListPage = () => {
       );
     return (
       <Tag
-        color="#08979c"
+        color="royalblue"
         key={filterParams.gender}
         closable
         onClose={() => handleClearGenderFilter(filterParams.gender)}
@@ -186,7 +186,7 @@ const UserProductListPage = () => {
       return null;
     return (
       <Tag
-        color="#08979c"
+        color="royalblue"
         key={filterParams.price}
         closable
         onClose={() => null}
@@ -251,7 +251,7 @@ const UserProductListPage = () => {
                 {renderFilterPrice()}
                 {filterParams.keyword && (
                   <Tag
-                    color="#08979c"
+                    color="royalblue"
                     closable
                     onClose={() => handleClearKeywordFilter()}
                   >
@@ -327,7 +327,7 @@ const UserProductListPage = () => {
                 </Select>
               </Col>
             </Row>
-            <h3 style={{ color: "#08979c" }}>
+            <h3 style={{ color: "royalblue" }}>
               Có {productList.meta.total} sản phẩm
             </h3>
 
