@@ -5,7 +5,7 @@ export const FooterContainer = styled.footer`
   justify-content: center;
   align-items: center;
   padding: 0 24px;
-  height: 100px;
+  height: 300px;
   background-color: royalblue;
   & h1 {
     color: white;

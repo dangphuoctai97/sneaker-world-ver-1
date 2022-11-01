@@ -14,7 +14,7 @@ function Sidebar() {
         <S.SidebarItem
           key={index}
           to={item.path}
-          active={pathname === item.path}
+          $active={pathname === item.path}
         >
           {item.title}
         </S.SidebarItem>

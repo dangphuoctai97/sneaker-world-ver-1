@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
+import { Button, Menu } from "antd";
 
 export const HeaderContainer = styled.header`
   position: fixed;
@@ -109,7 +110,7 @@ export const NavBar = styled.div`
         height: 70px;
         text-decoration: none;
         font-size: 14px;
-        color: rgb(0, 0, 0);
+        color: rgb(39, 39, 39);
         text-transform: uppercase;
         font-weight: 700;
         letter-spacing: 2px;
@@ -165,3 +166,22 @@ export const HeaderItem = styled(Link)`
 `;
 
 export const MobileMenu = styled.div``;
+export const LoginBtn = styled(Button)`
+  display: inline-flex;
+  align-items: center;
+  font-size: 18px;
+  padding: 18px 20px;
+  margin: 20px;
+  color: rgb(0, 40, 120);
+  background-color: geekblue;
+  border: 1px solid royalblue;
+  &:hover {
+    background-color: royalblue;
+    color: #fff;
+  }
+`;
+export const DropdownMenu = styled(Menu)`
+  &:hover .menu_item {
+    background-color: royalblue;
+  }
+`;

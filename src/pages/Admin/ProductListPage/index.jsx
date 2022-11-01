@@ -1,7 +1,12 @@
 import { useEffect } from "react";
 import { Button, Table, Space, Pagination, Avatar, Tag } from "antd";
 import { useSelector, useDispatch } from "react-redux";
-import { generatePath, useNavigate, useParams } from "react-router-dom";
+import {
+  generatePath,
+  useNavigate,
+  useLocation,
+  useParams,
+} from "react-router-dom";
 
 import {
   getProductListAction,
@@ -14,11 +19,11 @@ import * as S from "./styles";
 
 const AdminProductListPage = () => {
   const dispatch = useDispatch();
+  const param = useParams();
 
   const { productList } = useSelector((state) => state.product);
 
   const navigate = useNavigate();
-
   const { categoryList } = useSelector((state) => state.category);
 
   useEffect(() => {
@@ -103,6 +108,22 @@ const AdminProductListPage = () => {
           })}
         </>
       ),
+    },
+    {
+      title: "Amount",
+      dataIndex: "amount",
+      key: "amount",
+    },
+    {
+      title: "New Product",
+      dataIndex: "isNew",
+      key: "isNew",
+      render: (isNew) =>
+        isNew === true && (
+          <Tag color="royalblue" key={isNew}>
+            New
+          </Tag>
+        ),
     },
     {
       title: "Discount",

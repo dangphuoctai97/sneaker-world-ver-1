@@ -1,12 +1,11 @@
-import { Outlet, Navigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useEffect, useState, useRef } from "react";
+import { useState } from "react";
 import { Spin } from "antd";
 
 import Header from "../User/Header";
 import Footer from "../Footer";
 
-import { ROUTES } from "../../constants/routes";
 import * as S from "./styles";
 
 export default function UserLayout() {
@@ -15,13 +14,13 @@ export default function UserLayout() {
   const accessToken = localStorage.getItem("accessToken");
   const { userInfo } = useSelector((state) => state.user);
 
-  function setHeader() {
-    if (window.scrollY > 600) {
+  const setHeader = () => {
+    if (window.scrollY > 400) {
       setSticky(true);
     } else {
       setSticky(false);
     }
-  }
+  };
   window.addEventListener("scroll", setHeader);
 
   return (

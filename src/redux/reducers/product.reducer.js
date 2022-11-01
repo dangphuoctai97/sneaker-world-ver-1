@@ -41,6 +41,7 @@ const productReducer = createReducer(initialState, {
   },
   [SUCCESS(PRODUCT_ACTION.GET_PRODUCT_LIST)]: (state, action) => {
     const { data, meta, more } = action.payload;
+
     return {
       ...state,
       productList: {

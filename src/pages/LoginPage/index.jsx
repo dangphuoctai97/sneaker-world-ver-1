@@ -10,6 +10,7 @@ import * as S from "./styles";
 
 export default function LoginPage() {
   const [loginForm] = Form.useForm();
+  const { state } = useLocation();
 
   const navigate = useNavigate();
 

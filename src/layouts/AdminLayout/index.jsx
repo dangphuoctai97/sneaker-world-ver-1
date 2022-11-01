@@ -30,7 +30,6 @@ export default function AdminLayout() {
           <Outlet />
         </S.MainContent>
       </S.MainContainer>
-      <Footer />
     </>
   );
 }
