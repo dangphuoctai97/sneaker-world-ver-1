@@ -185,50 +185,40 @@
       "id": 9
     },
     {
-      "name": "test",
+      "name": "jordan 3",
       "categoryId": 1,
-      "amount": 112,
-      "price": 100000000,
+      "amount": 20,
+      "price": 3000000,
       "gender": 1,
       "size": [
-        37
+        39.5,
+        40,
+        40.5
       ],
       "isNew": true,
-      "discount": 11,
-      "createdAt": 1667308901792,
-      "updatedAt": 1667308901792,
+      "discount": 10,
+      "createdAt": 1667474936251,
+      "updatedAt": 1667474936251,
       "id": 10
     },
     {
-      "name": "test 1",
+      "name": "jordan 5",
       "categoryId": 1,
-      "amount": 11,
-      "price": 1000000,
-      "gender": 1,
+      "amount": 20,
+      "price": 3000000,
+      "gender": 2,
       "size": [
+        36,
         37,
-        38
+        38,
+        39,
+        39.5
       ],
       "isNew": true,
-      "discount": 10,
-      "createdAt": 1667309566864,
-      "updatedAt": 1667309566864,
-      "id": 11
-    },
-    {
-      "name": "test",
-      "categoryId": 1,
-      "amount": 2,
-      "price": 11111111,
-      "gender": 1,
-      "size": [
-        37,
-        38
-      ],
-      "isNew": true,
-      "discount": 10,
-      "createdAt": 1667311687561,
-      "updatedAt": 1667311687561,
+      "discount": 20,
+      "slug": "jordan-5",
+      "createdAt": 1667526864097,
+      "updatedAt": 1667526864098,
       "id": 12
     }
   ],

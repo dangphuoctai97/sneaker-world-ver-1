@@ -16,12 +16,15 @@ import {
   Slider,
 } from "antd";
 import { useSelector, useDispatch } from "react-redux";
+import { generatePath, Link } from "react-router-dom";
 
 import {
   getProductListAction,
   getCategoryListAction,
 } from "../../../redux/actions";
 import { PRODUCT_LIST_LIMIT } from "../../../constants/pagination";
+import { ROUTES } from "../../../constants/routes";
+import ProductItem from "../../../components/ProductItem";
 import { MAX_PRICE, MIN_PRICE, STEP_PRICE, PRICE_MARKS } from "./constant";
 import * as S from "./styles";
 
@@ -200,27 +203,23 @@ const UserProductListPage = () => {
     return productList.data.map((item) => {
       return (
         <Col span={6} key={item.id}>
-          <Badge.Ribbon
-            color="red"
-            text={item.discount === 0 ? "" : `-${item.discount}%`}
-          >
-            <Card size="small">
-              <Image
-                src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-                width={200}
-              ></Image>
-              <Space>
-                <p style={{ fontSize: "16px" }}>{item.name}</p>
-              </Space>
-              <Space>
-                <s>{`${item.price.toLocaleString()} VND`}</s>
-                {`${calcDiscount(
-                  item.price,
-                  item.discount
-                ).toLocaleString()} VND`}
-              </Space>
-            </Card>
-          </Badge.Ribbon>
+          {item.isNew ? (
+            <Link
+              to={generatePath(ROUTES.USER.PRODUCT_DETAILS, {
+                id: `${item.slug}.${item.id}`,
+              })}
+            >
+              <Badge.Ribbon color="red" text="New">
+                <ProductItem item={item} />
+              </Badge.Ribbon>
+            </Link>
+          ) : (
+            <Link
+              to={generatePath(ROUTES.USER.PRODUCT_DETAILS, { id: item.id })}
+            >
+              <ProductItem item={item} />
+            </Link>
+          )}
         </Col>
       );
     });

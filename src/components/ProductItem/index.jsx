@@ -9,7 +9,10 @@ const ProductItem = ({ item }) => {
 
   return (
     <S.ProductContainer>
-      <Image src="https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_2000,h_2000/global/194453/07/sv03/fnd/PNA/fmt/png/Deviate-NITRO-Women's-Running-Shoes"></Image>
+      <Image
+        preview={false}
+        src="https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_2000,h_2000/global/194453/07/sv03/fnd/PNA/fmt/png/Deviate-NITRO-Women's-Running-Shoes"
+      ></Image>
       <S.ProductContent>
         <Tooltip className="product_name" placement="topLeft" title={item.name}>
           <h3>{item.name}</h3>

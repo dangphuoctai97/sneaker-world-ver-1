@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { Col, Row, Carousel, Badge, Button, Spin, Tag } from "antd";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link, generatePath } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 import {
@@ -39,9 +39,13 @@ const UserHomePage = () => {
       return (
         item.isNew && (
           <Col span={6} key={item.id}>
-            <Badge.Ribbon color="red" text="New">
-              <ProductItem item={item} />
-            </Badge.Ribbon>
+            <Link
+              to={generatePath(ROUTES.USER.PRODUCT_DETAILS, { id: item.id })}
+            >
+              <Badge.Ribbon color="red" text="New">
+                <ProductItem item={item} />
+              </Badge.Ribbon>
+            </Link>
           </Col>
         )
       );
@@ -53,13 +57,17 @@ const UserHomePage = () => {
       return (
         item.discount >= 20 && (
           <Col span={6} key={item.id}>
-            {item.isNew ? (
-              <Badge.Ribbon color="red" text="New">
+            <Link
+              to={generatePath(ROUTES.USER.PRODUCT_DETAILS, { id: item.id })}
+            >
+              {item.isNew ? (
+                <Badge.Ribbon color="red" text="New">
+                  <ProductItem item={item} />
+                </Badge.Ribbon>
+              ) : (
                 <ProductItem item={item} />
-              </Badge.Ribbon>
-            ) : (
-              <ProductItem item={item} />
-            )}
+              )}
+            </Link>
           </Col>
         )
       );
