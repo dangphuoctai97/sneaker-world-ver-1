@@ -1,7 +1,6 @@
 import { useState } from "react";
-import Slider from "react-slick";
 import { Image, Space, Row, Col } from "antd";
-
+import Slider from "react-slick";
 import { BsArrowRightCircle, BsArrowLeftCircle } from "react-icons/bs";
 import { SLIDER_IMAGE } from "./constant";
 
@@ -18,6 +17,7 @@ const SyncSlider = () => {
           height={height}
           width={width}
           src={item.path}
+          preview={false}
         />
       );
     });
@@ -48,7 +48,7 @@ const SyncSlider = () => {
         style={{
           ...style,
           position: "absolute",
-          zIndex: "100",
+          zIndex: "1",
           top: "43%",
           left: "-25px",
           display: "flex",
@@ -69,10 +69,16 @@ const SyncSlider = () => {
   };
   return (
     <div>
-      <Slider {...settings} asNavFor={nav2} ref={(slider1) => setNav1(slider1)}>
+      <Slider
+        dots={true}
+        {...settings}
+        asNavFor={nav2}
+        ref={(slider1) => setNav1(slider1)}
+      >
         {renderSliderImages(400, "100%")}
       </Slider>
-      <h4>Second Slider</h4>
+      <br></br>
+      <br></br>
       <Slider
         asNavFor={nav1}
         ref={(slider2) => setNav2(slider2)}

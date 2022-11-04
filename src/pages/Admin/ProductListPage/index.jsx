@@ -32,6 +32,7 @@ const AdminProductListPage = () => {
         params: {
           page: 1,
           limit: ADMIN_TABLE_LIMIT,
+          order: "id.desc",
         },
       })
     );
@@ -56,6 +57,7 @@ const AdminProductListPage = () => {
         params: {
           page: productList.meta.page,
           limit: ADMIN_TABLE_LIMIT,
+          order: "id.desc",
         },
       })
     );

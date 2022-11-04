@@ -61,6 +61,10 @@ const AdminUpdateProductPage = () => {
       updateProductAction({
         id: id,
         values: values,
+        order: "id.desc",
+        callback: {
+          goToList: () => navigate(ROUTES.ADMIN.PRODUCT_LIST),
+        },
       })
     );
     navigate(ROUTES.ADMIN.PRODUCT_LIST);

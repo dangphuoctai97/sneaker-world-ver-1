@@ -17,7 +17,7 @@ import AboutPage from "./pages/User/AboutPage";
 import BlogPage from "./pages/User/BlogPage";
 import CheckoutPage from "./pages/User/CheckoutPage";
 import UserProductListPage from "./pages/User/ProductListPage";
-import ProductDetailPage from "./pages/ProductDetailPage";
+import ProductDetailPage from "./pages/User/ProductDetailPage";
 
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";

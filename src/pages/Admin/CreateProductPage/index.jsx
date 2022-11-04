@@ -11,8 +11,10 @@ import {
   Radio,
   Select,
 } from "antd";
+import slug from "slug";
 
 import {
+  getProductListAction,
   getCategoryListAction,
   createProductAction,
 } from "../../../redux/actions";
@@ -41,12 +43,19 @@ const AdminCreateProductPage = () => {
   };
 
   const handleCreateProduct = (values) => {
+    console.log(values.name);
     dispatch(
       createProductAction({
-        values: { ...values, categoryId: parseInt(values.categoryId) },
+        values: {
+          ...values,
+          categoryId: parseInt(values.categoryId),
+          slug: slug(values.name),
+        },
+        callback: {
+          goToList: () => navigate(ROUTES.ADMIN.PRODUCT_LIST),
+        },
       })
     );
-    navigate(ROUTES.ADMIN.PRODUCT_LIST);
   };
 
   return (
