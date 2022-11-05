@@ -13,7 +13,10 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 
-import { getProductDetailAction } from "../../../redux/actions";
+import {
+  getProductDetailAction,
+  addToCartAction,
+} from "../../../redux/actions";
 import SyncSlider from "../../../components/SyncSlider";
 import { ROUTES } from "../../../constants/routes";
 import { policyList, TAB_ITEMS } from "./constants";
@@ -24,17 +27,34 @@ const ProductDetailPage = () => {
   const productId = parseInt(id.split(".")[1]);
   const dispatch = useDispatch();
 
-  const [productQuantity, setProductQuantity] = useState(1);
+  const [productInfos, setProductInfos] = useState({
+    size: undefined,
+    quantity: 1,
+  });
+
+  const [error, setError] = useState(false);
 
   const { productDetail } = useSelector((state) => state.product);
-
-  const [size, setSize] = useState(undefined);
 
   useEffect(() => {
     dispatch(getProductDetailAction({ id: productId }));
   }, [productId]);
 
-  const handleAddToCart = () => {};
+  const handleAddToCart = () => {
+    productInfos.size === undefined
+      ? setError(true)
+      : dispatch(
+          addToCartAction({
+            productId: productId,
+            quantity: productInfos.quantity,
+            size: productInfos.size,
+            price: productDetail.data.price,
+            productBrand: productDetail.data.category?.name,
+            productName: productDetail.data.name,
+            slug: productDetail.data.name,
+          })
+        );
+  };
 
   const calcDiscount = (currentPrice, discount) => {
     return currentPrice - (currentPrice * discount) / 100;
@@ -92,20 +112,36 @@ const ProductDetailPage = () => {
                         size="large"
                         buttonStyle="solid"
                         style={{ marginLeft: "4px" }}
-                        value={size}
-                        onChange={(e) => setSize(e.target.value)}
+                        value={productInfos.size}
+                        onChange={(e) => {
+                          setError(false);
+                          setProductInfos({
+                            ...productInfos,
+                            size: e.target.value,
+                          });
+                        }}
                       >
                         <Radio.Button value={item}>{item}</Radio.Button>
                       </Radio.Group>
                     );
                   })}
+                  {error ? (
+                    <S.MessageError>Vui lòng chọn size</S.MessageError>
+                  ) : (
+                    ""
+                  )}
                 </S.ProductInfo>
                 <Space style={{ marginTop: 8 }}>
                   <InputNumber
                     defaultValue={1}
                     size="large"
-                    onChange={(value) => setProductQuantity(value)}
-                    value={productQuantity}
+                    onChange={(value) =>
+                      setProductInfos({
+                        ...productInfos,
+                        quantity: value,
+                      })
+                    }
+                    value={productInfos.quantity}
                     min={1}
                     max={productDetail.amount}
                   />
@@ -134,7 +170,7 @@ const ProductDetailPage = () => {
                     </S.PolicyItem>
                     <S.PolicyItem>
                       <S.CheckIcon />
-                      Miễn phí vận chuyển trong 5km
+                      Miễn phí vận chuyển trong nội thành Đà Nẵng
                     </S.PolicyItem>
                   </S.PolicyContent>
                 </Card>

@@ -22,7 +22,7 @@ export const OldProductPrice = styled.s`
   margin-bottom: 8px;
 `;
 
-export const ProductInfo = styled.p`
+export const ProductInfo = styled.div`
   font-size: 16px;
   font-weight: 500;
   color: rgba(0, 0, 0, 0.85);
@@ -66,4 +66,9 @@ export const CheckIcon = styled(BiCheck)`
   font-size: 20px;
   margin-right: 4px;
   text-align: center;
+`;
+
+export const MessageError = styled.span`
+  color: red;
+  margin-left: 16px;
 `;

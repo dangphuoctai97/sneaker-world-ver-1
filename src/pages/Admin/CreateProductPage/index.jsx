@@ -43,7 +43,6 @@ const AdminCreateProductPage = () => {
   };
 
   const handleCreateProduct = (values) => {
-    console.log(values.name);
     dispatch(
       createProductAction({
         values: {

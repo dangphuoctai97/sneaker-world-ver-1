@@ -337,7 +337,7 @@ const UserProductListPage = () => {
                   style={{ marginTop: 16 }}
                   onClick={() => handleShowMore()}
                 >
-                  Show more
+                  Hiện thêm
                 </Button>
               </Row>
             )}
