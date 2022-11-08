@@ -1,2 +1,5 @@
-import styled, { css } from "styled-components";
-import { Carousel } from "antd";
+import styled from "styled-components";
+
+export const Wrapper = styled.div`
+  padding: 16px;
+`;

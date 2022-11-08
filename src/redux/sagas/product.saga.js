@@ -55,9 +55,12 @@ function* getProductListSaga(action) {
 function* getProductDetailSaga(action) {
   try {
     const { id } = action.payload;
-    const result = yield axios.get(
-      `http://localhost:4000/products/${id}?_expand=category`
-    );
+    const result = yield axios.get(`http://localhost:4000/products/${id}`, {
+      params: {
+        _expand: "category",
+        _embed: "images",
+      },
+    });
     yield put({
       type: SUCCESS(PRODUCT_ACTION.GET_PRODUCT_DETAIL),
       payload: {
@@ -76,8 +79,15 @@ function* getProductDetailSaga(action) {
 
 function* createProductSaga(action) {
   try {
-    const { values, callback } = action.payload;
+    const { values, callback, images } = action.payload;
     const result = yield axios.post("http://localhost:4000/products", values);
+    for (let i = 0; i < images.length; i++) {
+      yield axios.post("http://localhost:4000/images", {
+        ...images[i],
+        productId: result.data.id,
+      });
+    }
+
     yield put({
       type: SUCCESS(PRODUCT_ACTION.CREATE_PRODUCT),
       payload: {
@@ -97,11 +107,29 @@ function* createProductSaga(action) {
 
 function* updateProductSaga(action) {
   try {
-    const { values, id, callback } = action.payload;
+    const { id, values, images, initialImageIds, callback } = action.payload;
     const result = yield axios.patch(
       `http://localhost:4000/products/${id}`,
       values
     );
+    for (let i = 0; i < images.length; i++) {
+      if (!images[i].id) {
+        yield axios.post("http://localhost:4000/images", {
+          ...images[i],
+          productId: result.data.id,
+        });
+      }
+    }
+    for (let j = 0; j < initialImageIds.length; j++) {
+      const keepImage = images.find(
+        (item) => item.id && item.id === initialImageIds[j]
+      );
+      if (!keepImage) {
+        yield axios.delete(
+          `http://localhost:4000/images/${initialImageIds[j]}`
+        );
+      }
+    }
     yield put({
       type: SUCCESS(PRODUCT_ACTION.UPDATE_PRODUCT),
       payload: {

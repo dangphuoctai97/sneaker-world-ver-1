@@ -11,7 +11,9 @@ import {
   Spin,
   Card,
   Radio,
+  Upload,
 } from "antd";
+import { PlusOutlined } from "@ant-design/icons";
 
 import * as S from "./styles";
 
@@ -21,7 +23,12 @@ import {
   getProductDetailAction,
   getCategoryListAction,
   updateProductAction,
+  clearProductDetailAction,
 } from "../../../redux/actions";
+import {
+  convertBase64ToImage,
+  convertImageToBase64,
+} from "../../../utils/file";
 
 const AdminUpdateProductPage = () => {
   const { id } = useParams();
@@ -53,14 +60,33 @@ const AdminUpdateProductPage = () => {
   useEffect(() => {
     if (productDetail.data.id) {
       updateForm.resetFields();
+      setImagesField(productDetail.data.images);
     }
   }, [productDetail.data]);
 
-  const handleUpdateProduct = (values) => {
+  useEffect(() => {
+    return () => dispatch(clearProductDetailAction());
+  }, []);
+
+  const handleUpdateProduct = async (values) => {
+    const { images, ...productValues } = values;
+    const newImages = [];
+    for (let i = 0; i < images.length; i++) {
+      const imgBase64 = await convertImageToBase64(images[i].originFileObj);
+      await newImages.push({
+        ...(images[i].id && { id: images[i].id }),
+        name: images[i].name,
+        type: images[i].type,
+        thumbUrl: images[i].thumbUrl,
+        path: imgBase64,
+      });
+    }
     dispatch(
       updateProductAction({
         id: id,
-        values: values,
+        values: productValues,
+        images: newImages,
+        initialImageIds: productDetail.data.images.map((item) => item.id),
         order: "id.desc",
         callback: {
           goToList: () => navigate(ROUTES.ADMIN.PRODUCT_LIST),
@@ -68,6 +94,28 @@ const AdminUpdateProductPage = () => {
       })
     );
     navigate(ROUTES.ADMIN.PRODUCT_LIST);
+  };
+
+  const setImagesField = async (images) => {
+    const newImages = [];
+
+    for (let i = 0; i < images.length; i++) {
+      const imageFile = await convertBase64ToImage(
+        images[i].path,
+        images[i].name,
+        images[i].type
+      );
+      await newImages.push({
+        id: images[i].id,
+        lastModified: imageFile.lastModified,
+        lastModifiedDate: imageFile.lastModifiedDate,
+        name: imageFile.name,
+        type: imageFile.type,
+        thumbUrl: images[i].thumbUrl,
+        originFileObj: imageFile,
+      });
+    }
+    await updateForm.setFieldValue("images", newImages);
   };
 
   const renderCategoryOptions = useMemo(() => {
@@ -194,6 +242,28 @@ const AdminUpdateProductPage = () => {
                 formatter={(value) => `${value}`}
                 parser={(value) => value.replace("%", "")}
               />
+            </Form.Item>
+            <Form.Item
+              label="Images"
+              name="images"
+              valuePropName="fileList"
+              getValueFromEvent={(e) => {
+                if (Array.isArray(e)) return e;
+                return e?.fileList;
+              }}
+              rules={[
+                {
+                  required: true,
+                  message: "This field is required!",
+                },
+              ]}
+            >
+              <Upload listType="picture-card" beforeUpload={Upload.LIST_IGNORE}>
+                <div>
+                  <PlusOutlined />
+                  <div style={{ marginTop: 8 }}>Tải ảnh lên</div>
+                </div>
+              </Upload>
             </Form.Item>
           </Form>
         </Card>

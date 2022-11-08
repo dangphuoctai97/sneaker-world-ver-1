@@ -8,33 +8,88 @@ import {
   Breadcrumb,
   InputNumber,
   Tabs,
+  notification,
+  Image,
 } from "antd";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { AiOutlineShoppingCart } from "react-icons/ai";
+import { CheckCircleTwoTone } from "@ant-design/icons";
 
-import { getProductDetailAction } from "../../../redux/actions";
+import {
+  getProductDetailAction,
+  addToCartAction,
+} from "../../../redux/actions";
 import SyncSlider from "../../../components/SyncSlider";
 import { ROUTES } from "../../../constants/routes";
 import { policyList, TAB_ITEMS } from "./constants";
 import * as S from "./styles";
+import { useMemo } from "react";
 
 const ProductDetailPage = () => {
   const { id } = useParams();
   const productId = parseInt(id.split(".")[1]);
   const dispatch = useDispatch();
 
-  const [productQuantity, setProductQuantity] = useState(1);
+  const [productInfos, setProductInfos] = useState({
+    size: undefined,
+    quantity: 1,
+  });
+
+  const [error, setError] = useState(false);
 
   const { productDetail } = useSelector((state) => state.product);
-
-  const [size, setSize] = useState(undefined);
 
   useEffect(() => {
     dispatch(getProductDetailAction({ id: productId }));
   }, [productId]);
 
-  const handleAddToCart = () => {};
+  const handleNotification = () => {
+    notification.open({
+      message: "Thông báo",
+      description: "Đã thêm sản phẩm vào giỏ hàng",
+      icon: (
+        <CheckCircleTwoTone
+          style={{
+            color: "#11f924",
+          }}
+        />
+      ),
+    });
+  };
+
+  // const renderProductImages = useMemo(() => {
+  //   if (!productDetail.data.images?.length) return null;
+  //   return productDetail.data.images?.map((item) => {
+  //     return (
+  //       <Image
+  //         key={item.name}
+  //         src={item.path}
+  //         alt={item.name}
+  //         width={300}
+  //         height="auto"
+  //       />
+  //     );
+  //   });
+  // }, [productDetail.data]);
+
+  const handleAddToCart = () => {
+    productInfos.size === undefined
+      ? setError(true)
+      : dispatch(
+          addToCartAction({
+            productId: productId,
+            quantity: productInfos.quantity,
+            size: productInfos.size,
+            price: productDetail.data.price,
+            productBrand: productDetail.data.category?.name,
+            productName: productDetail.data.name,
+            slug: productDetail.data.name,
+            amount: productDetail.data.amount,
+            discount: productDetail.data.discount,
+          })
+        ) && handleNotification();
+  };
 
   const calcDiscount = (currentPrice, discount) => {
     return currentPrice - (currentPrice * discount) / 100;
@@ -52,7 +107,7 @@ const ProductDetailPage = () => {
           <Row gutter={[16, 16]}>
             <Col span={12}>
               <Card>
-                <SyncSlider />
+                <SyncSlider images={productDetail.data.images} />
               </Card>
             </Col>
             <Col span={12}>
@@ -92,22 +147,41 @@ const ProductDetailPage = () => {
                         size="large"
                         buttonStyle="solid"
                         style={{ marginLeft: "4px" }}
-                        value={size}
-                        onChange={(e) => setSize(e.target.value)}
+                        value={productInfos.size}
+                        onChange={(e) => {
+                          setError(false);
+                          setProductInfos({
+                            ...productInfos,
+                            size: e.target.value,
+                          });
+                        }}
                       >
                         <Radio.Button value={item}>{item}</Radio.Button>
                       </Radio.Group>
                     );
                   })}
+                  <div>
+                    {error ? (
+                      <S.MessageError>Vui lòng chọn size</S.MessageError>
+                    ) : (
+                      ""
+                    )}
+                  </div>
                 </S.ProductInfo>
+
                 <Space style={{ marginTop: 8 }}>
                   <InputNumber
                     defaultValue={1}
                     size="large"
-                    onChange={(value) => setProductQuantity(value)}
-                    value={productQuantity}
+                    onChange={(value) =>
+                      setProductInfos({
+                        ...productInfos,
+                        quantity: value,
+                      })
+                    }
+                    value={productInfos.quantity}
                     min={1}
-                    max={productDetail.amount}
+                    max={productDetail.data.amount}
                   />
                   <S.AddToCartBtn
                     size="large"
@@ -134,7 +208,7 @@ const ProductDetailPage = () => {
                     </S.PolicyItem>
                     <S.PolicyItem>
                       <S.CheckIcon />
-                      Miễn phí vận chuyển trong 5km
+                      Miễn phí vận chuyển trong nội thành Đà Nẵng
                     </S.PolicyItem>
                   </S.PolicyContent>
                 </Card>

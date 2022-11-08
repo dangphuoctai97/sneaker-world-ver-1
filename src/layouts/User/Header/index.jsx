@@ -20,6 +20,7 @@ export default function Header(props) {
   const dispatch = useDispatch();
 
   const { userInfo } = useSelector((state) => state.user);
+  const { cartList } = useSelector((state) => state.cart);
 
   const menu = (
     <Menu
@@ -91,7 +92,7 @@ export default function Header(props) {
         </S.NavBar>
         <S.ButtonContainer>
           <S.CartBtn>
-            <Badge count={null} size="small">
+            <Badge count={cartList.length}>
               <Button
                 type="text"
                 icon={<ShoppingCartOutlined />}
