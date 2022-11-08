@@ -8,10 +8,13 @@ import {
   Breadcrumb,
   InputNumber,
   Tabs,
+  notification,
+  Image,
 } from "antd";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { AiOutlineShoppingCart } from "react-icons/ai";
+import { CheckCircleTwoTone } from "@ant-design/icons";
 
 import {
   getProductDetailAction,
@@ -21,6 +24,7 @@ import SyncSlider from "../../../components/SyncSlider";
 import { ROUTES } from "../../../constants/routes";
 import { policyList, TAB_ITEMS } from "./constants";
 import * as S from "./styles";
+import { useMemo } from "react";
 
 const ProductDetailPage = () => {
   const { id } = useParams();
@@ -40,6 +44,35 @@ const ProductDetailPage = () => {
     dispatch(getProductDetailAction({ id: productId }));
   }, [productId]);
 
+  const handleNotification = () => {
+    notification.open({
+      message: "Thông báo",
+      description: "Đã thêm sản phẩm vào giỏ hàng",
+      icon: (
+        <CheckCircleTwoTone
+          style={{
+            color: "#11f924",
+          }}
+        />
+      ),
+    });
+  };
+
+  // const renderProductImages = useMemo(() => {
+  //   if (!productDetail.data.images?.length) return null;
+  //   return productDetail.data.images?.map((item) => {
+  //     return (
+  //       <Image
+  //         key={item.name}
+  //         src={item.path}
+  //         alt={item.name}
+  //         width={300}
+  //         height="auto"
+  //       />
+  //     );
+  //   });
+  // }, [productDetail.data]);
+
   const handleAddToCart = () => {
     productInfos.size === undefined
       ? setError(true)
@@ -52,8 +85,10 @@ const ProductDetailPage = () => {
             productBrand: productDetail.data.category?.name,
             productName: productDetail.data.name,
             slug: productDetail.data.name,
+            amount: productDetail.data.amount,
+            discount: productDetail.data.discount,
           })
-        );
+        ) && handleNotification();
   };
 
   const calcDiscount = (currentPrice, discount) => {
@@ -72,7 +107,7 @@ const ProductDetailPage = () => {
           <Row gutter={[16, 16]}>
             <Col span={12}>
               <Card>
-                <SyncSlider />
+                <SyncSlider images={productDetail.data.images} />
               </Card>
             </Col>
             <Col span={12}>
@@ -125,12 +160,15 @@ const ProductDetailPage = () => {
                       </Radio.Group>
                     );
                   })}
-                  {error ? (
-                    <S.MessageError>Vui lòng chọn size</S.MessageError>
-                  ) : (
-                    ""
-                  )}
+                  <div>
+                    {error ? (
+                      <S.MessageError>Vui lòng chọn size</S.MessageError>
+                    ) : (
+                      ""
+                    )}
+                  </div>
                 </S.ProductInfo>
+
                 <Space style={{ marginTop: 8 }}>
                   <InputNumber
                     defaultValue={1}
@@ -143,7 +181,7 @@ const ProductDetailPage = () => {
                     }
                     value={productInfos.quantity}
                     min={1}
-                    max={productDetail.amount}
+                    max={productDetail.data.amount}
                   />
                   <S.AddToCartBtn
                     size="large"

@@ -1,217 +1,80 @@
-import { takeEvery, debounce, put } from "redux-saga/effects";
+import { takeEvery, put } from "redux-saga/effects";
 import axios from "axios";
 
-import { PRODUCT_ACTION, REQUEST, SUCCESS, FAIL } from "../constants";
-import { ADMIN_TABLE_LIMIT } from "../../constants/pagination";
+import { LOCATION_ACTION, REQUEST, SUCCESS, FAIL } from "../constants";
 
-function* getProductListSaga(action) {
+function* getCityListSaga(action) {
   try {
-    const { params, more } = action.payload;
-    const result = yield axios.get("http://localhost:4000/products", {
+    const result = yield axios.get("http://localhost:4000/cities");
+    yield put({
+      type: SUCCESS(LOCATION_ACTION.GET_CITY_LIST),
+      payload: {
+        data: result.data,
+      },
+    });
+  } catch (e) {
+    yield put({
+      type: FAIL(LOCATION_ACTION.GET_CITY_LIST),
+      payload: {
+        error: "Fail!",
+      },
+    });
+  }
+}
+
+function* getDistrictListSaga(action) {
+  try {
+    const { cityCode } = action.payload;
+    const result = yield axios.get("http://localhost:4000/districts", {
       params: {
-        _expand: "category",
-        _page: params.page,
-        _limit: params.limit,
-        ...(params.categoryId && {
-          categoryId: params.categoryId,
-        }),
-        ...(params.keyword && {
-          q: params.keyword,
-        }),
+        parentcode: cityCode,
       },
     });
     yield put({
-      type: SUCCESS(PRODUCT_ACTION.GET_PRODUCT_LIST),
+      type: SUCCESS(LOCATION_ACTION.GET_DISTRICT_LIST),
       payload: {
         data: result.data,
-        meta: {
-          total: parseInt(result.headers["x-total-count"]),
-          page: params.page,
-          limit: params.limit,
-        },
-        more: more,
       },
     });
   } catch (e) {
     yield put({
-      type: FAIL(PRODUCT_ACTION.GET_PRODUCT_LIST),
+      type: FAIL(LOCATION_ACTION.GET_DISTRICT_LIST),
       payload: {
-        error: "Đã có lỗi xảy ra!",
+        error: e.response.data,
       },
     });
   }
 }
 
-function* getProductDetailSaga(action) {
+function* getWardListSaga(action) {
   try {
-    const { id } = action.payload;
-    const result = yield axios.get(`http://localhost:4000/products/${id}`, {
+    const { districtCode } = action.payload;
+    const result = yield axios.get("http://localhost:4000/wards", {
       params: {
-        _expand: "category",
-        _embed: ["options", "images", "favorites"],
+        parentcode: districtCode,
       },
     });
     yield put({
-      type: SUCCESS(PRODUCT_ACTION.GET_PRODUCT_DETAIL),
+      type: SUCCESS(LOCATION_ACTION.GET_WARD_LIST),
       payload: {
         data: result.data,
       },
     });
   } catch (e) {
     yield put({
-      type: FAIL(PRODUCT_ACTION.GET_PRODUCT_DETAIL),
+      type: FAIL(LOCATION_ACTION.GET_WARD_LIST),
       payload: {
-        error: "Đã có lỗi xảy ra!",
+        error: e.response.data,
       },
     });
   }
 }
 
-function* createProductSaga(action) {
-  try {
-    const { values, options, images, callback } = action.payload;
-    const result = yield axios.post("http://localhost:4000/products", values);
-    for (let i = 0; i < options.length; i++) {
-      yield axios.post("http://localhost:4000/options", {
-        productId: result.data.id,
-        name: options[i].name,
-        bonusPrice: options[i].bonusPrice,
-      });
-    }
-    for (let j = 0; j < images.length; j++) {
-      yield axios.post("http://localhost:4000/images", {
-        ...images[j],
-        productId: result.data.id,
-      });
-    }
-
-    yield put({
-      type: SUCCESS(PRODUCT_ACTION.CREATE_PRODUCT),
-      payload: {
-        data: result.data,
-      },
-    });
-    yield callback.goToList();
-  } catch (e) {
-    yield put({
-      type: FAIL(PRODUCT_ACTION.CREATE_PRODUCT),
-      payload: {
-        error: "Đã có lỗi xảy ra!",
-      },
-    });
-  }
-}
-
-function* updateProductSaga(action) {
-  try {
-    const {
-      id,
-      values,
-      options,
-      initialOptionIds,
-      images,
-      initialImageIds,
-      callback,
-    } = action.payload;
-    const result = yield axios.patch(
-      `http://localhost:4000/products/${id}`,
-      values
-    );
-    // Options
-    for (let i = 0; i < options.length; i++) {
-      if (options[i].id) {
-        yield axios.patch(`http://localhost:4000/options/${options[i].id}`, {
-          productId: result.data.id,
-          name: options[i].name,
-          bonusPrice: options[i].bonusPrice,
-        });
-      } else {
-        yield axios.post("http://localhost:4000/options", {
-          productId: result.data.id,
-          name: options[i].name,
-          bonusPrice: options[i].bonusPrice,
-        });
-      }
-    }
-    for (let j = 0; j < initialOptionIds.length; j++) {
-      const keepOption = options.find(
-        (item) => item.id && item.id === initialOptionIds[j]
-      );
-      if (!keepOption) {
-        yield axios.delete(
-          `http://localhost:4000/options/${initialOptionIds[j]}`
-        );
-      }
-    }
-    // Images
-    for (let i = 0; i < images.length; i++) {
-      if (!images[i].id) {
-        yield axios.post("http://localhost:4000/images", {
-          ...images[i],
-          productId: result.data.id,
-        });
-      }
-    }
-    for (let j = 0; j < initialImageIds.length; j++) {
-      const keepImage = images.find(
-        (item) => item.id && item.id === initialImageIds[j]
-      );
-      if (!keepImage) {
-        yield axios.delete(
-          `http://localhost:4000/images/${initialImageIds[j]}`
-        );
-      }
-    }
-    yield put({
-      type: SUCCESS(PRODUCT_ACTION.UPDATE_PRODUCT),
-      payload: {
-        data: result.data,
-      },
-    });
-    yield callback.goToList();
-  } catch (e) {
-    yield put({
-      type: FAIL(PRODUCT_ACTION.UPDATE_PRODUCT),
-      payload: {
-        error: "Đã có lỗi xảy ra!",
-      },
-    });
-  }
-}
-
-function* deleteProductSaga(action) {
-  try {
-    const { id } = action.payload;
-    yield axios.delete(`http://localhost:4000/products/${id}`);
-    yield put({ type: SUCCESS(PRODUCT_ACTION.DELETE_PRODUCT) });
-    yield put({
-      type: REQUEST(PRODUCT_ACTION.GET_PRODUCT_LIST),
-      payload: {
-        page: 1,
-        limit: ADMIN_TABLE_LIMIT,
-      },
-    });
-  } catch (e) {
-    yield put({
-      type: FAIL(PRODUCT_ACTION.DELETE_PRODUCT),
-      payload: {
-        error: "Đã có lỗi xảy ra!",
-      },
-    });
-  }
-}
-
-export default function* productSaga() {
-  yield debounce(
-    500,
-    REQUEST(PRODUCT_ACTION.GET_PRODUCT_LIST),
-    getProductListSaga
-  );
+export default function* locationSaga() {
+  yield takeEvery(REQUEST(LOCATION_ACTION.GET_CITY_LIST), getCityListSaga);
   yield takeEvery(
-    REQUEST(PRODUCT_ACTION.GET_PRODUCT_DETAIL),
-    getProductDetailSaga
+    REQUEST(LOCATION_ACTION.GET_DISTRICT_LIST),
+    getDistrictListSaga
   );
-  yield takeEvery(REQUEST(PRODUCT_ACTION.CREATE_PRODUCT), createProductSaga);
-  yield takeEvery(REQUEST(PRODUCT_ACTION.UPDATE_PRODUCT), updateProductSaga);
-  yield takeEvery(REQUEST(PRODUCT_ACTION.DELETE_PRODUCT), deleteProductSaga);
+  yield takeEvery(REQUEST(LOCATION_ACTION.GET_WARD_LIST), getWardListSaga);
 }

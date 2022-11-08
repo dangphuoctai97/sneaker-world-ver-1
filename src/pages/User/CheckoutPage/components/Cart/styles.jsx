@@ -33,3 +33,27 @@ export const ListItem = styled(List.Item)`
   display: flex;
   justify-content: space-between;
 `;
+
+export const EmptyDescription = styled.span`
+  position: absolute;
+  bottom: 110px;
+  left: 0;
+  right: 0;
+  font-size: 20px;
+`;
+
+export const EmptyBtn = styled(Button)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: 40px;
+  font-size: 20px;
+  background-color: royalblue;
+  color: #fff;
+
+  &:hover {
+    background-color: #6486ed;
+    color: #fff;
+  }
+`;

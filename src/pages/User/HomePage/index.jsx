@@ -40,7 +40,9 @@ const UserHomePage = () => {
         item.isNew && (
           <Col span={6} key={item.id}>
             <Link
-              to={generatePath(ROUTES.USER.PRODUCT_DETAILS, { id: item.id })}
+              to={generatePath(ROUTES.USER.PRODUCT_DETAILS, {
+                id: `${item.slug}.${item.id}`,
+              })}
             >
               <Badge.Ribbon color="red" text="New">
                 <ProductItem item={item} />
@@ -58,7 +60,9 @@ const UserHomePage = () => {
         item.discount >= 20 && (
           <Col span={6} key={item.id}>
             <Link
-              to={generatePath(ROUTES.USER.PRODUCT_DETAILS, { id: item.id })}
+              to={generatePath(ROUTES.USER.PRODUCT_DETAILS, {
+                id: `${item.slug}.${item.id}`,
+              })}
             >
               {item.isNew ? (
                 <Badge.Ribbon color="red" text="New">

@@ -70,5 +70,4 @@ export const CheckIcon = styled(BiCheck)`
 
 export const MessageError = styled.span`
   color: red;
-  margin-left: 16px;
 `;

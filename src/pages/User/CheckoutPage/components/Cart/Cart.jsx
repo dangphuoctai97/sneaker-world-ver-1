@@ -1,4 +1,14 @@
-import { Row, Button, Table, Input, Col, List, Space } from "antd";
+import {
+  Row,
+  Button,
+  Table,
+  Input,
+  Col,
+  List,
+  Space,
+  Empty,
+  Image,
+} from "antd";
 import { useNavigate, Link, generatePath } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { RiDeleteBin6Line } from "react-icons/ri";
@@ -17,114 +27,64 @@ const Cart = ({ setStep }) => {
   const dispatch = useDispatch();
 
   const { cartList } = useSelector((state) => state.cart);
-  console.log(cartList);
-  const totalPrice = cartList
-    .map((item) => item.price * item.quantity)
-    .reduce((total, price) => total + price);
-
-  const handleChangeQuantity = (productId, value) => {
-    dispatch(
-      updateCartItemAction({
-        productId: productId,
-        quantity: value,
-      })
-    );
+  const calcDiscount = (currentPrice, discount) => {
+    return currentPrice - (currentPrice * discount) / 100;
   };
 
-  const handleDeleteCartItem = (productId) => {
-    dispatch(
-      deleteCartItemAction({
-        productId: productId,
-      })
-    );
+  const calcTotalPrice = () => {
+    if (cartList.length > 0) {
+      return cartList
+        .map((item) => calcDiscount(item.price, item.discount) * item.quantity)
+        .reduce((total, price) => total + price);
+    } else {
+      return 0;
+    }
   };
-
-  // const tableColumn = [
-  //   {
-  //     title: "Hình ảnh sản phẩm",
-  //     dataIndex: "image",
-  //     key: "image",
-  //   },
-  //   {
-  //     title: "Tên sản phẩm",
-  //     dataIndex: "name",
-  //     key: "name",
-  //     render: (_, record) => {
-  //       console.log(record);
-  //       return (
-  //         <Link
-  //           to={generatePath(ROUTES.USER.PRODUCT_DETAILS, {
-  //             id: `${record.slug}.${record.id}`,
-  //           })}
-  //         >
-  //           {record.productName}
-  //         </Link>
-  //       );
-  //     },
-  //   },
-  //   {
-  //     title: "Size",
-  //     dataIndex: "size",
-  //     key: "size",
-  //   },
-  //   {
-  //     title: "Số lượng",
-  //     dataIndex: "quantity",
-  //     key: "quantity",
-  //     render: (quantity, record) => (
-  //       <InputNumber
-  //         min={1}
-  //         value={quantity}
-  //         onChange={(value) => handleChangeQuantity(record.productId, value)}
-  //       />
-  //     ),
-  //   },
-  //   {
-  //     title: "Đơn giá",
-  //     dataIndex: "price",
-  //     key: "price",
-  //     render: (price) => `${price.toLocaleString()} VND`,
-  //   },
-  //   {
-  //     title: "Tổng tiền",
-  //     dataIndex: "totalPrice",
-  //     key: "totalPrice",
-  //     render: (_, record) =>
-  //       `${(record.price * record.quantity).toLocaleString()} VND`,
-  //   },
-  //   {
-  //     dataIndex: "action",
-  //     key: "action",
-  //     render: (_, record) => (
-  //       <Button
-  //         ghost
-  //         danger
-  //         onClick={() => handleDeleteCartItem(record.productId)}
-  //       >
-  //         <RiDeleteBin6Line />
-  //       </Button>
-  //     ),
-  //   },
-  // ];
 
   return (
     <>
-      {/* <Table
-        columns={tableColumn}
-        dataSource={cartList}
-        rowKey="productId"
-        pagination={false}
-      /> */}
-      <Row style={{ marginTop: "28px" }}>
+      <Row style={{ marginTop: "24px" }}>
         <Col span={2}></Col>
         <Col span={20}>
           <Row gutter={[16, 16]}>
             <Col span={17}>
-              <CartItem></CartItem>
-              <CartItem></CartItem>
-              <CartItem></CartItem>
-              <CartItem></CartItem>
-              <CartItem></CartItem>
+              {cartList.length > 0 ? (
+                cartList.map((item) => {
+                  return <CartItem key={item.productId} cartInfo={item} />;
+                })
+              ) : (
+                <Empty
+                  image={
+                    <Image
+                      style={{ position: "relative" }}
+                      preview={false}
+                      src="https://www.xanh.farm/assets/images/no-cart.png"
+                    />
+                  }
+                  description={
+                    <>
+                      <S.EmptyDescription>Giỏ hàng trống</S.EmptyDescription>
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          position: "absolute",
+                          bottom: 60,
+                          left: 0,
+                          right: 0,
+                        }}
+                      >
+                        <S.EmptyBtn
+                          onClick={() => navigate(ROUTES.USER.PRODUCT_LIST)}
+                        >
+                          Mua sắm ngay
+                        </S.EmptyBtn>
+                      </div>
+                    </>
+                  }
+                />
+              )}
             </Col>
             <Col span={7}>
               <S.CartInfo>
@@ -138,24 +98,37 @@ const Cart = ({ setStep }) => {
                   </S.ListItem>
                   <S.ListItem>
                     <span>Đơn giá:</span>
-                    <span>{`${totalPrice.toLocaleString()}đ`}</span>
+                    <span>{`${calcTotalPrice().toLocaleString()}đ`}</span>
                   </S.ListItem>
                   <List.Item>
                     <Input addonBefore={"Mã giảm giá"} />
                     <span></span>
                   </List.Item>
                   <S.ListItem>
-                    <span style={{ fontSize: "16px", fontWeight: 600 }}>
+                    <span
+                      style={{
+                        fontSize: "16px",
+                        fontWeight: 600,
+                      }}
+                    >
                       Tổng tiền tạm tính:
                     </span>
                     <span
-                      style={{ fontSize: "16px", fontWeight: 600 }}
-                    >{`${totalPrice.toLocaleString()}đ`}</span>
+                      style={{
+                        fontSize: "16px",
+                        fontWeight: 600,
+                        color: "#f44336",
+                      }}
+                    >{`${calcTotalPrice().toLocaleString()}đ`}</span>
                   </S.ListItem>
                 </List>
-                <S.PayMentBtn onClick={() => setStep(1)}>
-                  Thanh toán
-                </S.PayMentBtn>
+                {cartList.length === 0 ? (
+                  <S.PayMentBtn disabled>Thanh toán</S.PayMentBtn>
+                ) : (
+                  <S.PayMentBtn onClick={() => setStep(1)}>
+                    Thanh toán
+                  </S.PayMentBtn>
+                )}
               </S.CartInfo>
             </Col>
           </Row>

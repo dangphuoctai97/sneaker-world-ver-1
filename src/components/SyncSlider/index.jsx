@@ -4,15 +4,16 @@ import Slider from "react-slick";
 import { BsArrowRightCircle, BsArrowLeftCircle } from "react-icons/bs";
 import { SLIDER_IMAGE } from "./constant";
 
-const SyncSlider = () => {
+const SyncSlider = ({ images }) => {
   const [nav1, setNav1] = useState();
   const [nav2, setNav2] = useState();
 
   const renderSliderImages = (height, width) => {
-    return SLIDER_IMAGE.map((item) => {
+    if (!images?.length) return null;
+    return images.map((item) => {
       return (
         <Image
-          key={item.id}
+          key={item.name}
           style={{ position: "relative" }}
           height={height}
           width={width}

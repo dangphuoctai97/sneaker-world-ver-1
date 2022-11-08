@@ -215,7 +215,9 @@ const UserProductListPage = () => {
             </Link>
           ) : (
             <Link
-              to={generatePath(ROUTES.USER.PRODUCT_DETAILS, { id: item.id })}
+              to={generatePath(ROUTES.USER.PRODUCT_DETAILS, {
+                id: `${item.slug}.${item.id}`,
+              })}
             >
               <ProductItem item={item} />
             </Link>
@@ -240,7 +242,14 @@ const UserProductListPage = () => {
       <S.Wrapper>
         <Row gutter={[16, 16]}>
           <Col span={6}>
-            <Card size="small">
+            <S.CustomCard
+              size="small"
+              style={{
+                position: "sticky",
+                position: "-webkit-sticky",
+                top: "0",
+              }}
+            >
               <p style={{ fontSize: "16px", borderBottom: "3px solid black" }}>
                 Filter
               </p>
@@ -259,7 +268,10 @@ const UserProductListPage = () => {
                 )}
               </Space>
               <Collapse expandIconPosition="end">
-                <Collapse.Panel header={"Thương hiệu"}>
+                <Collapse.Panel
+                  style={{ position: "relative" }}
+                  header={"Thương hiệu"}
+                >
                   <Checkbox.Group
                     onChange={(value) => handleFilter("categoryId", value)}
                     value={filterParams.categoryId}
@@ -296,7 +308,7 @@ const UserProductListPage = () => {
                   />
                 </Collapse.Panel>
               </Collapse>
-            </Card>
+            </S.CustomCard>
           </Col>
           <Col span={18}>
             <Row style={{ marginBottom: "16px" }} gutter={[16, 16]}>

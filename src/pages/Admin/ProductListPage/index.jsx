@@ -22,6 +22,7 @@ const AdminProductListPage = () => {
   const param = useParams();
 
   const { productList } = useSelector((state) => state.product);
+  const { productDetail } = useSelector((state) => state.product);
 
   const navigate = useNavigate();
   const { categoryList } = useSelector((state) => state.category);

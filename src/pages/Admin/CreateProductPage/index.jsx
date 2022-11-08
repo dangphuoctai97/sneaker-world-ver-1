@@ -10,8 +10,10 @@ import {
   InputNumber,
   Radio,
   Select,
+  Upload,
 } from "antd";
 import slug from "slug";
+import { PlusOutlined } from "@ant-design/icons";
 
 import {
   getProductListAction,
@@ -20,6 +22,10 @@ import {
 } from "../../../redux/actions";
 import { SIZE_OPTIONS } from "./constants";
 import { ROUTES } from "../../../constants/routes";
+import {
+  convertBase64ToImage,
+  convertImageToBase64,
+} from "../../../utils/file";
 import * as S from "./styles";
 
 const AdminCreateProductPage = () => {
@@ -42,14 +48,27 @@ const AdminCreateProductPage = () => {
     });
   };
 
-  const handleCreateProduct = (values) => {
-    dispatch(
+  const handleCreateProduct = async (values) => {
+    const { images, ...productValues } = values;
+
+    const newImages = [];
+
+    for (let i = 0; i < images.length; i++) {
+      const imgBase64 = await convertImageToBase64(images[i].originFileObj);
+      await newImages.push({
+        name: images[i].name,
+        type: images[i].type,
+        path: imgBase64,
+      });
+    }
+    await dispatch(
       createProductAction({
         values: {
-          ...values,
-          categoryId: parseInt(values.categoryId),
-          slug: slug(values.name),
+          ...productValues,
+          categoryId: parseInt(productValues.categoryId),
+          slug: slug(productValues.name),
         },
+        images: newImages,
         callback: {
           goToList: () => navigate(ROUTES.ADMIN.PRODUCT_LIST),
         },
@@ -161,6 +180,28 @@ const AdminCreateProductPage = () => {
               formatter={(value) => `${value}`}
               parser={(value) => value.replace("%", "")}
             />
+          </Form.Item>
+          <Form.Item
+            label="Images"
+            name="images"
+            valuePropName="fileList"
+            getValueFromEvent={(e) => {
+              if (Array.isArray(e)) return e;
+              return e?.fileList;
+            }}
+            rules={[
+              {
+                required: true,
+                message: "This field is required!",
+              },
+            ]}
+          >
+            <Upload listType="picture-card" beforeUpload={Upload.LIST_IGNORE}>
+              <div>
+                <PlusOutlined />
+                <div style={{ marginTop: 8 }}>Tải ảnh lên</div>
+              </div>
+            </Upload>
           </Form.Item>
           <Button type="primary" htmlType="submit">
             Create product
