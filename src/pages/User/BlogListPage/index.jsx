@@ -31,6 +31,7 @@ const BlogListPage = () => {
         params: {
           page: 1,
           limit: BLOG_LIST_LIMIT,
+          order: "id.desc",
         },
       })
     );
@@ -39,6 +40,7 @@ const BlogListPage = () => {
         params: {
           page: 1,
           limit: BLOG_LIST_LIMIT,
+          order: "id.desc",
         },
       })
     );

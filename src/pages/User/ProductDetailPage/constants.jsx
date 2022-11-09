@@ -1,4 +1,7 @@
 import { Image, Space, Row } from "antd";
+import { HomeOutlined } from "@ant-design/icons";
+import { FaShopify } from "react-icons/fa";
+import { ROUTES, TITLES } from "../../../constants";
 
 export const policyList = [
   "Ship COD Toàn Quốc",
@@ -53,5 +56,18 @@ export const TAB_ITEMS = [
         <p>Chúc các bạn lựa chọn được đôi giày ưng ý</p>
       </>
     ),
+  },
+];
+
+export const BREADCRUMB = [
+  {
+    title: TITLES.USER.HOME,
+    path: ROUTES.USER.HOME,
+    icon: <HomeOutlined style={{ fontSize: 20 }} />,
+  },
+  {
+    title: TITLES.USER.PRODUCT_LIST,
+    path: ROUTES.USER.PRODUCT_LIST,
+    icon: <FaShopify style={{ fontSize: 20 }} />,
   },
 ];

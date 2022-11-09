@@ -4,14 +4,14 @@ export const TITLES = {
   USER: {
     HOME: "Trang chủ",
     ABOUT: "Liên hệ",
-    BLOG_LIST: "Bài viết",
+    BLOG_LIST: "Danh sách Bài viết",
     BLOG_DETAILS: "Chi tiết bài viết",
-    PRODUCT_LIST: "Sản phẩm",
+    PRODUCT_LIST: "Danh sách Sản phẩm",
     PRODUCT_DETAILS: "Chi tiết sản phẩm",
     CHECKOUT: "Thanh toán",
   },
   ADMIN: {
-    DASHBOARD: "Admin | Trang chủ",
+    DASHBOARD: "Admin | Trang quản lý",
     PRODUCT_LIST: "Admin | Quản lý sản phẩm",
     CREATE_PRODUCT: "Admin | Tạo sản phẩm mới",
     UPDATE_PRODUCT: "Admin | cập nhật sản phẩm",

@@ -13,11 +13,11 @@ const SyncSlider = ({ images }) => {
     return images.map((item) => {
       return (
         <Image
-          key={item.name}
+          key={item.productId}
           style={{ position: "relative" }}
           height={height}
           width={width}
-          src={item.path}
+          src={item.url}
           preview={false}
         />
       );
