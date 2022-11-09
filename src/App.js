@@ -11,10 +11,15 @@ import AdminHomePage from "./pages/Admin/HomePage";
 import AdminProductListPage from "./pages/Admin/ProductListPage";
 import AdminCreateProductPage from "./pages/Admin/CreateProductPage";
 import AdminUpdateProductPage from "./pages/Admin/UpdateProductPage";
+import AdminBlogListPage from "./pages/Admin/BlogListPage";
+import AdminCreateBlogPage from "./pages/Admin/CreateBlogPage";
+import AdminUpdateBlogPage from "./pages/Admin/UpdateBlogPage";
+import AdminUserManagePage from "./pages/Admin/UserManagePage";
 
 import UserHomePage from "./pages/User/HomePage";
 import AboutPage from "./pages/User/AboutPage";
-import BlogPage from "./pages/User/BlogPage";
+import BlogListPage from "./pages/User/BlogListPage";
+import BlogDetailPage from "./pages/User/BlogDetailPage";
 import CheckoutPage from "./pages/User/CheckoutPage";
 import UserProductListPage from "./pages/User/ProductListPage";
 import ProductDetailPage from "./pages/User/ProductDetailPage";
@@ -22,7 +27,7 @@ import ProductDetailPage from "./pages/User/ProductDetailPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 
-import { ROUTES } from "./constants/routes";
+import { ROUTES } from "./constants/";
 import { getUserInfoAction } from "./redux/actions/";
 
 import * as S from "./styles";
@@ -64,11 +69,34 @@ function App() {
             path={ROUTES.ADMIN.UPDATE_PRODUCT}
             element={<AdminUpdateProductPage />}
           ></Route>
+          <Route
+            path={ROUTES.ADMIN.BLOG_LIST}
+            element={<AdminBlogListPage />}
+          ></Route>
+          <Route
+            path={ROUTES.ADMIN.CREATE_BLOG}
+            element={<AdminCreateBlogPage />}
+          ></Route>
+          <Route
+            path={ROUTES.ADMIN.UPDATE_BLOG}
+            element={<AdminUpdateBlogPage />}
+          ></Route>
+          <Route
+            path={ROUTES.ADMIN.USER_MANAGE}
+            element={<AdminUserManagePage />}
+          ></Route>
         </Route>
         <Route element={<UserLayout />}>
           <Route path={ROUTES.USER.HOME} element={<UserHomePage />}></Route>
           <Route path={ROUTES.USER.ABOUT} element={<AboutPage />}></Route>
-          <Route path={ROUTES.USER.Blog} element={<BlogPage />}></Route>
+          <Route
+            path={ROUTES.USER.BLOG_LIST}
+            element={<BlogListPage />}
+          ></Route>
+          <Route
+            path={ROUTES.USER.BLOG_DETAILS}
+            element={<BlogDetailPage />}
+          ></Route>
           <Route path={ROUTES.USER.CHECKOUT} element={<CheckoutPage />}></Route>
           <Route
             path={ROUTES.USER.PRODUCT_LIST}

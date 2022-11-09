@@ -1,5 +1,5 @@
-import React, { Fragment, useEffect, useState } from "react";
-import { Col, Row, Carousel, Badge, Button, Spin, Tag } from "antd";
+import React, { Fragment, useEffect, useState, } from "react";
+import { Col, Row, Carousel, Badge, } from "antd";
 import { useNavigate, Link, generatePath } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -8,9 +8,11 @@ import {
   getCategoryListAction,
 } from "../../../redux/actions";
 
+import BrandSlider from "../../../components/BrandSlider";
 import ProductItem from "../../../components/ProductItem";
+import LoadingWrapper from "../../../components/LoadingWrapper";
 import { HOMEPAGE_PRODUCT_LIST_LIMIT } from "../../../constants/pagination";
-import { ROUTES } from "../../../constants/routes";
+import { ROUTES, TITLES } from "../../../constants/";
 import * as S from "./styles";
 
 const UserHomePage = () => {
@@ -18,11 +20,9 @@ const UserHomePage = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const calcDiscount = (currentPrice, discount) => {
-    return currentPrice - (currentPrice * discount) / 100;
-  };
 
   useEffect(() => {
+    document.title = TITLES.USER.HOME;
     dispatch(
       getProductListAction({
         params: {
@@ -77,12 +77,11 @@ const UserHomePage = () => {
       );
     });
   };
+
   return (
     <Fragment>
       {productList.loading ? (
-        <S.LoadingWrapper>
-          <Spin size="large" />
-        </S.LoadingWrapper>
+        <LoadingWrapper />
       ) : (
         <S.Container>
           <S.CarouselContainer>
@@ -126,7 +125,7 @@ const UserHomePage = () => {
                   style={{ margin: "20px" }}
                   onClick={() => navigate(ROUTES.USER.PRODUCT_LIST)}
                 >
-                  Hiện thêm
+                  Xem thêm
                 </S.ShowMoreBtn>
               </Col>
               <Col span={2}></Col>
@@ -144,7 +143,7 @@ const UserHomePage = () => {
                   style={{ margin: "20px" }}
                   onClick={() => navigate(ROUTES.USER.PRODUCT_LIST)}
                 >
-                  Hiện thêm
+                  Xem thêm
                 </S.ShowMoreBtn>
               </Col>
               <Col span={2}></Col>
@@ -157,7 +156,9 @@ const UserHomePage = () => {
             <S.CarouselBrands>
               <Row>
                 <Col span={2}></Col>
-                <Col span={20} style={{ width: "100%" }}></Col>
+                <Col span={20} style={{ width: "100%" }}>
+                  <BrandSlider />
+                </Col>
                 <Col span={2}></Col>
               </Row>
             </S.CarouselBrands>
@@ -192,11 +193,11 @@ const UserHomePage = () => {
               <Col span={8}>
                 <div className="collection_content">
                   <img
-                    src="https://runner-web.surge.sh/static/media/categorykids.f0c887ee.jpg"
+                    src="https://cf.shopee.vn/file/e21671f7f4520e3e9668278dec07aaad"
                     alt=""
                   />
                   <div className="collection_title">
-                    <h2>Giày trẻ em</h2>
+                    <h2>Giày ngoại cỡ</h2>
                   </div>
                 </div>
               </Col>
@@ -204,22 +205,15 @@ const UserHomePage = () => {
           </S.CollectionContainer>
           <S.RegisterContainer>
             <div className="register_content">
-              <h2>Đăng ký</h2>
+              <S.ContainerTiltle to={ROUTES.REGISTER}>
+                <span className="title_underline white_text text_shadow">
+                  Đăng ký ngay
+                </span>
+              </S.ContainerTiltle>
               <p>
-                Đăng ký nhận bản tin của Sneaker World để cập nhật những sản
-                phẩm mới, nhận thông tin ưu đãi đặc biệt và thông tin giảm giá
-                khác.
+                Để trở thành thành viên của gia đình Sneaker World để nhận được
+                thông báo về những sản phẩm mới nhất và những ưu đãi đặc biệt.
               </p>
-              <div className="register_form">
-                <form>
-                  <input
-                    placeholder="Nhập email của bạn"
-                    type="email"
-                    required=""
-                  />
-                  <button type="submit">Gửi</button>
-                </form>
-              </div>
             </div>
           </S.RegisterContainer>
           <S.BlogContainer>
@@ -230,10 +224,8 @@ const UserHomePage = () => {
               <Col span={2}></Col>
               <Col span={20}>
                 <Row gutter={[16, 16]}></Row>
-                <S.ShowMoreBtn
-                  onClick={() => navigate(ROUTES.USER.PRODUCT_LIST)}
-                >
-                  Hiện thêm
+                <S.ShowMoreBtn onClick={() => navigate(ROUTES.USER.BLOG)}>
+                  Xem thêm
                 </S.ShowMoreBtn>
               </Col>
               <Col span={2}></Col>

@@ -21,7 +21,7 @@ import {
   createProductAction,
 } from "../../../redux/actions";
 import { SIZE_OPTIONS } from "./constants";
-import { ROUTES } from "../../../constants/routes";
+import { ROUTES, TITLES } from "../../../constants/";
 import {
   convertBase64ToImage,
   convertImageToBase64,
@@ -36,6 +36,7 @@ const AdminCreateProductPage = () => {
 
   useEffect(() => {
     dispatch(getCategoryListAction());
+    document.title = TITLES.ADMIN.CREATE_PRODUCT;
   }, []);
 
   const renderCategoryListOptions = () => {

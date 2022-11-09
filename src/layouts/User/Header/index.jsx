@@ -1,16 +1,15 @@
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { Dropdown, Menu, Button, Badge, Avatar, Image } from "antd";
-import {
-  ShoppingCartOutlined,
-  DashboardOutlined,
-  LogoutOutlined,
-} from "@ant-design/icons";
+import { Dropdown, Menu, Button, Badge, Avatar, Image, Row, Col } from "antd";
+import { ShoppingCartOutlined, LogoutOutlined } from "@ant-design/icons";
+import { MdSpaceDashboard } from "react-icons/md";
+import { FaUser } from "react-icons/fa";
 
+import logoImage from "../../../assets/images/sneaker-world-golden.png";
+import { HEADER_ITEMS } from "./constants";
 import { ROUTES } from "../../../constants/routes";
 import { logoutAction } from "../../../redux/actions";
 import * as S from "./styles";
-import { Fragment } from "react";
 
 export default function Header(props) {
   const { sticky } = props;
@@ -22,6 +21,18 @@ export default function Header(props) {
   const { userInfo } = useSelector((state) => state.user);
   const { cartList } = useSelector((state) => state.cart);
 
+  const renderHeaderItems = () => {
+    return HEADER_ITEMS.map((item, index) => {
+      return (
+        <li key={index}>
+          <S.HeaderItem to={item.path} $active={pathname === item.path}>
+            <span>{item.title}</span>
+          </S.HeaderItem>
+        </li>
+      );
+    });
+  };
+
   const menu = (
     <Menu
       items={[
@@ -29,10 +40,19 @@ export default function Header(props) {
           key: "dashboard",
           label: (
             <Link to={ROUTES.ADMIN.DASHBOARD}>
-              <span style={{ color: "royalblue" }}>Go dashboard</span>
+              <span style={{ color: "royalblue" }}>Trang quản lý</span>
             </Link>
           ),
-          icon: <DashboardOutlined style={{ color: "royalblue" }} />,
+          icon: <MdSpaceDashboard style={{ color: "royalblue" }} />,
+        },
+        {
+          key: "userProfile",
+          label: (
+            <Link to={null}>
+              <span style={{ color: "royalblue" }}>thông tin tài khoản</span>
+            </Link>
+          ),
+          icon: <FaUser style={{ color: "royalblue" }} />,
         },
         {
           key: "logout",
@@ -50,80 +70,59 @@ export default function Header(props) {
 
   return (
     <S.HeaderContainer sticky={sticky}>
-      <S.HeaderContent>
-        {/* <S.MobileMenu></S.MobileMenu> */}
-        <div className="navBarLogo">
-          <span>
-            <Link to={ROUTES.USER.HOME}>SneakerWorld</Link>
-          </span>
-        </div>
-        <S.NavBar>
-          <ul>
-            <li>
-              <S.HeaderItem to={ROUTES.USER.HOME} $active={pathname === "/"}>
-                <span>Trang chủ</span>
-              </S.HeaderItem>
-            </li>
-            <li>
-              <S.HeaderItem
-                to={ROUTES.USER.PRODUCT_LIST}
-                $active={pathname === "/products"}
-              >
-                <span>Sản phẩm</span>
-              </S.HeaderItem>
-            </li>
-            <li>
-              <S.HeaderItem
-                to={ROUTES.USER.Blog}
-                $active={pathname === "/blog"}
-              >
-                <span>Bài viết</span>
-              </S.HeaderItem>
-            </li>
-            <li>
-              <S.HeaderItem
-                to={ROUTES.USER.ABOUT}
-                $active={pathname === "/about"}
-              >
-                <span>Liên hệ</span>
-              </S.HeaderItem>
-            </li>
-          </ul>
-        </S.NavBar>
-        <S.ButtonContainer>
-          <S.CartBtn>
-            <Badge count={cartList.length}>
-              <Button
-                type="text"
-                icon={<ShoppingCartOutlined />}
-                onClick={() => navigate(ROUTES.USER.CHECKOUT)}
-              ></Button>
-            </Badge>
-          </S.CartBtn>
-          {userInfo.data.id ? (
-            <Dropdown overlay={menu}>
-              <div className="userInfo">
-                <h2>{userInfo.data.fullName}</h2>
-                <Avatar
-                  size={40}
-                  src={
-                    <Image
-                      src="https://joeschmoe.io/api/v1/random"
-                      style={{
-                        width: 40,
-                      }}
+      <Row>
+        <Col span={2} />
+        <Col span={20}>
+          <S.HeaderContent>
+            {/* <S.MobileMenu></S.MobileMenu> */}
+            <div className="navBarLogo">
+              <span>
+                <Link to={ROUTES.USER.HOME}>
+                  <img className="logo_img" src={logoImage} alt="" />
+                  SneakerWorld
+                </Link>
+              </span>
+            </div>
+            <S.NavBar>
+              <ul>{renderHeaderItems()}</ul>
+            </S.NavBar>
+            <S.ButtonContainer>
+              <S.CartBtn>
+                <Badge count={cartList.length}>
+                  <Button
+                    type="text"
+                    icon={<ShoppingCartOutlined />}
+                    onClick={() => navigate(ROUTES.USER.CHECKOUT)}
+                  ></Button>
+                </Badge>
+              </S.CartBtn>
+              {userInfo.data.id ? (
+                <Dropdown overlay={menu}>
+                  <div className="userInfo">
+                    <h2>{userInfo.data.fullName}</h2>
+                    <Avatar
+                      size={40}
+                      src={
+                        <Image
+                          src="https://joeschmoe.io/api/v1/random"
+                          style={{
+                            width: 40,
+                          }}
+                        />
+                      }
                     />
-                  }
-                />
-              </div>
-            </Dropdown>
-          ) : (
-            <S.LoginBtn onClick={() => navigate(ROUTES.LOGIN)}>
-              Đăng nhập
-            </S.LoginBtn>
-          )}
-        </S.ButtonContainer>
-      </S.HeaderContent>
+                  </div>
+                </Dropdown>
+              ) : (
+                <S.LoginBtn onClick={() => navigate(ROUTES.LOGIN)}>
+                  Đăng nhập
+                </S.LoginBtn>
+              )}
+            </S.ButtonContainer>
+          </S.HeaderContent>
+        </Col>
+        <Col span={2} />
+      </Row>
     </S.HeaderContainer>
   );
 }

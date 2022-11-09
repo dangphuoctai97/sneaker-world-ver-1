@@ -8,9 +8,15 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
 import "antd/dist/antd.less";
+import "react-quill/dist/quill.snow.css";
+import "./index.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import "./index.css";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
+import "moment/locale/vi";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

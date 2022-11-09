@@ -21,12 +21,15 @@ import {
   addToCartAction,
 } from "../../../redux/actions";
 import SyncSlider from "../../../components/SyncSlider";
-import { ROUTES } from "../../../constants/routes";
+import { ROUTES, TITLES } from "../../../constants";
 import { policyList, TAB_ITEMS } from "./constants";
 import * as S from "./styles";
 import { useMemo } from "react";
 
 const ProductDetailPage = () => {
+  useEffect(() => {
+    document.title = TITLES.USER.PRODUCT_DETAILS;
+  }, []);
   const { id } = useParams();
   const productId = parseInt(id.split(".")[1]);
   const dispatch = useDispatch();

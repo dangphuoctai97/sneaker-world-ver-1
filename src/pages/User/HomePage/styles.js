@@ -37,10 +37,6 @@ export const CarouselBrands = styled.div`
   }
 `;
 
-export const ProductListContainer = styled.div`
-  margin-top: 20px;
-`;
-
 export const LoadingWrapper = styled.div`
   position: fixed;
   top: 0;
@@ -52,6 +48,12 @@ export const LoadingWrapper = styled.div`
   align-items: center;
 `;
 export const Container = styled.div`
+  .white_text {
+    color: #fff !important;
+  }
+  .text_shadow {
+    text-shadow: 3px 3px 3px #000;
+  }
   & .title_underline {
     position: relative;
     font-size: 28px;
@@ -67,6 +69,7 @@ export const Container = styled.div`
     word-break: break-all;
     letter-spacing: 3px;
     cursor: pointer;
+
     &::before {
       right: 50%;
       content: "";
@@ -114,13 +117,41 @@ export const ContainerTiltle = styled(Link)`
       `}
   }
 `;
+
+export const ProductListContainer = styled.div`
+  margin-top: 20px;
+  &:hover .title_underline {
+    &::after,
+    &::before {
+      width: 50%;
+    }
+  }
+`;
 export const BestSellerContainer = styled.div`
+  &:hover .title_underline {
+    &::after,
+    &::before {
+      width: 50%;
+    }
+  }
   margin-top: 20px;
 `;
 export const BrandsContainer = styled.div`
+  &:hover .title_underline {
+    &::after,
+    &::before {
+      width: 50%;
+    }
+  }
   margin-top: 20px;
 `;
 export const CollectionContainer = styled.div`
+  &:hover .title_underline {
+    &::after,
+    &::before {
+      width: 50%;
+    }
+  }
   margin: 20px 20px;
   & .collection_content {
     margin-top: 20px;
@@ -208,8 +239,14 @@ export const CollectionContainer = styled.div`
   }
 `;
 export const RegisterContainer = styled.div`
+  &:hover .title_underline {
+    &::after,
+    &::before {
+      width: 50%;
+    }
+  }
   margin: 20px 0;
-  background-image: url(https://runner-web.surge.sh/static/media/register.9de9ab57.png);
+  background-image: url(https://i0.wp.com/www.sneakerhdwallpapers.com/wallpapers/2018/air-jordan-11-retro-og-concords-wallpaper-preview.jpg);
   background-attachment: fixed;
   background-position: center center;
   background-size: cover;
@@ -222,49 +259,23 @@ export const RegisterContainer = styled.div`
     transform: translate(-50%, -50%);
     text-align: center;
     max-width: 528px;
-    h2 {
-      font-size: 40px;
-      line-height: 60px;
-      padding-bottom: 12px;
-      text-transform: uppercase;
-      color: rgb(255, 255, 255);
-      font-weight: 700;
-    }
+
     p {
-      font-size: 16px;
+      text-shadow: 3px 3px 3px #000;
+      font-size: 18px;
       line-height: 28px;
-      padding-bottom: 20px;
+      padding-top: 20px;
       color: rgb(255, 255, 255);
-    }
-    .register_form {
-      form {
-        display: flex;
-        input {
-          flex: 1 1 0%;
-          outline: none;
-          border: none;
-          padding: 20px;
-          font-family: Quicksand, sans-serif;
-          font-size: 14px;
-        }
-        button {
-          background-color: rgb(0, 0, 0);
-          width: 102px;
-          height: 62px;
-          color: rgb(255, 255, 255);
-          padding: 15px;
-          outline: none;
-          border: none;
-          cursor: pointer;
-          text-transform: uppercase;
-          word-break: break-all;
-          overflow: hidden;
-        }
-      }
     }
   }
 `;
 export const BlogContainer = styled.div`
+  &:hover .title_underline {
+    &::after,
+    &::before {
+      width: 50%;
+    }
+  }
   margin-top: 20px;
 `;
 
@@ -282,5 +293,3 @@ export const ShowMoreBtn = styled(Button)`
     color: #fff;
   }
 `;
-
-

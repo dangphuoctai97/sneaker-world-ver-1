@@ -13,8 +13,10 @@ import {
   getCategoryListAction,
   deleteProductAction,
 } from "../../../redux/actions";
+
+import LoadingWrapper from "../../../components/LoadingWrapper";
 import { ADMIN_TABLE_LIMIT } from "../../../constants/pagination";
-import { ROUTES } from "../../../constants/routes";
+import { ROUTES, TITLES } from "../../../constants/";
 import * as S from "./styles";
 
 const AdminProductListPage = () => {
@@ -25,7 +27,6 @@ const AdminProductListPage = () => {
   const { productDetail } = useSelector((state) => state.product);
 
   const navigate = useNavigate();
-  const { categoryList } = useSelector((state) => state.category);
 
   useEffect(() => {
     dispatch(
@@ -38,6 +39,7 @@ const AdminProductListPage = () => {
       })
     );
     dispatch(getCategoryListAction());
+    document.title = TITLES.ADMIN.PRODUCT_LIST;
   }, []);
 
   const handleChangePage = (page) => {
@@ -163,30 +165,34 @@ const AdminProductListPage = () => {
 
   return (
     <>
-      <S.Wrapper>
-        <S.TopWrapper>
-          <h2>Product List</h2>
-          <Button
-            type="primary"
-            onClick={() => navigate(ROUTES.ADMIN.CREATE_PRODUCT)}
-          >
-            Create Product
-          </Button>
-        </S.TopWrapper>
-        <Table
-          columns={tableColumn}
-          dataSource={tableData}
-          pagination={false}
-          style={{ flex: 1 }}
-        />
-        <Pagination
-          current={productList.meta.page}
-          pageSize={ADMIN_TABLE_LIMIT}
-          total={productList.meta.total}
-          onChange={(page) => handleChangePage(page)}
-          style={{ margin: "16px auto 0" }}
-        />
-      </S.Wrapper>
+      {productList.loading ? (
+        <LoadingWrapper />
+      ) : (
+        <S.Wrapper>
+          <S.TopWrapper>
+            <h2>Quản lý sản phẩm</h2>
+            <Button
+              type="primary"
+              onClick={() => navigate(ROUTES.ADMIN.CREATE_PRODUCT)}
+            >
+              Create Product
+            </Button>
+          </S.TopWrapper>
+          <Table
+            columns={tableColumn}
+            dataSource={tableData}
+            pagination={false}
+            style={{ flex: 1 }}
+          />
+          <Pagination
+            current={productList.meta.page}
+            pageSize={ADMIN_TABLE_LIMIT}
+            total={productList.meta.total}
+            onChange={(page) => handleChangePage(page)}
+            style={{ margin: "16px auto 0" }}
+          />
+        </S.Wrapper>
+      )}
     </>
   );
 };

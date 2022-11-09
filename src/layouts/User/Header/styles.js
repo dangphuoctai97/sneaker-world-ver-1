@@ -24,8 +24,6 @@ export const HeaderContent = styled.div`
   justify-content: space-between;
   flex-flow: row nowrap;
   height: 70px;
-  max-width: 1200px;
-  padding: 0 15px;
   margin: 0px auto;
   & .navBarLogo {
     & span {
@@ -44,7 +42,8 @@ export const HeaderContent = styled.div`
       cursor: pointer;
       & a {
         position: relative;
-        display: inline-block;
+        display: flex;
+        align-items: center;
         color: royalblue;
         overflow: hidden;
         background: linear-gradient(
@@ -64,6 +63,11 @@ export const HeaderContent = styled.div`
           background-position: 0 100%;
         }
       }
+    }
+    .logo_img {
+      margin-right: 10px;
+      height: 56px;
+      width: auto;
     }
   }
 `;
@@ -109,7 +113,7 @@ export const NavBar = styled.div`
         align-items: center;
         height: 70px;
         text-decoration: none;
-        font-size: 14px;
+        font-size: 18px;
         color: rgb(39, 39, 39);
         text-transform: uppercase;
         font-weight: 700;
