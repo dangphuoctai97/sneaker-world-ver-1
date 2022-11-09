@@ -3,9 +3,9 @@ import { useSelector } from "react-redux";
 import { Spin } from "antd";
 
 import Header from "../Admin/Header";
-import Footer from "../Footer";
 import Sidebar from "../Sidebar";
 
+import LoadingWrapper from "../../components/LoadingWrapper";
 import { ROUTES } from "../../constants/routes";
 import * as S from "./styles";
 
@@ -14,11 +14,7 @@ export default function AdminLayout() {
   const { userInfo } = useSelector((state) => state.user);
 
   if (accessToken && userInfo.loading) {
-    return (
-      <S.LoadingWrapper>
-        <Spin size="large" />
-      </S.LoadingWrapper>
-    );
+    return <LoadingWrapper />;
   } else if (userInfo.data.role !== "admin")
     return <Navigate to={ROUTES.USER.HOME} />;
   return (

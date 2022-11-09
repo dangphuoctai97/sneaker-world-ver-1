@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Form, Input, Button } from "antd";
 import { useNavigate } from "react-router-dom";
 
-import { ROUTES } from "../../constants/routes";
+import { ROUTES, TITLES } from "../../constants/";
 import { registerAction } from "../../redux/actions";
 
 import * as S from "./styles";
@@ -17,6 +17,7 @@ export default function RegisterPage() {
   const { registerData } = useSelector((state) => state.user);
 
   useEffect(() => {
+    document.title = TITLES.REGISTER;
     if (registerData.error) {
       registerForm.setFields([
         {

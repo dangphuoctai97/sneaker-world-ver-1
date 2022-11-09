@@ -4,16 +4,20 @@ export const ROUTES = {
   USER: {
     HOME: "/",
     ABOUT: "/about",
-    Blog: "/blog",
-    CHECKOUT: "/checkout",
+    BLOG_LIST: "/blogs",
+    BLOG_DETAILS: "/blogs/:id",
     PRODUCT_LIST: "/products",
     PRODUCT_DETAILS: "/products/:id",
+    CHECKOUT: "/checkout",
   },
   ADMIN: {
     DASHBOARD: "/admin/dashboard",
     PRODUCT_LIST: "/admin/products/",
     CREATE_PRODUCT: "/admin/products/create",
     UPDATE_PRODUCT: "/admin/products/:id/update",
-    USER_LIST: "admin/users",
+    BLOG_LIST: "/admin/blogs",
+    CREATE_BLOG: "/admin/blogs/create",
+    UPDATE_BLOG: "/admin/blogs/:id/update",
+    USER_MANAGE: "admin/users",
   },
 };

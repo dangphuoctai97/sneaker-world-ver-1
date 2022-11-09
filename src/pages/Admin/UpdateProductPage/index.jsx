@@ -17,7 +17,7 @@ import { PlusOutlined } from "@ant-design/icons";
 
 import * as S from "./styles";
 
-import { ROUTES } from "../../../constants/routes";
+import { ROUTES, TITLES } from "../../../constants/";
 import { SIZE_OPTIONS } from "../CreateProductPage/constants";
 import {
   getProductDetailAction,
@@ -55,6 +55,7 @@ const AdminUpdateProductPage = () => {
   useEffect(() => {
     dispatch(getProductDetailAction({ id: id }));
     dispatch(getCategoryListAction());
+    document.title = TITLES.ADMIN.UPDATE_PRODUCT;
   }, [id]);
 
   useEffect(() => {

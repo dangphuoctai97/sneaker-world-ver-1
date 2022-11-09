@@ -6,6 +6,7 @@ import { Spin } from "antd";
 import Header from "../User/Header";
 import Footer from "../Footer";
 
+import LoadingWrapper from "../../components/LoadingWrapper";
 import * as S from "./styles";
 
 export default function UserLayout() {
@@ -13,6 +14,7 @@ export default function UserLayout() {
 
   const accessToken = localStorage.getItem("accessToken");
   const { userInfo } = useSelector((state) => state.user);
+  const { productList } = useSelector((state) => state.product);
 
   const setHeader = () => {
     if (window.scrollY > 400) {
@@ -27,9 +29,7 @@ export default function UserLayout() {
     <>
       <Header sticky={sticky} setSticky={setSticky} />
       {accessToken && userInfo.loading ? (
-        <S.LoadingWrapper>
-          <Spin size="large" />
-        </S.LoadingWrapper>
+        <LoadingWrapper />
       ) : (
         <>
           <S.MainContainer sticky={sticky}>

@@ -1,9 +1,21 @@
-import React, { useState, useMemo } from "react";
-import { Button, Steps, Table, InputNumber } from "antd";
+import React, { useState, useMemo, useEffect } from "react";
+import {
+  Button,
+  Steps,
+  Table,
+  InputNumber,
+  Col,
+  Row,
+  Carousel,
+  Select,
+} from "antd";
 import { useNavigate, Link, generatePath } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
-import { ROUTES } from "../../../constants/routes";
+import TopWrapper from "../../../components/TopWrapper";
+import { BREADCRUMB } from "./constants";
+import { ROUTES, TITLES } from "../../../constants/";
+
 import {
   updateCartItemAction,
   deleteCartItemAction,
@@ -16,6 +28,10 @@ import Success from "./components/Success";
 import * as S from "./styles";
 
 const CheckoutPage = () => {
+  useEffect(() => {
+    document.title = TITLES.USER.CHECKOUT;
+  }, []);
+
   const [step, setStep] = useState(0);
 
   const renderCheckoutContent = useMemo(() => {
@@ -37,16 +53,19 @@ const CheckoutPage = () => {
   }, [step]);
 
   return (
-    <S.Wrapper>
-      <Steps current={step}>
-        <Steps.Step title="Cart" />
-        <Steps.Step title="Info" />
-        <Steps.Step title="Payment" />
-        <Steps.Step title="Success" />
-      </Steps>
+    <>
+      <TopWrapper breadcrumb={[...BREADCRUMB]} height={200} />
+      <S.Wrapper>
+        <Steps current={step}>
+          <Steps.Step title="Cart" />
+          <Steps.Step title="Info" />
+          <Steps.Step title="Payment" />
+          <Steps.Step title="Success" />
+        </Steps>
 
-      {renderCheckoutContent}
-    </S.Wrapper>
+        {renderCheckoutContent}
+      </S.Wrapper>
+    </>
   );
 };
 

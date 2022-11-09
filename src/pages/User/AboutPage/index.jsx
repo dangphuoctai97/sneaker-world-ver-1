@@ -1,7 +1,17 @@
+import { useEffect } from "react";
+
+import TopWrapper from "../../../components/TopWrapper";
+import { BREADCRUMB } from "./constants";
+import { ROUTES, TITLES } from "../../../constants/";
+
 export default function AboutPage() {
+  useEffect(() => {
+    document.title = TITLES.USER.ABOUT;
+  }, []);
   return (
-    <div>
-      <h1>AboutPage</h1>
-    </div>
+    <>
+      <TopWrapper breadcrumb={[...BREADCRUMB]} height={200} />
+      About page
+    </>
   );
 }

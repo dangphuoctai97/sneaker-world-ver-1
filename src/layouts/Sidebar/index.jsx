@@ -16,6 +16,7 @@ function Sidebar() {
           to={item.path}
           $active={pathname === item.path}
         >
+          {item.icon}
           {item.title}
         </S.SidebarItem>
       );
@@ -24,20 +25,7 @@ function Sidebar() {
 
   return (
     <S.SidebarContainer>
-      <S.SidebarContent>
-        {renderSidebarItems()}
-        <Button
-          onClick={() =>
-            navigate("/login", {
-              state: {
-                prevPath: pathname,
-              },
-            })
-          }
-        >
-          Đăng nhập
-        </Button>
-      </S.SidebarContent>
+      <S.SidebarContent>{renderSidebarItems()}</S.SidebarContent>
     </S.SidebarContainer>
   );
 }

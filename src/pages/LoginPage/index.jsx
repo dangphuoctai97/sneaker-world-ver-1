@@ -3,14 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { Form, Input, Button, Checkbox } from "antd";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 
-import { ROUTES } from "../../constants/routes";
+import { ROUTES, TITLES } from "../../constants/";
 import { loginAction } from "../../redux/actions";
 
 import * as S from "./styles";
 
 export default function LoginPage() {
   const [loginForm] = Form.useForm();
-  const { state } = useLocation();
 
   const navigate = useNavigate();
 
@@ -18,6 +17,7 @@ export default function LoginPage() {
   const { loginData } = useSelector((state) => state.user);
 
   useEffect(() => {
+    document.title = TITLES.LOGIN;
     if (loginData.error) {
       loginForm.setFields([
         {

@@ -7,7 +7,6 @@ import {
   Input,
   Space,
   Select,
-  Image,
   Button,
   Collapse,
   Checkbox,
@@ -22,11 +21,21 @@ import {
   getProductListAction,
   getCategoryListAction,
 } from "../../../redux/actions";
+
+import { VscFilterFilled } from "react-icons/vsc";
+import TopWrapper from "../../../components/TopWrapper";
 import { PRODUCT_LIST_LIMIT } from "../../../constants/pagination";
-import { ROUTES } from "../../../constants/routes";
+import {
+  MAX_PRICE,
+  MIN_PRICE,
+  STEP_PRICE,
+  PRICE_MARKS,
+  BREADCRUMB,
+} from "./constant";
+import LoadingWrapper from "../../../components/LoadingWrapper";
 import ProductItem from "../../../components/ProductItem";
-import { MAX_PRICE, MIN_PRICE, STEP_PRICE, PRICE_MARKS } from "./constant";
 import * as S from "./styles";
+import { ROUTES, TITLES } from "../../../constants/";
 
 const UserProductListPage = () => {
   const [filterParams, setFilterParams] = useState({
@@ -36,12 +45,14 @@ const UserProductListPage = () => {
     price: [MIN_PRICE, MAX_PRICE],
     order: undefined,
   });
+
   const dispatch = useDispatch();
   const { productList } = useSelector((state) => state.product);
 
   const { categoryList } = useSelector((state) => state.category);
 
   useEffect(() => {
+    document.title = TITLES.USER.PRODUCT_LIST;
     dispatch(
       getProductListAction({
         params: {
@@ -52,10 +63,6 @@ const UserProductListPage = () => {
     );
     dispatch(getCategoryListAction());
   }, []);
-
-  const calcDiscount = (currentPrice, discount) => {
-    return currentPrice - (currentPrice * discount) / 100;
-  };
 
   const handleShowMore = () => {
     dispatch(
@@ -239,121 +246,143 @@ const UserProductListPage = () => {
 
   return (
     <>
+      <TopWrapper breadcrumb={[...BREADCRUMB]} height={200} />
       <S.Wrapper>
-        <Row gutter={[16, 16]}>
-          <Col span={6}>
-            <S.CustomCard
-              size="small"
-              style={{
-                position: "sticky",
-                position: "-webkit-sticky",
-                top: "0",
-              }}
-            >
-              <p style={{ fontSize: "16px", borderBottom: "3px solid black" }}>
-                Filter
-              </p>
-              <Space wrap style={{ marginBottom: 16 }}>
-                {renderFilterCategory()}
-                {renderFilterGender()}
-                {renderFilterPrice()}
-                {filterParams.keyword && (
-                  <Tag
-                    color="royalblue"
-                    closable
-                    onClose={() => handleClearKeywordFilter()}
-                  >
-                    Keyword: {filterParams.keyword}
-                  </Tag>
-                )}
-              </Space>
-              <Collapse expandIconPosition="end">
-                <Collapse.Panel
-                  style={{ position: "relative" }}
-                  header={"Thương hiệu"}
-                >
-                  <Checkbox.Group
-                    onChange={(value) => handleFilter("categoryId", value)}
-                    value={filterParams.categoryId}
-                  >
-                    <Row>{renderCategoryOptions()}</Row>
-                  </Checkbox.Group>
-                </Collapse.Panel>
-                <Collapse.Panel header={"Giới tính"}>
-                  <Radio.Group
-                    onChange={(e) => handleFilter("gender", e.target.value)}
-                    value={filterParams.gender}
-                  >
-                    <Space
-                      direction="vertical"
-                      style={{
-                        display: "flex",
-                        rowGap: 0,
-                      }}
-                    >
-                      <Radio value={1}>Nam</Radio>
-                      <Radio value={2}>Nữ</Radio>
-                    </Space>
-                  </Radio.Group>
-                </Collapse.Panel>
-                <Collapse.Panel header={"Giá"}>
-                  <Slider
-                    range
-                    min={MIN_PRICE}
-                    max={MAX_PRICE}
-                    step={STEP_PRICE}
-                    defaultValue={[MIN_PRICE, MAX_PRICE]}
-                    marks={PRICE_MARKS}
-                    onChange={(value) => handleFilter("price", value)}
-                  />
-                </Collapse.Panel>
-              </Collapse>
-            </S.CustomCard>
-          </Col>
-          <Col span={18}>
-            <Row style={{ marginBottom: "16px" }} gutter={[16, 16]}>
-              <Col span={18}>
-                <Input.Search
-                  placeholder="input search text"
-                  enterButton
-                  onChange={(e) => handleFilter("keyword", e.target.value)}
-                  value={filterParams.keyword}
-                />
-              </Col>
+        <Row>
+          <Col span={2} />
+          <Col span={20}>
+            <Row gutter={[16, 16]}>
               <Col span={6}>
-                <Select
-                  defaultValue={{
-                    label: "Sắp xếp theo...",
+                <S.CustomCard
+                  size="small"
+                  style={{
+                    position: "sticky",
+                    position: "-webkit-sticky",
+                    top: "0",
                   }}
-                  style={{ width: "100%" }}
-                  onChange={(value) => handleFilter("order", value)}
                 >
-                  <Select.Option value={"price.asc"}>
-                    Giá từ thấp đến cao
-                  </Select.Option>
-                  <Select.Option value={"price.desc"}>
-                    Giá từ cao đến thấp
-                  </Select.Option>
-                  <Select.Option value={"id.desc"}>Mới nhất</Select.Option>
-                </Select>
+                  <p
+                    style={{
+                      fontSize: "16px",
+                      borderBottom: "3px solid black",
+                    }}
+                  >
+                    <VscFilterFilled
+                      style={{
+                        margin: "-5 5",
+                        color: "royalblue",
+                        fontSize: 25,
+                      }}
+                    />
+                    Filter
+                  </p>
+                  <Space wrap style={{ marginBottom: 16 }}>
+                    {renderFilterCategory()}
+                    {renderFilterGender()}
+                    {renderFilterPrice()}
+                    {filterParams.keyword && (
+                      <Tag
+                        color="royalblue"
+                        closable
+                        onClose={() => handleClearKeywordFilter()}
+                      >
+                        Keyword: {filterParams.keyword}
+                      </Tag>
+                    )}
+                  </Space>
+                  <Collapse expandIconPosition="end">
+                    <Collapse.Panel
+                      style={{ position: "relative" }}
+                      header={"Thương hiệu"}
+                    >
+                      <Checkbox.Group
+                        onChange={(value) => handleFilter("categoryId", value)}
+                        value={filterParams.categoryId}
+                      >
+                        <Row>{renderCategoryOptions()}</Row>
+                      </Checkbox.Group>
+                    </Collapse.Panel>
+                    <Collapse.Panel header={"Giới tính"}>
+                      <Radio.Group
+                        onChange={(e) => handleFilter("gender", e.target.value)}
+                        value={filterParams.gender}
+                      >
+                        <Space
+                          direction="vertical"
+                          style={{
+                            display: "flex",
+                            rowGap: 0,
+                          }}
+                        >
+                          <Radio value={1}>Nam</Radio>
+                          <Radio value={2}>Nữ</Radio>
+                        </Space>
+                      </Radio.Group>
+                    </Collapse.Panel>
+                    <Collapse.Panel header={"Giá"}>
+                      <Slider
+                        range
+                        min={MIN_PRICE}
+                        max={MAX_PRICE}
+                        step={STEP_PRICE}
+                        defaultValue={[MIN_PRICE, MAX_PRICE]}
+                        marks={PRICE_MARKS}
+                        onChange={(value) => handleFilter("price", value)}
+                      />
+                    </Collapse.Panel>
+                  </Collapse>
+                </S.CustomCard>
+              </Col>
+              <Col span={18}>
+                <Row style={{ marginBottom: "16px" }} gutter={[16, 16]}>
+                  <Col span={18}>
+                    <Input.Search
+                      placeholder="input search text"
+                      enterButton
+                      onChange={(e) => handleFilter("keyword", e.target.value)}
+                      value={filterParams.keyword}
+                    />
+                  </Col>
+                  <Col span={6}>
+                    <Select
+                      defaultValue={{
+                        label: "Sắp xếp theo...",
+                      }}
+                      style={{ width: "100%" }}
+                      onChange={(value) => handleFilter("order", value)}
+                    >
+                      <Select.Option value={"price.asc"}>
+                        Giá từ thấp đến cao
+                      </Select.Option>
+                      <Select.Option value={"price.desc"}>
+                        Giá từ cao đến thấp
+                      </Select.Option>
+                      <Select.Option value={"id.desc"}>Mới nhất</Select.Option>
+                    </Select>
+                  </Col>
+                </Row>
+                <h3 style={{ color: "royalblue" }}>
+                  Có {productList.meta.total} sản phẩm
+                </h3>
+                {productList.loading ? (
+                  <LoadingWrapper />
+                ) : (
+                  <Row gutter={[16, 16]}>{renderProductList()}</Row>
+                )}
+                {productList.data.length !== productList.meta.total && (
+                  <Row justify="center">
+                    <Button
+                      style={{ marginTop: 16 }}
+                      onClick={() => handleShowMore()}
+                    >
+                      Xem thêm
+                    </Button>
+                  </Row>
+                )}
               </Col>
             </Row>
-            <h3 style={{ color: "royalblue" }}>
-              Có {productList.meta.total} sản phẩm
-            </h3>
-
-            <Row gutter={[16, 16]}>{renderProductList()}</Row>
-            {productList.data.length !== productList.meta.total && (
-              <Row justify="center">
-                <Button
-                  style={{ marginTop: 16 }}
-                  onClick={() => handleShowMore()}
-                >
-                  Hiện thêm
-                </Button>
-              </Row>
-            )}
           </Col>
+          <Col span={2} />
         </Row>
       </S.Wrapper>
     </>
