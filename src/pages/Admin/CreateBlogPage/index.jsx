@@ -133,7 +133,7 @@ const AdminCreateBlogPage = () => {
                     marginTop: 8,
                   }}
                 >
-                  Upload
+                  Tải ảnh lên
                 </div>
               </div>
             </Upload>

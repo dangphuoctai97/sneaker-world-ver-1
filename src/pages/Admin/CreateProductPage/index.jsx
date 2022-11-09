@@ -13,6 +13,7 @@ import {
   Upload,
 } from "antd";
 import slug from "slug";
+import ReactQuill from "react-quill";
 import { PlusOutlined } from "@ant-design/icons";
 
 import {
@@ -23,6 +24,7 @@ import {
 import { SIZE_OPTIONS } from "./constants";
 import { ROUTES, TITLES } from "../../../constants/";
 import {
+  onPreview,
   convertBase64ToImage,
   convertImageToBase64,
 } from "../../../utils/file";
@@ -31,7 +33,7 @@ import * as S from "./styles";
 const AdminCreateProductPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const [createForm] = Form.useForm();
   const { categoryList } = useSelector((state) => state.category);
 
   useEffect(() => {
@@ -59,7 +61,8 @@ const AdminCreateProductPage = () => {
       await newImages.push({
         name: images[i].name,
         type: images[i].type,
-        path: imgBase64,
+        thumbUrl: images[i].thumbUrl,
+        url: imgBase64,
       });
     }
     await dispatch(
@@ -76,7 +79,18 @@ const AdminCreateProductPage = () => {
       })
     );
   };
-
+  const initialValues = {
+    name: "",
+    price: undefined,
+    gender: undefined,
+    size: undefined,
+    discount: undefined,
+    categoryId: undefined,
+    amount: undefined,
+    isNew: undefined,
+    content: "",
+    images: [],
+  };
   return (
     <>
       <h2>Create product form</h2>
@@ -86,6 +100,7 @@ const AdminCreateProductPage = () => {
           layout="vertical"
           labelCol={{ span: 2 }}
           onFinish={(values) => handleCreateProduct(values)}
+          initialValues={initialValues}
         >
           <Form.Item
             label="Product name"
@@ -183,13 +198,8 @@ const AdminCreateProductPage = () => {
             />
           </Form.Item>
           <Form.Item
-            label="Images"
-            name="images"
-            valuePropName="fileList"
-            getValueFromEvent={(e) => {
-              if (Array.isArray(e)) return e;
-              return e?.fileList;
-            }}
+            label="Nội dung"
+            name="content"
             rules={[
               {
                 required: true,
@@ -197,7 +207,33 @@ const AdminCreateProductPage = () => {
               },
             ]}
           >
-            <Upload listType="picture-card" beforeUpload={Upload.LIST_IGNORE}>
+            <ReactQuill
+              theme="snow"
+              onChange={(value) => {
+                createForm.setFieldsValue({ content: value });
+              }}
+            />
+          </Form.Item>
+          <Form.Item
+            label="Images"
+            name="images"
+            valuePropName="fileList"
+            getValueFromEvent={(e) => {
+              if (Array.isArray(e)) return e;
+              return e?.fileList;
+            }}
+            // rules={[
+            //   {
+            //     required: true,
+            //     message: "This field is required!",
+            //   },
+            // ]}
+          >
+            <Upload
+              onPreview={onPreview}
+              listType="picture-card"
+              beforeUpload={Upload.LIST_IGNORE}
+            >
               <div>
                 <PlusOutlined />
                 <div style={{ marginTop: 8 }}>Tải ảnh lên</div>

@@ -1,5 +1,5 @@
-import React, { Fragment, useEffect, useState, } from "react";
-import { Col, Row, Carousel, Badge, } from "antd";
+import React, { Fragment, useEffect, useState } from "react";
+import { Col, Row, Carousel, Badge } from "antd";
 import { useNavigate, Link, generatePath } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -28,6 +28,7 @@ const UserHomePage = () => {
         params: {
           page: 1,
           limit: HOMEPAGE_PRODUCT_LIST_LIMIT,
+          order: "id.desc",
         },
       })
     );

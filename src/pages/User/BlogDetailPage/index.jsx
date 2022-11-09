@@ -30,6 +30,7 @@ const BlogDetailPage = () => {
       getBlogListFeatureAction({
         params: {
           page: 1,
+          order: "id.desc",
         },
       })
     );

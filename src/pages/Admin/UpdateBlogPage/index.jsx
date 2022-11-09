@@ -29,6 +29,11 @@ const AdminUpdateBlogPage = () => {
   const [updateForm] = Form.useForm();
 
   const { blogDetail } = useSelector((state) => state.blog);
+  console.log(
+    "🚀 ~ file: index.jsx ~ line 32 ~ AdminUpdateBlogPage ~ blogDetail",
+    blogDetail
+  );
+  const { userInfo } = useSelector((state) => state.user);
 
   useEffect(() => {
     dispatch(getBlogDetailAction({ id: id }));
@@ -77,7 +82,6 @@ const AdminUpdateBlogPage = () => {
 
   const handleUpdateBlog = async (values) => {
     const { images, ...blogValues } = values;
-
     const newImages = [];
     for (let i = 0; i < images.length; i++) {
       const imgBase64 = await convertImageToBase64(images[i].originFileObj);
@@ -92,8 +96,11 @@ const AdminUpdateBlogPage = () => {
     dispatch(
       updateBlogAction({
         id: id,
-        values: blogValues,
-        slug: slug(values.title),
+        values: {
+          ...blogValues,
+          composer: userInfo.data.fullName,
+          slug: slug(values.title),
+        },
         images: newImages,
         initialImageIds: blogDetail.data.images.map((item) => item.id),
         callback: {

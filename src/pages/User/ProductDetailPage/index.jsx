@@ -21,8 +21,9 @@ import {
   addToCartAction,
 } from "../../../redux/actions";
 import SyncSlider from "../../../components/SyncSlider";
+import TopWrapper from "../../../components/TopWrapper";
 import { ROUTES, TITLES } from "../../../constants";
-import { policyList, TAB_ITEMS } from "./constants";
+import { policyList, TAB_ITEMS, BREADCRUMB } from "./constants";
 import * as S from "./styles";
 import { useMemo } from "react";
 
@@ -100,13 +101,22 @@ const ProductDetailPage = () => {
 
   return (
     <>
+      <TopWrapper
+        breadcrumb={[
+          ...BREADCRUMB,
+          {
+            title: productDetail.data.name,
+          },
+        ]}
+        height={200}
+      />
       <Row gutter={[16, 16]}>
         <Col span={2}></Col>
         <Col span={20}>
-          <Breadcrumb>
+          {/* <Breadcrumb>
             <Breadcrumb.Item href={ROUTES.USER.HOME}>Trang chủ</Breadcrumb.Item>
             <Breadcrumb.Item>Danh sách sản phẩm</Breadcrumb.Item>
-          </Breadcrumb>
+          </Breadcrumb> */}
           <Row gutter={[16, 16]}>
             <Col span={12}>
               <Card>

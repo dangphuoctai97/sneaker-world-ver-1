@@ -14,7 +14,8 @@ import {
   Upload,
 } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
-
+import slug from "slug";
+import ReactQuill from "react-quill";
 import * as S from "./styles";
 
 import { ROUTES, TITLES } from "../../../constants/";
@@ -39,6 +40,7 @@ const AdminUpdateProductPage = () => {
   const [updateForm] = Form.useForm();
 
   const { productDetail } = useSelector((state) => state.product);
+
   const { categoryList } = useSelector((state) => state.category);
 
   const initialValues = {
@@ -50,6 +52,7 @@ const AdminUpdateProductPage = () => {
     categoryId: productDetail.data.categoryId,
     amount: productDetail.data.amount,
     isNew: productDetail.data.isNew,
+    content: productDetail.data.content,
   };
 
   useEffect(() => {
@@ -85,7 +88,10 @@ const AdminUpdateProductPage = () => {
     dispatch(
       updateProductAction({
         id: id,
-        values: productValues,
+        values: {
+          ...productValues,
+          slug: slug(values.name),
+        },
         images: newImages,
         initialImageIds: productDetail.data.images.map((item) => item.id),
         order: "id.desc",
@@ -94,7 +100,6 @@ const AdminUpdateProductPage = () => {
         },
       })
     );
-    navigate(ROUTES.ADMIN.PRODUCT_LIST);
   };
 
   const setImagesField = async (images) => {
@@ -102,7 +107,7 @@ const AdminUpdateProductPage = () => {
 
     for (let i = 0; i < images.length; i++) {
       const imageFile = await convertBase64ToImage(
-        images[i].path,
+        images[i].url,
         images[i].name,
         images[i].type
       );
@@ -111,6 +116,7 @@ const AdminUpdateProductPage = () => {
         lastModified: imageFile.lastModified,
         lastModifiedDate: imageFile.lastModifiedDate,
         name: imageFile.name,
+        size: imageFile.size,
         type: imageFile.type,
         thumbUrl: images[i].thumbUrl,
         originFileObj: imageFile,
@@ -244,6 +250,12 @@ const AdminUpdateProductPage = () => {
                 parser={(value) => value.replace("%", "")}
               />
             </Form.Item>
+            <Form.Item label="Product content" name="content">
+              <ReactQuill
+                theme="snow"
+                onChange={(value) => updateForm.setFieldValue("content", value)}
+              />
+            </Form.Item>
             <Form.Item
               label="Images"
               name="images"
@@ -252,12 +264,12 @@ const AdminUpdateProductPage = () => {
                 if (Array.isArray(e)) return e;
                 return e?.fileList;
               }}
-              rules={[
-                {
-                  required: true,
-                  message: "This field is required!",
-                },
-              ]}
+              // rules={[
+              //   {
+              //     required: true,
+              //     message: "This field is required!",
+              //   },
+              // ]}
             >
               <Upload listType="picture-card" beforeUpload={Upload.LIST_IGNORE}>
                 <div>
