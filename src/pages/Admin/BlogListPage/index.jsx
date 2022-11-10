@@ -1,5 +1,14 @@
 import { useEffect } from "react";
-import { Button, Table, Space, Pagination, Select, Row, Col } from "antd";
+import {
+  Button,
+  Table,
+  Space,
+  Pagination,
+  Select,
+  Row,
+  Col,
+  Image,
+} from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import moment from "moment";
 import { generatePath, useNavigate } from "react-router-dom";
@@ -64,20 +73,14 @@ const AdminBlogListPage = () => {
       sorter: (a, b) => a.id - b.id,
       render: (_, record) => {
         return (
-          <Space>
-            <h4
-              style={{
-                maxWidth: 200,
-                width: "fit-content",
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-                WebkitLineClamp: 2,
-                WebkitBoxOrient: "vertical",
-                wordBreak: "break-word",
-              }}
-            >
-              {record.id}
-            </h4>
+          <Space
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+              width: 50,
+            }}
+          >
+            <h4>{record.id}</h4>
           </Space>
         );
       },
@@ -89,6 +92,15 @@ const AdminBlogListPage = () => {
       render: (_, record) => {
         return (
           <Space>
+            <Image
+              src={record.images[0]?.url}
+              alt={record.images[0]?.name}
+              style={{
+                width: "80px",
+                height: "auto",
+                borderRadius: "10px",
+              }}
+            />
             <h4
               style={{
                 maxWidth: 200,

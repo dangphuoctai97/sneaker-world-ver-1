@@ -1,19 +1,13 @@
-import { useEffect } from "react";
-import { Button, Table, Space, Pagination, Avatar, Tag } from "antd";
+import { useEffect, useState } from "react";
+import { Button, Table, Space, Pagination, Tag, Image } from "antd";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  generatePath,
-  useNavigate,
-  useLocation,
-  useParams,
-} from "react-router-dom";
+import { generatePath, useNavigate } from "react-router-dom";
 
 import {
   getProductListAction,
   getCategoryListAction,
   deleteProductAction,
 } from "../../../redux/actions";
-
 import LoadingWrapper from "../../../components/LoadingWrapper";
 import { ADMIN_TABLE_LIMIT } from "../../../constants/pagination";
 import { ROUTES, TITLES } from "../../../constants/";
@@ -21,10 +15,8 @@ import * as S from "./styles";
 
 const AdminProductListPage = () => {
   const dispatch = useDispatch();
-  const param = useParams();
-
+  const [visible, setVisible] = useState(false);
   const { productList } = useSelector((state) => state.product);
-  const { productDetail } = useSelector((state) => state.product);
 
   const navigate = useNavigate();
 
@@ -66,18 +58,110 @@ const AdminProductListPage = () => {
     );
   };
 
+  const tableData = productList.data.map((item) => ({
+    ...item,
+    key: item.id,
+  }));
+
   const tableColumn = [
     {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
+      title: "Thứ tự",
+      dataIndex: "stt",
+      key: "stt",
+      sorter: (a, b) => a.id - b.id,
       render: (_, record) => {
         return (
+          <Space
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+              width: 50,
+            }}
+          >
+            <h4>{record.id}</h4>
+          </Space>
+        );
+      },
+    },
+    {
+      title: "Name",
+      dataIndex: "Name",
+      key: "Name",
+      render: (_, record) => {
+        console.log(
+          "🚀 ~ file: index.jsx ~ line 72 ~ AdminProductListPage ~ record",
+          record
+        );
+        return (
           <Space>
-            <Avatar />
+            <Image
+              // preview={{
+              //   visible: false,
+              // }}
+              // onClick={() => setVisible(true)}
+              src={record.images[0]?.url}
+              alt={record.images[0]?.name}
+              style={{
+                width: "80px",
+                height: "auto",
+                borderRadius: "10px",
+              }}
+            />
+            {/* <div
+              style={{
+                display: "none",
+              }}
+            >
+              <Image.PreviewGroup
+                preview={{
+                  visible,
+                  onVisibleChange: (vis) => setVisible(vis),
+                }}
+              >
+                <Image
+                  src={record.images[0]?.url}
+                  alt={record.images[0]?.name}
+                />
+                <Image
+                  src={record.images[1]?.url}
+                  alt={record.images[1]?.name}
+                />
+                <Image
+                  src={record.images[2]?.url}
+                  alt={record.images[2]?.name}
+                />
+                <Image
+                  src={record.images[3]?.url}
+                  alt={record.images[3]?.name}
+                />
+                <Image
+                  src={record.images[4]?.url}
+                  alt={record.images[4]?.name}
+                />
+              </Image.PreviewGroup>
+            </div> */}
             <h4>{record.name}</h4>
           </Space>
         );
+      },
+    },
+    {
+      title: "",
+      dataIndex: "images",
+      key: "images",
+      render: (images) => {
+        <>
+          {images.map((item) => {
+            return (
+              <img
+                key={item.id}
+                src={`data:image/jpeg;base64,${item.url}`}
+                alt=""
+                style={{ height: 200, width: 200 }}
+              />
+            );
+          })}
+        </>;
       },
     },
     {
@@ -161,8 +245,6 @@ const AdminProductListPage = () => {
     },
   ];
 
-  const tableData = productList.data.map((item) => ({ ...item, key: item.id }));
-
   return (
     <>
       {productList.loading ? (
@@ -179,6 +261,7 @@ const AdminProductListPage = () => {
             </Button>
           </S.TopWrapper>
           <Table
+            rowKey="id"
             columns={tableColumn}
             dataSource={tableData}
             pagination={false}

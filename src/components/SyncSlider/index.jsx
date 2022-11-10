@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Image, Space, Row, Col } from "antd";
 import Slider from "react-slick";
-import { BsArrowRightCircle, BsArrowLeftCircle } from "react-icons/bs";
+import { SlArrowLeft, SlArrowRight } from "react-icons/sl";
 import { SLIDER_IMAGE } from "./constant";
 
 const SyncSlider = ({ images }) => {
@@ -27,7 +27,7 @@ const SyncSlider = ({ images }) => {
   const SampleNextArrow = (props) => {
     const { className, style, onClick } = props;
     return (
-      <BsArrowRightCircle
+      <SlArrowRight
         style={{
           ...style,
           position: "absolute",
@@ -45,7 +45,7 @@ const SyncSlider = ({ images }) => {
   const SamplePrevArrow = (props) => {
     const { className, style, onClick } = props;
     return (
-      <BsArrowLeftCircle
+      <SlArrowLeft
         style={{
           ...style,
           position: "absolute",

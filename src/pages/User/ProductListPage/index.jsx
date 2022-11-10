@@ -15,7 +15,7 @@ import {
   Slider,
 } from "antd";
 import { useSelector, useDispatch } from "react-redux";
-import { generatePath, Link } from "react-router-dom";
+import { generatePath, Link, useLocation } from "react-router-dom";
 
 import {
   getProductListAction,
@@ -48,21 +48,34 @@ const UserProductListPage = () => {
 
   const dispatch = useDispatch();
   const { productList } = useSelector((state) => state.product);
-
+  const { state } = useLocation();
   const { categoryList } = useSelector((state) => state.category);
 
   useEffect(() => {
     document.title = TITLES.USER.PRODUCT_LIST;
-    dispatch(
-      getProductListAction({
-        params: {
-          page: 1,
-          limit: PRODUCT_LIST_LIMIT,
-        },
-      })
-    );
+    if (state?.categoryId?.length) {
+      dispatch(
+        getProductListAction({
+          params: {
+            categoryId: state.categoryId,
+            page: 1,
+            limit: PRODUCT_LIST_LIMIT,
+          },
+        })
+      );
+      setFilterParams({ ...filterParams, categoryId: state.categoryId });
+    } else {
+      dispatch(
+        getProductListAction({
+          params: {
+            page: 1,
+            limit: PRODUCT_LIST_LIMIT,
+          },
+        })
+      );
+    }
     dispatch(getCategoryListAction());
-  }, []);
+  }, [state]);
 
   const handleShowMore = () => {
     dispatch(
@@ -145,20 +158,39 @@ const UserProductListPage = () => {
     );
   };
 
+  const handleClearPriceFilter = () => {
+    setFilterParams({
+      ...filterParams,
+      price: [MIN_PRICE, MAX_PRICE],
+    });
+    dispatch(
+      getProductListAction({
+        params: {
+          ...filterParams,
+          price: [MIN_PRICE, MAX_PRICE],
+          page: 1,
+          limit: PRODUCT_LIST_LIMIT,
+        },
+      })
+    );
+  };
+
   const renderFilterCategory = () => {
     return filterParams.categoryId.map((filterItem) => {
       const categoryData = categoryList.data.find(
         (categoryItem) => categoryItem.id === filterItem
       );
+      if (!categoryData) return null;
       return (
-        <Tag
+        <S.FilterTag
+          style={{ marginTop: 10 }}
           color="royalblue"
           key={filterItem}
           closable
-          onClose={() => handleClearCategoryFilter()}
+          onClose={() => handleClearCategoryFilter(filterItem)}
         >
           {categoryData.name}
-        </Tag>
+        </S.FilterTag>
       );
     });
   };
@@ -167,24 +199,24 @@ const UserProductListPage = () => {
     if (filterParams.gender === undefined) return <></>;
     else if (filterParams.gender === 1)
       return (
-        <Tag
+        <S.FilterTag
           color="royalblue"
           key={filterParams.gender}
           closable
           onClose={() => handleClearGenderFilter(filterParams.gender)}
         >
           Nam
-        </Tag>
+        </S.FilterTag>
       );
     return (
-      <Tag
+      <S.FilterTag
         color="royalblue"
         key={filterParams.gender}
         closable
         onClose={() => handleClearGenderFilter(filterParams.gender)}
       >
         Nữ
-      </Tag>
+      </S.FilterTag>
     );
   };
 
@@ -195,14 +227,14 @@ const UserProductListPage = () => {
     )
       return null;
     return (
-      <Tag
+      <S.FilterTag
         color="royalblue"
         key={filterParams.price}
         closable
-        onClose={() => null}
+        onClose={() => handleClearPriceFilter(filterParams.price)}
       >
         {`Từ ${filterParams.price[0].toLocaleString()} VND - ${filterParams.price[1].toLocaleString()} VND`}
-      </Tag>
+      </S.FilterTag>
     );
   };
 
@@ -264,7 +296,7 @@ const UserProductListPage = () => {
                   <p
                     style={{
                       fontSize: "16px",
-                      borderBottom: "3px solid black",
+                      borderBottom: "3px solid royalblue",
                     }}
                   >
                     <VscFilterFilled
@@ -281,13 +313,13 @@ const UserProductListPage = () => {
                     {renderFilterGender()}
                     {renderFilterPrice()}
                     {filterParams.keyword && (
-                      <Tag
+                      <S.FilterTag
                         color="royalblue"
                         closable
                         onClose={() => handleClearKeywordFilter()}
                       >
                         Keyword: {filterParams.keyword}
-                      </Tag>
+                      </S.FilterTag>
                     )}
                   </Space>
                   <Collapse expandIconPosition="end">
@@ -320,12 +352,13 @@ const UserProductListPage = () => {
                       </Radio.Group>
                     </Collapse.Panel>
                     <Collapse.Panel header={"Giá"}>
-                      <Slider
+                      <S.PriceSlider
                         range
                         min={MIN_PRICE}
                         max={MAX_PRICE}
                         step={STEP_PRICE}
-                        defaultValue={[MIN_PRICE, MAX_PRICE]}
+                        value={filterParams.price}
+                        defaultValue={[(MIN_PRICE, MAX_PRICE)]}
                         marks={PRICE_MARKS}
                         onChange={(value) => handleFilter("price", value)}
                       />
@@ -361,23 +394,25 @@ const UserProductListPage = () => {
                     </Select>
                   </Col>
                 </Row>
-                <h3 style={{ color: "royalblue" }}>
-                  Có {productList.meta.total} sản phẩm
-                </h3>
                 {productList.loading ? (
                   <LoadingWrapper />
                 ) : (
-                  <Row gutter={[16, 16]}>{renderProductList()}</Row>
-                )}
-                {productList.data.length !== productList.meta.total && (
-                  <Row justify="center">
-                    <Button
-                      style={{ marginTop: 16 }}
-                      onClick={() => handleShowMore()}
-                    >
-                      Xem thêm
-                    </Button>
-                  </Row>
+                  <>
+                    <h3 style={{ color: "royalblue" }}>
+                      Có {productList.meta.total} sản phẩm
+                    </h3>
+                    <Row gutter={[16, 16]}>{renderProductList()}</Row>
+                    {productList.data.length !== productList.meta.total && (
+                      <Row justify="center">
+                        <Button
+                          style={{ marginTop: 16 }}
+                          onClick={() => handleShowMore()}
+                        >
+                          Xem thêm
+                        </Button>
+                      </Row>
+                    )}
+                  </>
                 )}
               </Col>
             </Row>

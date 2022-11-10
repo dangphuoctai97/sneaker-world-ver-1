@@ -1,5 +1,5 @@
 import React, { useMemo, useEffect, useState } from "react";
-
+import { Tooltip, Image, Tag } from "antd";
 import moment from "moment";
 
 import * as S from "./styles";
@@ -9,7 +9,7 @@ const BlogItem = ({ item }) => {
     if (!item.images?.length) return null;
     return item.images?.map((item) => {
       return (
-        <img
+        <Image
           className="blog_list_img"
           key={item.blogId}
           src={item.url}
@@ -35,6 +35,38 @@ const BlogItem = ({ item }) => {
         <S.ShowMoreBtn>Xem thêm</S.ShowMoreBtn>
       </S.BlogListContent>
     </S.BlogListWrapper>
+  );
+};
+
+const BlogItemHomePage = ({ item }) => {
+  const renderBlogImages = useMemo(() => {
+    if (!item.images?.length) return null;
+    return item.images?.map((item) => {
+      return (
+        <img
+          className="blog_list_img"
+          key={item.blogId}
+          src={item.url}
+          alt={item.name}
+        />
+      );
+    });
+  }, [item]);
+
+  return (
+    <S.BlogListHomePageWrapper>
+      {renderBlogImages}
+      <S.BlogListHomePageContent key={item.id}>
+        <Tooltip className="blog_name" placement="topLeft" title={item.title}>
+          <h2>{item.title}</h2>
+        </Tooltip>
+        <time>Khoảng {moment(item.createdAt).fromNow()}</time>
+        <div
+          className="blog_content"
+          dangerouslySetInnerHTML={{ __html: item.content }}
+        />
+      </S.BlogListHomePageContent>
+    </S.BlogListHomePageWrapper>
   );
 };
 
@@ -95,4 +127,4 @@ const RelatedBlogDetailItem = ({ item }) => {
   );
 };
 
-export { RelatedBlogItem, BlogItem, RelatedBlogDetailItem };
+export { BlogItem, BlogItemHomePage, RelatedBlogItem, RelatedBlogDetailItem };

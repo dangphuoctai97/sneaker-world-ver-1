@@ -9,7 +9,7 @@ export const BlogListContainer = styled.div`
   }
 `;
 
-export const BlogListContent = styled.div`
+export const BlogDetailContent = styled.div`
   display: flex;
   flex-direction: column;
   -webkit-box-align: center;

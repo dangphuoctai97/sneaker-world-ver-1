@@ -1,3 +1,4 @@
+import React, { useMemo } from "react";
 import { Tooltip, Image, Tag } from "antd";
 
 import * as S from "./styles";
@@ -6,13 +7,23 @@ const ProductItem = ({ item }) => {
   const calcDiscount = (currentPrice, discount) => {
     return currentPrice - (currentPrice * discount) / 100;
   };
-
+  const renderProductListImages = useMemo(() => {
+    if (!item.images?.length) return null;
+    return item.images?.slice(0, 1).map((item) => {
+      return (
+        <Image
+          className="product_list_img"
+          preview={false}
+          key={item.id}
+          src={item.url}
+          alt={item.name}
+        />
+      );
+    });
+  }, [item]);
   return (
     <S.ProductContainer>
-      <Image
-        preview={false}
-        src="https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_2000,h_2000/global/194453/07/sv03/fnd/PNA/fmt/png/Deviate-NITRO-Women's-Running-Shoes"
-      ></Image>
+      {renderProductListImages}
       <S.ProductContent>
         <Tooltip className="product_name" placement="topLeft" title={item.name}>
           <h3>{item.name}</h3>

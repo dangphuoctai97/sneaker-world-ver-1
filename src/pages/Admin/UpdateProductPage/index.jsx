@@ -27,6 +27,7 @@ import {
   clearProductDetailAction,
 } from "../../../redux/actions";
 import {
+  onPreview,
   convertBase64ToImage,
   convertImageToBase64,
 } from "../../../utils/file";
@@ -271,7 +272,11 @@ const AdminUpdateProductPage = () => {
               //   },
               // ]}
             >
-              <Upload listType="picture-card" beforeUpload={Upload.LIST_IGNORE}>
+              <Upload
+                onPreview={onPreview}
+                listType="picture-card"
+                beforeUpload={Upload.LIST_IGNORE}
+              >
                 <div>
                   <PlusOutlined />
                   <div style={{ marginTop: 8 }}>Tải ảnh lên</div>

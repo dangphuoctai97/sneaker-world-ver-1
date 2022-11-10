@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useMemo } from "react";
 import { Col, Row, Carousel, Badge } from "antd";
 import { useNavigate, Link, generatePath } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -6,17 +6,23 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   getProductListAction,
   getCategoryListAction,
+  getBlogListAction,
 } from "../../../redux/actions";
 
 import BrandSlider from "../../../components/BrandSlider";
 import ProductItem from "../../../components/ProductItem";
 import LoadingWrapper from "../../../components/LoadingWrapper";
-import { HOMEPAGE_PRODUCT_LIST_LIMIT } from "../../../constants/pagination";
+import { BlogItemHomePage } from "../../../components/BlogItem";
+import {
+  HOMEPAGE_PRODUCT_LIST_LIMIT,
+  BLOG_LIST_LIMIT,
+} from "../../../constants/pagination";
 import { ROUTES, TITLES } from "../../../constants/";
 import * as S from "./styles";
 
 const UserHomePage = () => {
   const { productList } = useSelector((state) => state.product);
+  const { blogList } = useSelector((state) => state.blog);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -32,6 +38,16 @@ const UserHomePage = () => {
         },
       })
     );
+    dispatch(
+      getBlogListAction({
+        params: {
+          page: 1,
+          limit: BLOG_LIST_LIMIT,
+          order: "id.desc",
+        },
+      })
+    );
+
     dispatch(getCategoryListAction());
   }, []);
 
@@ -78,6 +94,23 @@ const UserHomePage = () => {
       );
     });
   };
+  const renderBlogList = useMemo(() => {
+    return blogList.data?.map((item) => {
+      return (
+        <Col span={8} key={item.id}>
+          <Link
+            to={generatePath(ROUTES.USER.BLOG_DETAILS, {
+              id: `${item.slug}.${item.id}`,
+            })}
+            key={item.id}
+            style={{ width: "100%" }}
+          >
+            <BlogItemHomePage item={item} />
+          </Link>
+        </Col>
+      );
+    });
+  }, [blogList.data]);
 
   return (
     <Fragment>
@@ -224,8 +257,8 @@ const UserHomePage = () => {
             <Row style={{ textAlign: "center" }}>
               <Col span={2}></Col>
               <Col span={20}>
-                <Row gutter={[16, 16]}></Row>
-                <S.ShowMoreBtn onClick={() => navigate(ROUTES.USER.BLOG)}>
+                <Row gutter={[16, 16]}>{renderBlogList}</Row>
+                <S.ShowMoreBtn onClick={() => navigate(ROUTES.USER.BLOG_LIST)}>
                   Xem thêm
                 </S.ShowMoreBtn>
               </Col>

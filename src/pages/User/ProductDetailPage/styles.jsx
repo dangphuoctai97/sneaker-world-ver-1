@@ -29,6 +29,23 @@ export const ProductInfo = styled.div`
   margin-bottom: 8px;
 `;
 
+export const ProductContent = styled.p`
+  display: flex;
+  flex-direction: column;
+  -webkit-box-align: center;
+  align-items: center;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  padding-top: 10px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 4px;
+  border-top: 2px solid rgb(217, 217, 217);
+  img {
+    max-width: 1280px;
+    height: auto;
+  }
+`;
+
 export const AddToCartBtn = styled(Button)`
   font-size: 16px;
   color: #fff;
