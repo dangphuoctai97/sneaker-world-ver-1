@@ -29,10 +29,7 @@ const AdminUpdateBlogPage = () => {
   const [updateForm] = Form.useForm();
 
   const { blogDetail } = useSelector((state) => state.blog);
-  console.log(
-    "🚀 ~ file: index.jsx ~ line 32 ~ AdminUpdateBlogPage ~ blogDetail",
-    blogDetail
-  );
+
   const { userInfo } = useSelector((state) => state.user);
 
   useEffect(() => {

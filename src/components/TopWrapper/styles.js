@@ -27,14 +27,25 @@ export const TopContainer = styled.div`
     display: flex;
     align-items: center;
   }
-  a:hover {
-    color: #5cdbd3;
+  a {
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &:hover {
+      color: #5cdbd3;
+    }
+  }
+  .ant-breadcrumb li:last-child a {
+    color: #fff;
+    &:hover {
+      color: #5cdbd3;
+    }
   }
   & .ant-breadcrumb-link {
     display: flex;
     align-items: center;
     justify-content: center;
-
     span {
       margin-left: 5px;
     }

@@ -11,6 +11,9 @@ export const ProductContainer = styled.div`
   & .ant-card-body {
     padding: 0;
   }
+  .product_list_img {
+    padding: 5px;
+  }
 `;
 export const ProductContent = styled.div`
   display: flex;

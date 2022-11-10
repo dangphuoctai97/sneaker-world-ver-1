@@ -5,16 +5,17 @@ import {
   Col,
   Space,
   Radio,
-  Breadcrumb,
   InputNumber,
   Tabs,
   notification,
   Image,
+  Breadcrumb,
 } from "antd";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { CheckCircleTwoTone } from "@ant-design/icons";
+import { GiWalkingBoot } from "react-icons/gi";
 
 import {
   getProductDetailAction,
@@ -25,12 +26,8 @@ import TopWrapper from "../../../components/TopWrapper";
 import { ROUTES, TITLES } from "../../../constants";
 import { policyList, TAB_ITEMS, BREADCRUMB } from "./constants";
 import * as S from "./styles";
-import { useMemo } from "react";
 
 const ProductDetailPage = () => {
-  useEffect(() => {
-    document.title = TITLES.USER.PRODUCT_DETAILS;
-  }, []);
   const { id } = useParams();
   const productId = parseInt(id.split(".")[1]);
   const dispatch = useDispatch();
@@ -46,7 +43,54 @@ const ProductDetailPage = () => {
 
   useEffect(() => {
     dispatch(getProductDetailAction({ id: productId }));
+    document.title = TITLES.USER.PRODUCT_DETAILS;
   }, [productId]);
+
+  const TAB_ITEMS = [
+    {
+      label: <h2>Mô tả</h2>,
+      key: "1",
+      children: (
+        <S.ProductContent
+          dangerouslySetInnerHTML={{ __html: productDetail.data.content }}
+        />
+      ),
+    },
+    {
+      label: <h2>Cách chọn size giày</h2>,
+      key: "2",
+      children: (
+        <>
+          <p>
+            Để chọn size giày phù hợp với chân của mình, bạn có thể làm theo
+            cách sau:
+          </p>
+          <p>
+            <b>Bước 1: </b> Đo chiều dài bàn chân theo huớng dẫn ở hình dưới:
+          </p>
+          <Row justify="center">
+            <Image
+              preview={false}
+              src="https://shopgiayreplica.com/wp-content/uploads/2018/07/cach-chon-size-giay-nike-adidas-1.jpg"
+            />
+          </Row>
+          <p>
+            <b>Bước 2: </b>Sau khi đo được chiều dài bàn chân, bạn có thể đối
+            chiếu với bảng size giày dưới để chọn được size giày phù hợp cho
+            mình. Ví dụ chiều dài bàn chân là 26.5cm thì size giày nam Adidas
+            phù hợp là 42.
+          </p>
+          <Row justify="center">
+            <Image
+              preview={false}
+              src="https://shopgiayreplica.com/wp-content/uploads/2018/07/cach-chon-size-giay-nike-adidas-2.jpg"
+            />
+          </Row>
+          <p>Chúc các bạn lựa chọn được đôi giày ưng ý</p>
+        </>
+      ),
+    },
+  ];
 
   const handleNotification = () => {
     notification.open({
@@ -61,21 +105,6 @@ const ProductDetailPage = () => {
       ),
     });
   };
-
-  // const renderProductImages = useMemo(() => {
-  //   if (!productDetail.data.images?.length) return null;
-  //   return productDetail.data.images?.map((item) => {
-  //     return (
-  //       <Image
-  //         key={item.name}
-  //         src={item.path}
-  //         alt={item.name}
-  //         width={300}
-  //         height="auto"
-  //       />
-  //     );
-  //   });
-  // }, [productDetail.data]);
 
   const handleAddToCart = () => {
     productInfos.size === undefined
@@ -105,6 +134,12 @@ const ProductDetailPage = () => {
         breadcrumb={[
           ...BREADCRUMB,
           {
+            title: productDetail.data.category?.name,
+            path: ROUTES.USER.PRODUCT_LIST,
+            state: { categoryId: [productDetail.data.category?.id] },
+            icon: <GiWalkingBoot style={{ fontSize: 20 }} />,
+          },
+          {
             title: productDetail.data.name,
           },
         ]}
@@ -113,10 +148,6 @@ const ProductDetailPage = () => {
       <Row gutter={[16, 16]}>
         <Col span={2}></Col>
         <Col span={20}>
-          {/* <Breadcrumb>
-            <Breadcrumb.Item href={ROUTES.USER.HOME}>Trang chủ</Breadcrumb.Item>
-            <Breadcrumb.Item>Danh sách sản phẩm</Breadcrumb.Item>
-          </Breadcrumb> */}
           <Row gutter={[16, 16]}>
             <Col span={12}>
               <Card>

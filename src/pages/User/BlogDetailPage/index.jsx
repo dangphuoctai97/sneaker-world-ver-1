@@ -13,6 +13,7 @@ import {
 import { ROUTES, TITLES } from "../../../constants/";
 import { RelatedBlogDetailItem } from "../../../components/BlogItem";
 import LoadingWrapper from "../../../components/LoadingWrapper";
+import { BiCommentDetail } from "react-icons/bi";
 
 import * as S from "./styles";
 
@@ -86,8 +87,17 @@ const BlogDetailPage = () => {
           <TopWrapper
             breadcrumb={[
               ...BREADCRUMB,
+              // {
+              //   title:
+              //     blogDetail.data.category === 1
+              //       ? "Chia sẻ kinh nghiệm"
+              //       : "Review sản phẩm",
+              //   path: ROUTES.USER.BLOG_LIST,
+              //   state: { categoryId: [blogDetail.data.category?.id] },
+              // },
               {
                 title: "Chi tiết bài viết",
+                icon: <BiCommentDetail style={{ fontSize: 20 }} />,
               },
             ]}
             height={200}
@@ -123,7 +133,7 @@ const BlogDetailPage = () => {
                   }}
                   gutter={[8, 8]}
                 ></Row>
-                <S.BlogListContent
+                <S.BlogDetailContent
                   dangerouslySetInnerHTML={{ __html: blogDetail.data.content }}
                 />
               </Col>

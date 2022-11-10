@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Row, Col, Input, Select, Pagination, Breadcrumb } from "antd";
+import { Row, Col, Input, Select, Pagination } from "antd";
 import { Link, generatePath } from "react-router-dom";
 
 import {
@@ -10,7 +10,7 @@ import {
 
 import TopWrapper from "../../../components/TopWrapper";
 import { BREADCRUMB } from "./constants";
-import { BLOG_LIST_LIMIT } from "../../../constants/pagination";
+import { BLOG_LIST_LIMIT } from "../../../constants/";
 import { BlogItem, RelatedBlogItem } from "../../../components/BlogItem";
 import LoadingWrapper from "../../../components/LoadingWrapper";
 import { ROUTES, TITLES } from "../../../constants/";
@@ -132,9 +132,13 @@ const BlogListPage = () => {
     <>
       <TopWrapper breadcrumb={[...BREADCRUMB]} height={200} />
       <S.BlogListContainer>
-        <h3 style={{ color: "royalblue" }}>
-          Có {blogList.meta.total} Bài viết
-        </h3>
+        {blogList.loading ? (
+          <div></div>
+        ) : (
+          <h3 style={{ color: "royalblue" }}>
+            Có {blogList.meta.total} Bài viết
+          </h3>
+        )}
         <Row
           style={{
             marginLeft: "-8px",
@@ -219,20 +223,27 @@ const BlogListPage = () => {
                 lg={24}
                 style={{ paddingRight: 8, paddingLeft: 8 }}
               >
-                <S.RelatedBlogContainer>
-                  <div className="related_tag">
-                    <div className="related_title">Chia sẻ kinh nghiệm</div>
-                  </div>
-                  <S.RelatedBlogContent>
-                    {renderRelatedBlogList1()}
-                  </S.RelatedBlogContent>
-                  <div style={{ marginTop: 20 }} className="related_tag">
-                    <div className="related_title">Review sản phẩm</div>
-                  </div>
-                  <S.RelatedBlogContent>
-                    {renderRelatedBlogList2()}
-                  </S.RelatedBlogContent>
-                </S.RelatedBlogContainer>
+                {blogList.loading ? (
+                  <LoadingWrapper />
+                ) : (
+                  <>
+                    <S.RelatedBlogContainer>
+                      <div className="related_tag">
+                        <div className="related_title">Chia sẻ kinh nghiệm</div>
+                      </div>
+                      <S.RelatedBlogContent>
+                        {renderRelatedBlogList1()}
+                      </S.RelatedBlogContent>
+
+                      <div style={{ marginTop: 20 }} className="related_tag">
+                        <div className="related_title">Review sản phẩm</div>
+                      </div>
+                      <S.RelatedBlogContent>
+                        {renderRelatedBlogList2()}
+                      </S.RelatedBlogContent>
+                    </S.RelatedBlogContainer>
+                  </>
+                )}
               </Col>
               <Col
                 xs={24}
