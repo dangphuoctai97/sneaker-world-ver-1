@@ -265,6 +265,18 @@ const UserHomePage = () => {
               <Col span={2}></Col>
             </Row>
           </S.BlogContainer>
+          <S.BlogContainer>
+            <S.ContainerTiltle>
+              <span className="title_underline">
+                Sneaker world và khách hàng
+              </span>
+            </S.ContainerTiltle>
+          </S.BlogContainer>
+          <S.BlogContainer>
+            <S.ContainerTiltle>
+              <span className="title_underline">our channel</span>
+            </S.ContainerTiltle>
+          </S.BlogContainer>
         </S.Container>
       )}
     </Fragment>

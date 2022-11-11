@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { Button, Table, Space, Pagination, Tag, Image } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { generatePath, useNavigate } from "react-router-dom";
@@ -84,84 +84,60 @@ const AdminProductListPage = () => {
       },
     },
     {
+      title: "",
+      dataIndex: "images",
+      key: "images",
+      render: (_, record) => {
+        return record.images?.slice(0, 1).map((item) => {
+          return (
+            <Space key={item.id}>
+              <Image
+                preview={{
+                  visible: false,
+                }}
+                onClick={() => setVisible(true)}
+                src={item?.url}
+                alt={item?.name}
+                style={{
+                  width: "80px",
+                  height: "auto",
+                  borderRadius: "10px",
+                }}
+              />
+              <div
+                style={{
+                  display: "none",
+                }}
+              >
+                <Image.PreviewGroup
+                  preview={{
+                    visible,
+                    onVisibleChange: (vis) => setVisible(vis),
+                  }}
+                >
+                  {record.images.map((item) => {
+                    console.log(
+                      "🚀 ~ file: index.jsx ~ line 119 ~ {record.images.map ~ item",
+                      item
+                    );
+                    return (
+                      <Image key={item.id} src={item.url} alt={item.name} />
+                    );
+                  })}
+                  ;
+                </Image.PreviewGroup>
+              </div>
+            </Space>
+          );
+        });
+      },
+    },
+    {
       title: "Name",
       dataIndex: "Name",
       key: "Name",
       render: (_, record) => {
-        console.log(
-          "🚀 ~ file: index.jsx ~ line 72 ~ AdminProductListPage ~ record",
-          record
-        );
-        return (
-          <Space>
-            <Image
-              // preview={{
-              //   visible: false,
-              // }}
-              // onClick={() => setVisible(true)}
-              src={record.images[0]?.url}
-              alt={record.images[0]?.name}
-              style={{
-                width: "80px",
-                height: "auto",
-                borderRadius: "10px",
-              }}
-            />
-            {/* <div
-              style={{
-                display: "none",
-              }}
-            >
-              <Image.PreviewGroup
-                preview={{
-                  visible,
-                  onVisibleChange: (vis) => setVisible(vis),
-                }}
-              >
-                <Image
-                  src={record.images[0]?.url}
-                  alt={record.images[0]?.name}
-                />
-                <Image
-                  src={record.images[1]?.url}
-                  alt={record.images[1]?.name}
-                />
-                <Image
-                  src={record.images[2]?.url}
-                  alt={record.images[2]?.name}
-                />
-                <Image
-                  src={record.images[3]?.url}
-                  alt={record.images[3]?.name}
-                />
-                <Image
-                  src={record.images[4]?.url}
-                  alt={record.images[4]?.name}
-                />
-              </Image.PreviewGroup>
-            </div> */}
-            <h4>{record.name}</h4>
-          </Space>
-        );
-      },
-    },
-    {
-      title: "",
-      dataIndex: "images",
-      key: "images",
-      render: (images) => {
-        <>
-          {images.map((item) => {
-            return (
-              <img
-                key={item.id}
-                src={`data:image/jpeg;base64,${item.url}`}
-                alt=""
-                style={{ height: 200, width: 200 }}
-              />
-            );
-          })}
-        </>;
+        return <h4>{record.name}</h4>;
       },
     },
     {
