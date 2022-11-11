@@ -83,7 +83,7 @@ const AdminUpdateProductPage = () => {
         name: images[i].name,
         type: images[i].type,
         thumbUrl: images[i].thumbUrl,
-        path: imgBase64,
+        url: imgBase64,
       });
     }
     dispatch(

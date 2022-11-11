@@ -352,7 +352,7 @@ const UserProductListPage = () => {
                       </Radio.Group>
                     </Collapse.Panel>
                     <Collapse.Panel header={"Giá"}>
-                      <S.PriceSlider
+                      <Slider
                         range
                         min={MIN_PRICE}
                         max={MAX_PRICE}
