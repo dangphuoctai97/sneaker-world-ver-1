@@ -44,6 +44,7 @@ const ProductDetailPage = () => {
   const { id } = useParams();
   const productId = parseInt(id.split(".")[1]);
   const dispatch = useDispatch();
+  const [reviewForm] = Form.useForm();
 
   const [productInfos, setProductInfos] = useState({
     size: undefined,
@@ -181,9 +182,13 @@ const ProductDetailPage = () => {
               <S.ProductRatingForm>
                 <h2 className="rating_header">ĐÁNH GIÁ SẢN PHẨM</h2>
                 <Form
+                  form={reviewForm}
                   layout="vertical"
                   className="rating_form"
-                  onFinish={(values) => handlePostReview(values)}
+                  onFinish={(values) => {
+                    handlePostReview(values);
+                    reviewForm.resetFields();
+                  }}
                 >
                   <Form.Item label="Rate" name="rate">
                     <Rate />

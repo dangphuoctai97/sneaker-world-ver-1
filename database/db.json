@@ -20,7 +20,9 @@
       "amount": 1,
       "price": 2000000,
       "gender": 1,
-      "size": [36],
+      "size": [
+        36
+      ],
       "isNew": true,
       "discount": 1,
       "content": "<p>1</p>",
@@ -87,6 +89,32 @@
       "createdAt": 1668252272236,
       "updatedAt": 1668252272236,
       "id": 4
+    },
+    {
+      "rate": 4,
+      "comment": "ngon",
+      "userId": 1,
+      "productId": 1,
+      "createdAt": 1668254251645,
+      "updatedAt": 1668254251646,
+      "id": 5
+    },
+    {
+      "rate": 5,
+      "comment": "ok",
+      "userId": 1,
+      "productId": 1,
+      "createdAt": 1668254600730,
+      "updatedAt": 1668254600730,
+      "id": 6
+    },
+    {
+      "comment": "ahihi",
+      "userId": 1,
+      "productId": 1,
+      "createdAt": 1668254605420,
+      "updatedAt": 1668254605420,
+      "id": 7
     }
   ],
   "images": [
