@@ -9,22 +9,35 @@ import {
   Tabs,
   notification,
   Image,
-  Breadcrumb,
+  Form,
+  Input,
+  Rate,
+  Avatar,
 } from "antd";
 import { useParams, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { AiOutlineShoppingCart } from "react-icons/ai";
-import { CheckCircleTwoTone } from "@ant-design/icons";
+import {
+  CheckCircleTwoTone,
+  HeartOutlined,
+  HeartFilled,
+} from "@ant-design/icons";
 import { GiWalkingBoot } from "react-icons/gi";
 
 import {
   getProductDetailAction,
   addToCartAction,
+  favoriteProductAction,
+  unFavoriteProductAction,
+  postReviewAction,
+  getReviewListAction,
 } from "../../../redux/actions";
+import ReviewItem from "./components/ReviewItem";
 import SyncSlider from "../../../components/SyncSlider";
 import TopWrapper from "../../../components/TopWrapper";
 import { ROUTES, TITLES } from "../../../constants";
 import { policyList, TAB_ITEMS, BREADCRUMB } from "./constants";
+import { calcDiscount } from "../../../utils/product";
 import * as S from "./styles";
 
 const ProductDetailPage = () => {
@@ -38,59 +51,22 @@ const ProductDetailPage = () => {
   });
 
   const [error, setError] = useState(false);
-
   const { productDetail } = useSelector((state) => state.product);
+  const { userInfo } = useSelector((state) => state.user);
+  const { reviewList } = useSelector((state) => state.review);
+
+  const isLike = userInfo.data.id
+    ? productDetail.data.favorites?.some(
+        (item) => item.userId === userInfo.data.id
+      )
+    : false;
 
   useEffect(() => {
     dispatch(getProductDetailAction({ id: productId }));
+    dispatch(getReviewListAction({ productId: productId }));
+
     document.title = TITLES.USER.PRODUCT_DETAILS;
   }, [productId]);
-
-  const TAB_ITEMS = [
-    {
-      label: <h2>Mô tả</h2>,
-      key: "1",
-      children: (
-        <S.ProductContent
-          dangerouslySetInnerHTML={{ __html: productDetail.data.content }}
-        />
-      ),
-    },
-    {
-      label: <h2>Cách chọn size giày</h2>,
-      key: "2",
-      children: (
-        <>
-          <p>
-            Để chọn size giày phù hợp với chân của mình, bạn có thể làm theo
-            cách sau:
-          </p>
-          <p>
-            <b>Bước 1: </b> Đo chiều dài bàn chân theo huớng dẫn ở hình dưới:
-          </p>
-          <Row justify="center">
-            <Image
-              preview={false}
-              src="https://shopgiayreplica.com/wp-content/uploads/2018/07/cach-chon-size-giay-nike-adidas-1.jpg"
-            />
-          </Row>
-          <p>
-            <b>Bước 2: </b>Sau khi đo được chiều dài bàn chân, bạn có thể đối
-            chiếu với bảng size giày dưới để chọn được size giày phù hợp cho
-            mình. Ví dụ chiều dài bàn chân là 26.5cm thì size giày nam Adidas
-            phù hợp là 42.
-          </p>
-          <Row justify="center">
-            <Image
-              preview={false}
-              src="https://shopgiayreplica.com/wp-content/uploads/2018/07/cach-chon-size-giay-nike-adidas-2.jpg"
-            />
-          </Row>
-          <p>Chúc các bạn lựa chọn được đôi giày ưng ý</p>
-        </>
-      ),
-    },
-  ];
 
   const handleNotification = () => {
     notification.open({
@@ -124,8 +100,126 @@ const ProductDetailPage = () => {
         ) && handleNotification();
   };
 
-  const calcDiscount = (currentPrice, discount) => {
-    return currentPrice - (currentPrice * discount) / 100;
+  const handleToggleFavorite = () => {
+    if (userInfo.data.id) {
+      if (isLike) {
+        const favoriteData = productDetail.data.favorites?.find(
+          (item) => item.userId === userInfo.data.id
+        );
+        if (favoriteData) {
+          dispatch(
+            unFavoriteProductAction({
+              id: favoriteData.id,
+              productId: productDetail.data.id,
+            })
+          );
+        }
+      } else {
+        dispatch(
+          favoriteProductAction({
+            userId: userInfo.data.id,
+            productId: productDetail.data.id,
+          })
+        );
+      }
+    } else {
+      notification.warn({ message: "Bạn cần đăng nhập" });
+    }
+  };
+
+  const TAB_ITEMS = [
+    {
+      label: <h2>Mô tả</h2>,
+      key: "1",
+      children: (
+        <S.ProductContent
+          dangerouslySetInnerHTML={{ __html: productDetail.data.content }}
+        />
+      ),
+    },
+    {
+      label: <h2>Cách chọn size giày</h2>,
+      key: "3",
+      children: (
+        <>
+          <p>
+            Để chọn size giày phù hợp với chân của mình, bạn có thể làm theo
+            cách sau:
+          </p>
+          <p>
+            <b>Bước 1: </b> Đo chiều dài bàn chân theo huớng dẫn ở hình dưới:
+          </p>
+          <Row justify="center">
+            <Image
+              preview={false}
+              src="https://shopgiayreplica.com/wp-content/uploads/2018/07/cach-chon-size-giay-nike-adidas-1.jpg"
+            />
+          </Row>
+          <p>
+            <b>Bước 2: </b>Sau khi đo được chiều dài bàn chân, bạn có thể đối
+            chiếu với bảng size giày dưới để chọn được size giày phù hợp cho
+            mình. Ví dụ chiều dài bàn chân là 26.5cm thì size giày nam Adidas
+            phù hợp là 42.
+          </p>
+          <Row justify="center">
+            <Image
+              preview={false}
+              src="https://shopgiayreplica.com/wp-content/uploads/2018/07/cach-chon-size-giay-nike-adidas-2.jpg"
+            />
+          </Row>
+          <p>Chúc các bạn lựa chọn được đôi giày ưng ý</p>
+        </>
+      ),
+    },
+    {
+      label: <h2>Review</h2>,
+      key: "2",
+      children: (
+        <Row>
+          <Col span={12}>
+            {userInfo.data.id ? (
+              <S.ProductRatingForm>
+                <h2 className="rating_header">ĐÁNH GIÁ SẢN PHẨM</h2>
+                <Form
+                  layout="vertical"
+                  className="rating_form"
+                  onFinish={(values) => handlePostReview(values)}
+                >
+                  <Form.Item label="Rate" name="rate">
+                    <Rate />
+                  </Form.Item>
+                  <Form.Item label="Comment" name="comment">
+                    <Input.TextArea autoSize={{ maxRows: 6, minRows: 2 }} />
+                  </Form.Item>
+                  <S.CustomBtn htmlType="submit" block>
+                    Đánh giá
+                  </S.CustomBtn>
+                </Form>
+              </S.ProductRatingForm>
+            ) : (
+              <h2 className="rating_header">Đăng nhập để đánh giá sản phẩm</h2>
+            )}
+            <S.ProductRatingContainer>
+              <div className="rating_overview">
+                <div className="rating_overview_briefing">4.9 tren 5</div>
+                <div className="rating_overview_filter">rating filter</div>
+              </div>
+              <ReviewItem reviewList={reviewList} />
+            </S.ProductRatingContainer>
+          </Col>
+        </Row>
+      ),
+    },
+  ];
+
+  const handlePostReview = (values) => {
+    dispatch(
+      postReviewAction({
+        ...values,
+        userId: userInfo.data.id,
+        productId: productDetail.data.id,
+      })
+    );
   };
 
   return (
@@ -227,13 +321,21 @@ const ProductDetailPage = () => {
                     min={1}
                     max={productDetail.data.amount}
                   />
-                  <S.AddToCartBtn
-                    size="large"
-                    onClick={() => handleAddToCart()}
-                  >
+                  <S.CustomBtn size="large" onClick={() => handleAddToCart()}>
                     <AiOutlineShoppingCart style={{ marginRight: 8 }} />
                     Thêm vào giỏ hàng
-                  </S.AddToCartBtn>
+                  </S.CustomBtn>
+                  <S.FavoritetBtn
+                    ghost={isLike}
+                    danger={isLike}
+                    size="large"
+                    onClick={() => handleToggleFavorite()}
+                    icon={isLike ? <HeartFilled /> : <HeartOutlined />}
+                  >
+                    <span className="liked_count">
+                      {productDetail.data?.favorites?.length || 0} liked
+                    </span>
+                  </S.FavoritetBtn>
                 </Space>
                 <Card style={{ marginTop: "16px", border: "3px groove" }}>
                   <S.PolicyTitle>Chính sách</S.PolicyTitle>

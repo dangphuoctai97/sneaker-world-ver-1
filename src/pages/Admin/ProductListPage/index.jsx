@@ -84,9 +84,9 @@ const AdminProductListPage = () => {
       },
     },
     {
-      title: "",
-      dataIndex: "images",
-      key: "images",
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
       render: (_, record) => {
         return record.images?.slice(0, 1).map((item) => {
           return (
@@ -116,10 +116,6 @@ const AdminProductListPage = () => {
                   }}
                 >
                   {record.images.map((item) => {
-                    console.log(
-                      "🚀 ~ file: index.jsx ~ line 119 ~ {record.images.map ~ item",
-                      item
-                    );
                     return (
                       <Image key={item.id} src={item.url} alt={item.name} />
                     );
@@ -127,17 +123,10 @@ const AdminProductListPage = () => {
                   ;
                 </Image.PreviewGroup>
               </div>
+              <h4>{record.name}</h4>
             </Space>
           );
         });
-      },
-    },
-    {
-      title: "Name",
-      dataIndex: "Name",
-      key: "Name",
-      render: (_, record) => {
-        return <h4>{record.name}</h4>;
       },
     },
     {

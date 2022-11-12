@@ -29,7 +29,7 @@ export const ProductInfo = styled.div`
   margin-bottom: 8px;
 `;
 
-export const ProductContent = styled.p`
+export const ProductContent = styled.div`
   display: flex;
   flex-direction: column;
   -webkit-box-align: center;
@@ -46,14 +46,67 @@ export const ProductContent = styled.p`
   }
 `;
 
-export const AddToCartBtn = styled(Button)`
+export const ProductRatingForm = styled.div`
+  .rating_form {
+  }
+  .rating_header {
+    margin-bottom: 1em;
+    text-transform: capitalize;
+    font-size: 1.125rem;
+    color: rgba(0, 0, 0, 0.87);
+  }
+`;
+export const ProductRatingContainer = styled.div`
+  .rating_overview {
+    background-color: #fffbf8;
+    min-height: 5rem;
+    border: 1px solid #f9ede5;
+    margin: 1rem 0;
+    display: flex;
+    align-items: center;
+    border-radius: 2px;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 1.875rem;
+  }
+  .rating_overview_briefing {
+    text-align: center;
+    margin-right: 1.875rem;
+  }
+  .rating_overview_filter {
+    flex: 1;
+    margin-left: 0.9375rem;
+  }
+`;
+
+export const CustomBtn = styled(Button)`
   font-size: 16px;
   color: #fff;
   background-color: royalblue;
-
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
   &:hover {
     background-color: #6486ed;
     color: #fff;
+  }
+`;
+export const FavoritetBtn = styled(Button)`
+  font-size: 16px;
+  color: #fff;
+  background-color: royalblue;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  &:hover {
+    background-color: #6486ed;
+    color: #fff;
+  }
+  .favourite_icon {
+    margin-right: 8px;
+  }
+  .liked_count {
+    line-height: 40px;
   }
 `;
 
