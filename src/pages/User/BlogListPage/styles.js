@@ -2,6 +2,7 @@ import styled, { css } from "styled-components";
 import { Carousel } from "antd";
 
 export const BlogListContainer = styled.div`
+  background-color: rgb(239, 239, 239);
   margin: 10px auto;
   width: 90%;
   max-width: 1280px;

@@ -133,11 +133,11 @@ const BlogListPage = () => {
       <TopWrapper breadcrumb={[...BREADCRUMB]} height={200} />
       <S.BlogListContainer>
         {blogList.loading ? (
-          <div></div>
+          <></>
         ) : (
-          <h3 style={{ color: "royalblue" }}>
+          <h6 style={{ color: "royalblue" }}>
             Có {blogList.meta.total} Bài viết
-          </h3>
+          </h6>
         )}
         <Row
           style={{

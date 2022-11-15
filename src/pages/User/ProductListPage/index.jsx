@@ -297,6 +297,8 @@ const UserProductListPage = () => {
                     style={{
                       fontSize: "16px",
                       borderBottom: "3px solid royalblue",
+                      margin: 0,
+                      paddingBottom: 10,
                     }}
                   >
                     <VscFilterFilled
@@ -398,9 +400,9 @@ const UserProductListPage = () => {
                   <LoadingWrapper />
                 ) : (
                   <>
-                    <h3 style={{ color: "royalblue" }}>
+                    <h6 style={{ color: "royalblue" }}>
                       Có {productList.meta.total} sản phẩm
-                    </h3>
+                    </h6>
                     <Row gutter={[16, 16]}>{renderProductList()}</Row>
                     {productList.data.length !== productList.meta.total && (
                       <Row justify="center">

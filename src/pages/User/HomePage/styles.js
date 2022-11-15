@@ -48,6 +48,7 @@ export const LoadingWrapper = styled.div`
   align-items: center;
 `;
 export const Container = styled.div`
+  background-color: rgb(239, 239, 239);
   .white_text {
     color: #fff !important;
   }
@@ -279,7 +280,18 @@ export const BlogContainer = styled.div`
   margin-top: 20px;
 `;
 
+export const ReviewContainer = styled.div`
+  padding: 30px;
+  &:hover .title_underline {
+    &::after,
+    &::before {
+      width: 50%;
+    }
+  }
+`;
+
 export const ShowMoreBtn = styled(Button)`
+  background-color: #fff;
   display: inline-flex;
   align-items: center;
   font-size: 18px;

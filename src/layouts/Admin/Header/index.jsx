@@ -113,7 +113,7 @@ export default function Header() {
           <S.DropdownContainer>
             <Dropdown overlay={menu}>
               <div className="userInfo">
-                <h2>{userInfo.data.fullName}</h2>
+                <h4>{userInfo.data.fullName}</h4>
                 <Avatar
                   size={40}
                   src={

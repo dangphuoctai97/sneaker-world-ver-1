@@ -10,6 +10,7 @@ export const BlogListContainer = styled.div`
 `;
 
 export const BlogDetailContent = styled.div`
+  padding: 20px;
   display: flex;
   flex-direction: column;
   -webkit-box-align: center;

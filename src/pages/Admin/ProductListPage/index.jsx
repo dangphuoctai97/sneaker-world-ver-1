@@ -78,7 +78,7 @@ const AdminProductListPage = () => {
               width: 50,
             }}
           >
-            <h4>{record.id}</h4>
+            <h6>{record.id}</h6>
           </Space>
         );
       },
@@ -123,7 +123,7 @@ const AdminProductListPage = () => {
                   ;
                 </Image.PreviewGroup>
               </div>
-              <h4>{record.name}</h4>
+              <h6>{record.name}</h6>
             </Space>
           );
         });

@@ -7,6 +7,7 @@ export const BlogListWrapper = styled.div`
   flex-direction: row;
   padding: 1.5rem 1rem;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: #fff;
   .blog_list_img {
     width: 325px;
     height: auto;
@@ -17,21 +18,19 @@ export const BlogListContent = styled.div`
   flex: 1;
 
   & {
-    h5 {
+    h4 {
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
-      margin-bottom: 0px;
-      font-size: 20px;
+      margin: 5px 0;
       overflow: hidden;
       text-overflow: ellipsis;
       cursor: pointer;
     }
-    time {
-      margin-bottom: 2.5rem;
-      padding-right: 0.5rem;
+    p {
+      margin: 5px 0;
       color: rgb(118, 118, 118);
-      font-size: 12px;
+      font-size: 14px;
     }
     .blog_content {
       display: -webkit-box;
@@ -50,6 +49,7 @@ export const BlogListContent = styled.div`
 `;
 
 export const BlogListHomePageWrapper = styled.div`
+  background-color: #fff;
   margin-top: 20px;
   display: flex;
   flex-flow: row nowrap;
@@ -68,6 +68,8 @@ export const BlogListHomePageWrapper = styled.div`
 `;
 
 export const BlogListHomePageContent = styled.div`
+  background-color: #fff;
+
   flex: 1;
   text-align: left;
   display: flex;
@@ -114,6 +116,7 @@ export const BlogListHomePageContent = styled.div`
 `;
 
 export const BlogFeatureWrapper = styled.div`
+  background-color: #fff;
   display: flex;
   flex-direction: column;
   -webkit-box-pack: center;
@@ -131,28 +134,29 @@ export const BlogFeatureWrapper = styled.div`
   .blog_feature_content {
     display: flex;
     flex-direction: column;
-    padding: 0.3rem 0.5rem;
     width: 100%;
     .font_size_16 {
       font-size: 16px;
     }
     .font_size_12 {
-      font-size: 16px;
+      font-size: 12px;
     }
     h5 {
+      margin: 5px 0px;
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
-      margin-bottom: 0px;
       font-size: 20px;
       overflow: hidden;
       text-overflow: ellipsis;
       cursor: pointer;
     }
     p {
+      margin: 5px 0;
+      padding-bottom: 0;
       padding-right: 0.5rem;
       color: rgb(118, 118, 118);
-      font-size: 12px;
+      font-size: 14px;
     }
     .blog_content {
       display: -webkit-box;
@@ -171,6 +175,7 @@ export const BlogFeatureWrapper = styled.div`
 `;
 
 export const SmBlogFeatureWrapper = styled.div`
+  background-color: #fff;
   display: flex;
   flex-direction: row;
   -webkit-box-align: center;
@@ -191,7 +196,7 @@ export const SmBlogFeatureWrapper = styled.div`
       font-size: 16px;
     }
     .font_size_12 {
-      font-size: 16px;
+      font-size: 12px;
     }
     h5 {
       display: -webkit-box;
@@ -204,6 +209,8 @@ export const SmBlogFeatureWrapper = styled.div`
       cursor: pointer;
     }
     p {
+      margin: 0;
+      padding-bottom: 0;
       padding-right: 0.5rem;
       color: rgb(118, 118, 118);
       font-size: 12px;
@@ -225,6 +232,7 @@ export const SmBlogFeatureWrapper = styled.div`
 `;
 
 export const ShowMoreBtn = styled(Button)`
+  background-color: #fff;
   display: inline-flex;
   align-items: center;
   user-select: none;

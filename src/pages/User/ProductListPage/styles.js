@@ -2,6 +2,7 @@ import styled, { css } from "styled-components";
 import { Collapse, Card, Tag } from "antd";
 
 export const Wrapper = styled.div`
+  background-color: rgb(239, 239, 239);
   padding: 16px;
 `;
 

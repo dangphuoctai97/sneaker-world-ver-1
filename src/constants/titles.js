@@ -3,7 +3,7 @@ export const TITLES = {
   REGISTER: "Trang đăng ký",
   USER: {
     HOME: "Trang chủ",
-    ABOUT: "Liên hệ",
+    ABOUT: "Giới thiệu",
     BLOG_LIST: "Danh sách Bài viết",
     BLOG_DETAILS: "Chi tiết bài viết",
     PRODUCT_LIST: "Danh sách Sản phẩm",
