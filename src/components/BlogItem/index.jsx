@@ -9,7 +9,7 @@ const BlogItem = ({ item }) => {
     if (!item.images?.length) return null;
     return item.images?.map((item) => {
       return (
-        <Image
+        <img
           className="blog_list_img"
           key={item.blogId}
           src={item.url}
@@ -23,11 +23,11 @@ const BlogItem = ({ item }) => {
     <S.BlogListWrapper>
       {renderBlogImages}
       <S.BlogListContent key={item.id}>
-        <h5>{item.title}</h5>
-        <time>
+        <h4>{item.title}</h4>
+        <p>
           Đã đăng vào lúc{" "}
           {moment(item.createdAt).format("kk:mm dddd DD/MM/YYYY")}
-        </time>
+        </p>
         <div
           className="blog_content"
           dangerouslySetInnerHTML={{ __html: item.content }}

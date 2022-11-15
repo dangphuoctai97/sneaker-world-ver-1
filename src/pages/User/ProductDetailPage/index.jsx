@@ -36,8 +36,9 @@ import ReviewItem from "./components/ReviewItem";
 import SyncSlider from "../../../components/SyncSlider";
 import TopWrapper from "../../../components/TopWrapper";
 import { ROUTES, TITLES } from "../../../constants";
-import { policyList, TAB_ITEMS, BREADCRUMB } from "./constants";
+import { BREADCRUMB } from "./constants";
 import { calcDiscount } from "../../../utils/product";
+
 import * as S from "./styles";
 
 const ProductDetailPage = () => {
@@ -53,8 +54,8 @@ const ProductDetailPage = () => {
 
   const [error, setError] = useState(false);
   const { productDetail } = useSelector((state) => state.product);
-  const { userInfo } = useSelector((state) => state.user);
   const { reviewList } = useSelector((state) => state.review);
+  const { userInfo } = useSelector((state) => state.user);
 
   const isLike = userInfo.data.id
     ? productDetail.data.favorites?.some(

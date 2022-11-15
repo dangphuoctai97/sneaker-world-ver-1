@@ -1,14 +1,16 @@
 import React, { Fragment, useEffect, useMemo } from "react";
 import { Col, Row, Carousel, Badge } from "antd";
-import { useNavigate, Link, generatePath } from "react-router-dom";
+import { useNavigate, Link, generatePath, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-
 import {
   getProductListAction,
   getCategoryListAction,
   getBlogListAction,
+  getReviewListAction,
 } from "../../../redux/actions";
 
+import { CustomerSliderHomePage } from "../../../components/CustomerSlider";
+import CustomerReviews from "../../../components/CustomerReviews";
 import BrandSlider from "../../../components/BrandSlider";
 import ProductItem from "../../../components/ProductItem";
 import LoadingWrapper from "../../../components/LoadingWrapper";
@@ -17,15 +19,18 @@ import {
   HOMEPAGE_PRODUCT_LIST_LIMIT,
   BLOG_LIST_LIMIT,
 } from "../../../constants/pagination";
+
 import { ROUTES, TITLES } from "../../../constants/";
 import * as S from "./styles";
 
 const UserHomePage = () => {
   const { productList } = useSelector((state) => state.product);
   const { blogList } = useSelector((state) => state.blog);
+  const { reviewList } = useSelector((state) => state.review);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { id } = useParams();
 
   useEffect(() => {
     document.title = TITLES.USER.HOME;
@@ -49,7 +54,8 @@ const UserHomePage = () => {
     );
 
     dispatch(getCategoryListAction());
-  }, []);
+    dispatch(getReviewListAction({ productId: id }));
+  }, [id]);
 
   const renderNewProductList = () => {
     return productList.data.map((item) => {
@@ -265,18 +271,15 @@ const UserHomePage = () => {
               <Col span={2}></Col>
             </Row>
           </S.BlogContainer>
-          <S.BlogContainer>
+          <S.ReviewContainer>
             <S.ContainerTiltle>
               <span className="title_underline">
-                Sneaker world và khách hàng
+                Khách hàng và sneakerWorld
               </span>
+              <CustomerSliderHomePage />
+              <CustomerReviews reviewList={reviewList} />
             </S.ContainerTiltle>
-          </S.BlogContainer>
-          <S.BlogContainer>
-            <S.ContainerTiltle>
-              <span className="title_underline">our channel</span>
-            </S.ContainerTiltle>
-          </S.BlogContainer>
+          </S.ReviewContainer>
         </S.Container>
       )}
     </Fragment>

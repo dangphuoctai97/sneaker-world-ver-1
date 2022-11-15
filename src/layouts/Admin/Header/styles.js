@@ -77,26 +77,11 @@ export const DropdownContainer = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    h4 {
+      color: #fff;
+      margin: 0 10px;
+    }
   }
-  & h2 {
-    color: #fff;
-    margin: 0 10px;
-  }
-`;
-export const CartBtn = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 40px;
-  padding: 4.9px 0;
-  font-size: 18px;
-  min-width: 40px;
-  border-radius: 50%;
-  margin-right: 20px;
-  background-color: #fff;
-  touch-action: manipulation;
-  cursor: pointer;
-  border: 2px solid #000;
 `;
 
 export const NavBar = styled.div`

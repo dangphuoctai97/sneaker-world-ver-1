@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Slider from "react-slick";
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from "swiper";

@@ -9,7 +9,7 @@ export const HeaderContainer = styled.header`
   right: 0px;
   width: 100%;
   height: 70px;
-  background-color: rgb(255, 255, 255);
+  background-color: #fff;
   transition: all 0.3s ease-in-out 0s;
   border-bottom: 1px solid rgb(240, 240, 240);
   box-shadow: rgb(0 0 0 / 5%) 0px 4px 12px 0px;
@@ -78,9 +78,10 @@ export const ButtonContainer = styled.div`
   & .userInfo {
     display: flex;
     justify-content: space-between;
-  }
-  & h2 {
-    margin: 0 10px;
+    align-items: center;
+    h4 {
+      margin: 0 10px;
+    }
   }
 `;
 export const CartBtn = styled.div`
@@ -92,7 +93,6 @@ export const CartBtn = styled.div`
   font-size: 18px;
   min-width: 40px;
   border-radius: 50%;
-  margin-right: 20px;
   background-color: #fff;
   touch-action: manipulation;
   cursor: pointer;

@@ -5,6 +5,7 @@ export const ProductContainer = styled.div`
   display: flex;
   flex-flow: column nowrap;
   width: 100%;
+  background-color: #fff;
   &:hover {
     box-shadow: rgb(149 157 165 / 50%) 0px 8px 24px;
   }
@@ -16,6 +17,7 @@ export const ProductContainer = styled.div`
   }
 `;
 export const ProductContent = styled.div`
+  background-color: #fff;
   display: flex;
   width: 100%;
   flex-flow: column wrap;
