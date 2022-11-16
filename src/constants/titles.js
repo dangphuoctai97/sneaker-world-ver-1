@@ -19,5 +19,6 @@ export const TITLES = {
     CREATE_BLOG: "Admin | Tạo bài viết mới",
     UPDATE_BLOG: "Admin | Cập nhật bài viết",
     USER_MANAGE: "Admin | Quản lý tài khoản",
+    USER_UPDATE: "Admin | Cập nhật tài khoản",
   },
 };

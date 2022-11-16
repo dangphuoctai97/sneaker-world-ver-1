@@ -18,6 +18,7 @@ export const ROUTES = {
     BLOG_LIST: "/admin/blogs",
     CREATE_BLOG: "/admin/blogs/create",
     UPDATE_BLOG: "/admin/blogs/:id/update",
-    USER_MANAGE: "admin/users",
+    USER_MANAGE: "/admin/users",
+    USER_UPDATE: "/admin/users:id/update",
   },
 };

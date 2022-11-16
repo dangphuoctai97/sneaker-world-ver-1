@@ -15,6 +15,7 @@ import AdminBlogListPage from "./pages/Admin/BlogListPage";
 import AdminCreateBlogPage from "./pages/Admin/CreateBlogPage";
 import AdminUpdateBlogPage from "./pages/Admin/UpdateBlogPage";
 import AdminUserManagePage from "./pages/Admin/UserManagePage";
+import AdminUserUpdatePage from "./pages/Admin/UserUpdatePage";
 
 import UserHomePage from "./pages/User/HomePage";
 import AboutPage from "./pages/User/AboutPage";
@@ -84,6 +85,10 @@ function App() {
           <Route
             path={ROUTES.ADMIN.USER_MANAGE}
             element={<AdminUserManagePage />}
+          ></Route>
+          <Route
+            path={ROUTES.ADMIN.USER_UPDATE}
+            element={<AdminUserUpdatePage />}
           ></Route>
         </Route>
         <Route element={<UserLayout />}>
