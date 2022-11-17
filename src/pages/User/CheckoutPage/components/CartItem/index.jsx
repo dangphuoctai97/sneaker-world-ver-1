@@ -47,8 +47,15 @@ const CartItem = ({ cartInfo }) => {
       <Row>
         <Col span={6}>
           <Image
-            src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+            src={cartInfo.image}
             width={"100%"}
+            height={"160px"}
+            preview={false}
+            style={{
+              backgroundPosition: "center",
+              backgroundSize: "cover",
+              backgroundRepeat: "no-repeat",
+            }}
           />
         </Col>
         <Col span={18}>

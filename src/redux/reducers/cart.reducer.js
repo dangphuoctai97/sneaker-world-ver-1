@@ -4,6 +4,8 @@ import { CART_ACTION, REQUEST } from "../constants";
 
 const initialState = {
   cartList: JSON.parse(localStorage.getItem("cart")) || [],
+  checkoutInfo: {},
+  checkoutPayment: {},
 };
 
 const cartReducer = createReducer(initialState, {
@@ -57,6 +59,13 @@ const cartReducer = createReducer(initialState, {
     return {
       ...state,
       cartList: newCartList,
+    };
+  },
+
+  [REQUEST(CART_ACTION.SET_CHECKOUT_INFO)]: (state, action) => {
+    return {
+      ...state,
+      checkoutInfo: action.payload,
     };
   },
 });

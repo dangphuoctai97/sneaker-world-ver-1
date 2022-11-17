@@ -126,7 +126,7 @@ const Cart = ({ setStep }) => {
                   <S.PayMentBtn disabled>Thanh toán</S.PayMentBtn>
                 ) : (
                   <S.PayMentBtn onClick={() => setStep(1)}>
-                    Thanh toán
+                    Mua hàng
                   </S.PayMentBtn>
                 )}
               </S.CartInfo>
