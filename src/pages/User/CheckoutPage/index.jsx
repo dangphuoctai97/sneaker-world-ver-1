@@ -21,7 +21,7 @@ import {
   deleteCartItemAction,
 } from "../../../redux/actions";
 
-import Cart from "./components/Cart/Cart";
+import Cart from "./components/Cart";
 import Info from "./components/Info";
 import Payment from "./components/Payment";
 import Success from "./components/Success";
@@ -57,10 +57,10 @@ const CheckoutPage = () => {
       <TopWrapper breadcrumb={[...BREADCRUMB]} height={200} />
       <S.Wrapper>
         <Steps current={step}>
-          <Steps.Step title="Cart" />
-          <Steps.Step title="Info" />
-          <Steps.Step title="Payment" />
-          <Steps.Step title="Success" />
+          <Steps.Step title="Giỏ hàng" />
+          <Steps.Step title="Thông tin khách hàng" />
+          <Steps.Step title="Thanh Toán" />
+          <Steps.Step title="Hoàn tất" />
         </Steps>
 
         {renderCheckoutContent}

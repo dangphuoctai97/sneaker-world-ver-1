@@ -54,8 +54,8 @@ const ProductDetailPage = () => {
 
   const [error, setError] = useState(false);
   const { productDetail } = useSelector((state) => state.product);
-  const { reviewList } = useSelector((state) => state.review);
   const { userInfo } = useSelector((state) => state.user);
+  const { reviewList } = useSelector((state) => state.review);
 
   const isLike = userInfo.data.id
     ? productDetail.data.favorites?.some(
@@ -98,6 +98,7 @@ const ProductDetailPage = () => {
             slug: productDetail.data.name,
             amount: productDetail.data.amount,
             discount: productDetail.data.discount,
+            image: productDetail.data?.images[0]?.url,
           })
         ) && handleNotification();
   };

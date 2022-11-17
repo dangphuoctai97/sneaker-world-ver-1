@@ -1,21 +1,21 @@
 import styled from "styled-components";
 import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
 
-export const CustomOutlinePlus = styled(AiOutlinePlus)`
-  cursor: pointer;
+// export const CustomOutlinePlus = styled(AiOutlinePlus)`
+//   cursor: pointer;
 
-  &:hover {
-    border: 1px solid royalblue;
-  }
-`;
+//   &:hover {
+//     border: 1px solid royalblue;
+//   }
+// `;
 
-export const CustomOutlineMinus = styled(AiOutlineMinus)`
-  cursor: pointer;
+// export const CustomOutlineMinus = styled(AiOutlineMinus)`
+//   cursor: pointer;
 
-  &:hover {
-    border: 1px solid royalblue;
-  }
-`;
+//   &:hover {
+//     border: 1px solid royalblue;
+//   }
+// `;
 
 export const CartItemWrapper = styled.div`
   border: 1px solid rgb(222, 226, 230);
@@ -36,11 +36,7 @@ export const CartItemContent = styled.div`
 
 export const CartItemContentTop = styled.div`
   display: flex;
-  -webkit-box-pack: justify;
   justify-content: space-between;
-  gap: 100px;
-  -webkit-box-align: baseline;
-  align-items: baseline;
   font-size: 16px;
   font-weight: 700;
 `;
