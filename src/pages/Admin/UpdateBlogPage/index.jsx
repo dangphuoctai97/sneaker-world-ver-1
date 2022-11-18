@@ -40,7 +40,7 @@ const AdminUpdateBlogPage = () => {
   useEffect(() => {
     if (blogDetail.data.id) {
       updateForm.resetFields();
-      setImagesField(blogDetail.data.images);
+      setImagesField(blogDetail.data.blogImages);
     }
   }, [blogDetail.data]);
 
@@ -54,39 +54,39 @@ const AdminUpdateBlogPage = () => {
     composer: blogDetail.data.composer,
     categoryId: blogDetail.data.categoryId,
   };
-  const setImagesField = async (images) => {
+  const setImagesField = async (blogImages) => {
     const newImages = [];
 
-    for (let i = 0; i < images.length; i++) {
+    for (let i = 0; i < blogImages.length; i++) {
       const imageFile = await convertBase64ToImage(
-        images[i].url,
-        images[i].name,
-        images[i].type
+        blogImages[i].url,
+        blogImages[i].name,
+        blogImages[i].type
       );
       await newImages.push({
-        id: images[i].id,
+        id: blogImages[i].id,
         lastModified: imageFile.lastModified,
         lastModifiedDate: imageFile.lastModifiedDate,
         name: imageFile.name,
         size: imageFile.size,
         type: imageFile.type,
-        thumbUrl: images[i].thumbUrl,
+        thumbUrl: blogImages[i].thumbUrl,
         originFileObj: imageFile,
       });
     }
-    await updateForm.setFieldValue("images", newImages);
+    await updateForm.setFieldValue("blogImages", newImages);
   };
 
   const handleUpdateBlog = async (values) => {
-    const { images, ...blogValues } = values;
+    const { blogImages, ...blogValues } = values;
     const newImages = [];
-    for (let i = 0; i < images.length; i++) {
-      const imgBase64 = await convertImageToBase64(images[i].originFileObj);
+    for (let i = 0; i < blogImages.length; i++) {
+      const imgBase64 = await convertImageToBase64(blogImages[i].originFileObj);
       await newImages.push({
-        ...(images[i].id && { id: images[i].id }),
-        name: images[i].name,
-        type: images[i].type,
-        thumbUrl: images[i].thumbUrl,
+        ...(blogImages[i].id && { id: blogImages[i].id }),
+        name: blogImages[i].name,
+        type: blogImages[i].type,
+        thumbUrl: blogImages[i].thumbUrl,
         url: imgBase64,
       });
     }
@@ -98,8 +98,8 @@ const AdminUpdateBlogPage = () => {
           composer: userInfo.data.fullName,
           slug: slug(values.title),
         },
-        images: newImages,
-        initialImageIds: blogDetail.data.images.map((item) => item.id),
+        blogImages: newImages,
+        initialImageIds: blogDetail.data.blogImages.map((item) => item.id),
         callback: {
           goToList: () => navigate(ROUTES.ADMIN.BLOG_LIST),
         },
@@ -165,7 +165,7 @@ const AdminUpdateBlogPage = () => {
             </Form.Item>
             <Form.Item
               label="Hình ảnh"
-              name="images"
+              name="blogImages"
               valuePropName="fileList"
               getValueFromEvent={(e) => {
                 if (Array.isArray(e)) return e;

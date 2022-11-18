@@ -95,6 +95,7 @@ const AdminProductListPage = () => {
                 preview={{
                   visible: false,
                 }}
+                onClick={() => setVisible(true)}
                 src={item?.url}
                 alt={item?.name}
                 style={{

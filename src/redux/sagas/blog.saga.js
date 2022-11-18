@@ -17,7 +17,7 @@ function* getBlogListSaga(action) {
           _sort: params.order.split(".")[0],
           _order: params.order.split(".")[1],
         }),
-        _embed: ["images"],
+        _embed: ["blogImages"],
       },
     });
     yield put({
@@ -49,7 +49,7 @@ function* getBlogListFeatureSaga(action) {
       params: {
         _page: params.page,
         _limit: params.limit,
-        _embed: ["images"],
+        _embed: ["blogImages"],
       },
     });
     yield put({
@@ -79,7 +79,7 @@ function* getBlogDetailSaga(action) {
     const { id } = action.payload;
     const result = yield axios.get(`http://localhost:4000/blogs/${id}`, {
       params: {
-        _embed: ["images"],
+        _embed: ["blogImages"],
       },
     });
     yield put({
@@ -100,11 +100,11 @@ function* getBlogDetailSaga(action) {
 
 function* createBlogSaga(action) {
   try {
-    const { values, callback, images } = action.payload;
+    const { values, callback, blogImages } = action.payload;
     const result = yield axios.post("http://localhost:4000/blogs", values);
-    for (let i = 0; i < images.length; i++) {
-      yield axios.post("http://localhost:4000/images", {
-        ...images[i],
+    for (let i = 0; i < blogImages.length; i++) {
+      yield axios.post("http://localhost:4000/blogImages", {
+        ...blogImages[i],
         blogId: result.data.id,
       });
     }
@@ -127,26 +127,27 @@ function* createBlogSaga(action) {
 
 function* updateBlogSaga(action) {
   try {
-    const { values, id, images, initialImageIds, callback } = action.payload;
+    const { values, id, blogImages, initialImageIds, callback } =
+      action.payload;
     const result = yield axios.patch(
       `http://localhost:4000/blogs/${id}`,
       values
     );
-    for (let i = 0; i < images.length; i++) {
-      if (!images[i].id) {
-        yield axios.post("http://localhost:4000/images", {
-          ...images[i],
+    for (let i = 0; i < blogImages.length; i++) {
+      if (!blogImages[i].id) {
+        yield axios.post("http://localhost:4000/blogImages", {
+          ...blogImages[i],
           blogId: result.data.id,
         });
       }
     }
     for (let j = 0; j < initialImageIds.length; j++) {
-      const keepImage = images.find(
+      const keepImage = blogImages.find(
         (item) => item.id && item.id === initialImageIds[j]
       );
       if (!keepImage) {
         yield axios.delete(
-          `http://localhost:4000/images/${initialImageIds[j]}`
+          `http://localhost:4000/blogImages/${initialImageIds[j]}`
         );
       }
     }

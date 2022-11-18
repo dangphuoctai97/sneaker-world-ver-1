@@ -90,32 +90,35 @@ const AdminBlogListPage = () => {
       dataIndex: "title",
       key: "title",
       render: (_, record) => {
-        return (
-          <Space>
-            <Image
-              src={record.images[0]?.url}
-              alt={record.images[0]?.name}
-              style={{
-                width: "80px",
-                height: "auto",
-                borderRadius: "10px",
-              }}
-            />
-            <h3
-              style={{
-                maxWidth: 200,
-                width: "fit-content",
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-                WebkitLineClamp: 2,
-                WebkitBoxOrient: "vertical",
-                wordBreak: "break-word",
-              }}
-            >
-              {record.title}
-            </h3>
-          </Space>
-        );
+        return record.blogImages?.map((item) => {
+          return (
+            <Space key={item.id}>
+              <Image
+                src={item?.url}
+                alt={item?.name}
+                style={{
+                  width: "80px",
+                  height: "auto",
+                  borderRadius: "10px",
+                }}
+              />
+              <h3
+                style={{
+                  display: "-webkit-box",
+                  maxWidth: 200,
+                  width: "fit-content",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  WebkitLineClamp: 2,
+                  WebkitBoxOrient: "vertical",
+                  wordBreak: "break-word",
+                }}
+              >
+                {record.title}
+              </h3>
+            </Space>
+          );
+        });
       },
     },
     {
