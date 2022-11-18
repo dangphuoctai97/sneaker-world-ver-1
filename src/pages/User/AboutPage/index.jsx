@@ -3,7 +3,6 @@ import { Row, Col, Form, Input, Button } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
-import Ratio from "react-bootstrap/Ratio";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Scrollbar, Mousewheel } from "swiper";
 
@@ -82,16 +81,15 @@ export default function AboutPage() {
             <CustomerReviews reviewList={reviewList} />
           </S.ReviewContainer>
           <S.MapContainer>
-            <Ratio aspectRatio="16x9">
-              <iframe
-                title="gg_map"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d61349.62126488034!2d108.17168657577378!3d16.047248394438395!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314219c792252a13%3A0xfc14e3a044436487!2zxJDDoCBO4bq1bmcsIEjhuqNpIENow6J1LCDEkMOgIE7hurVuZywgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1668495073150!5m2!1svi!2s"
-                frameBorder="0"
-                allowFullScreen=""
-                aria-hidden="false"
-                tabIndex="0"
-              />
-            </Ratio>
+            <iframe
+              className="location_map"
+              title="gg_map"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d61349.62126488034!2d108.17168657577378!3d16.047248394438395!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314219c792252a13%3A0xfc14e3a044436487!2zxJDDoCBO4bq1bmcsIEjhuqNpIENow6J1LCDEkMOgIE7hurVuZywgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1668495073150!5m2!1svi!2s"
+              frameBorder="0"
+              allowFullScreen=""
+              aria-hidden="false"
+              tabIndex="0"
+            />
           </S.MapContainer>
           <S.ContactForm>
             <Row>

@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { Button, Menu } from "antd";
 
 export const HeaderContainer = styled.header`
+  z-index: 999;
+  position: fixed;
   width: 100%;
   padding: 0 20px;
   top: 0px;
@@ -10,10 +12,22 @@ export const HeaderContainer = styled.header`
   right: 0px;
   width: 100%;
   height: 70px;
-  background-color: #0b326b;
+  .background_image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    z-index: -1;
+    opacity: 0.4;
+    background: #000;
+  }
+  background-image: url(https://wallpapercave.com/wp/wp3340286.jpg);
+  background-position: center top;
+  background-size: cover;
+  overflow: hidden;
   transition: all 0.3s ease-in-out 0s;
-  border-bottom: 1px solid rgb(240, 240, 240);
-  box-shadow: rgb(0 0 0 / 5%) 0px 4px 12px 0px;
 `;
 
 export const HeaderContent = styled.div`
@@ -72,14 +86,19 @@ export const HeaderContent = styled.div`
 export const DropdownContainer = styled.div`
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
   & .userInfo {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    h4 {
+    .user_icon {
+      font-size: 24px;
       color: #fff;
-      margin: 0 10px;
+    }
+    h2 {
+      margin-bottom: -5px;
+      margin-right: 10px;
+      color: #fff;
     }
   }
 `;

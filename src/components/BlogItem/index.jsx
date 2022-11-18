@@ -23,7 +23,7 @@ const BlogItem = ({ item }) => {
     <S.BlogListWrapper>
       {renderBlogImages}
       <S.BlogListContent key={item.id}>
-        <h4>{item.title}</h4>
+        <h2>{item.title}</h2>
         <p>
           Đã đăng vào lúc{" "}
           {moment(item.createdAt).format("kk:mm dddd DD/MM/YYYY")}
@@ -89,7 +89,7 @@ const RelatedBlogItem = ({ item }) => {
       {renderBlogImages}
       <div className="blog_feature_content">
         <p>{moment(item.createdAt).format("kk:mm dddd DD/MM/YYYY")}</p>
-        <h5>{item.title}</h5>
+        <h3>{item.title}</h3>
         <div
           className="blog_content"
           dangerouslySetInnerHTML={{ __html: item.content }}
@@ -118,10 +118,8 @@ const RelatedBlogDetailItem = ({ item }) => {
     <S.SmBlogFeatureWrapper key={item.id}>
       {renderBlogImages}
       <div className="blog_feature_content">
-        <h5 className="font_size_16">{item.title}</h5>
-        <p className="font_size_12">
-          {moment(item.createdAt).format("kk:mm dddd DD/MM/YYYY")}
-        </p>
+        <h4>{item.title}</h4>
+        <p>{moment(item.createdAt).format("kk:mm dddd DD/MM/YYYY")}</p>
       </div>
     </S.SmBlogFeatureWrapper>
   );

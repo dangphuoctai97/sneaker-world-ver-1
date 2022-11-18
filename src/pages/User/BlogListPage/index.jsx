@@ -135,9 +135,9 @@ const BlogListPage = () => {
         {blogList.loading ? (
           <></>
         ) : (
-          <h6 style={{ color: "royalblue" }}>
+          <h3 style={{ color: "royalblue" }}>
             Có {blogList.meta.total} Bài viết
-          </h6>
+          </h3>
         )}
         <Row
           style={{

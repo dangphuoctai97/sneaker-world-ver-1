@@ -80,7 +80,7 @@ const AdminBlogListPage = () => {
               width: 50,
             }}
           >
-            <h6>{record.id}</h6>
+            <h3>{record.id}</h3>
           </Space>
         );
       },
@@ -101,7 +101,7 @@ const AdminBlogListPage = () => {
                 borderRadius: "10px",
               }}
             />
-            <h6
+            <h3
               style={{
                 maxWidth: 200,
                 width: "fit-content",
@@ -113,7 +113,7 @@ const AdminBlogListPage = () => {
               }}
             >
               {record.title}
-            </h6>
+            </h3>
           </Space>
         );
       },

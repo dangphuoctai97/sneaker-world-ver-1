@@ -1,12 +1,12 @@
-import { Button } from "antd";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Avatar, Image } from "antd";
+import { useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import { SIDEBAR_ITEMS } from "./constants";
 import * as S from "./styles";
 
 function Sidebar() {
   const { pathname } = useLocation();
-  const navigate = useNavigate();
 
   const renderSidebarItems = () => {
     return SIDEBAR_ITEMS.map((item, index) => {
@@ -26,6 +26,7 @@ function Sidebar() {
   return (
     <S.SidebarContainer>
       <S.SidebarContent>{renderSidebarItems()}</S.SidebarContent>
+      <div className="background_image"></div>
     </S.SidebarContainer>
   );
 }

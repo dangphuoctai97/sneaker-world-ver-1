@@ -11,7 +11,6 @@ export const HeaderContainer = styled.header`
   height: 70px;
   background-color: #fff;
   transition: all 0.3s ease-in-out 0s;
-  border-bottom: 1px solid rgb(240, 240, 240);
   box-shadow: rgb(0 0 0 / 5%) 0px 4px 12px 0px;
   z-index: 100;
 `;
@@ -79,7 +78,7 @@ export const ButtonContainer = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    h4 {
+    h2 {
       margin: 0 10px;
     }
   }

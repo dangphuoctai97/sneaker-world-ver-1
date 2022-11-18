@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Dropdown, Menu, Input, Avatar, Image, Row, Col } from "antd";
 import { FaHome } from "react-icons/fa";
 import { LogoutOutlined } from "@ant-design/icons";
+import { FaUser } from "react-icons/fa";
 
 import {
   getBlogListAction,
@@ -37,6 +38,15 @@ export default function Header() {
             </Link>
           ),
           icon: <FaHome style={{ color: "royalblue" }} />,
+        },
+        {
+          key: "userProfile",
+          label: (
+            <Link to={null}>
+              <span style={{ color: "royalblue" }}>thông tin tài khoản</span>
+            </Link>
+          ),
+          icon: <FaUser style={{ color: "royalblue" }} />,
         },
         {
           key: "logout",
@@ -111,25 +121,16 @@ export default function Header() {
         </Col>
         <Col span={4}>
           <S.DropdownContainer>
-            <Dropdown overlay={menu}>
+            <Dropdown style={{ width: 200 }} overlay={menu}>
               <div className="userInfo">
-                <h4>{userInfo.data.fullName}</h4>
-                <Avatar
-                  size={40}
-                  src={
-                    <Image
-                      src="https://joeschmoe.io/api/v1/random"
-                      style={{
-                        width: 40,
-                      }}
-                    />
-                  }
-                />
+                <h2>{userInfo.data.fullName}</h2>
+                <FaUser className="user_icon" />
               </div>
             </Dropdown>
           </S.DropdownContainer>
         </Col>
       </S.HeaderContent>
+      <div className="background_image"></div>
     </S.HeaderContainer>
   );
 }
