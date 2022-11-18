@@ -14,7 +14,6 @@ export const BlogDetailContent = styled.div`
   display: flex;
   flex-direction: column;
   -webkit-box-align: center;
-  align-items: center;
   margin-top: 0.5rem;
   margin-bottom: 1rem;
   padding-top: 10px;

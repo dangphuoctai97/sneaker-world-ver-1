@@ -6,8 +6,8 @@ import * as S from "./styles";
 
 const BlogItem = ({ item }) => {
   const renderBlogImages = useMemo(() => {
-    if (!item.images?.length) return null;
-    return item.images?.map((item) => {
+    if (!item.blogImages?.length) return null;
+    return item.blogImages?.map((item) => {
       return (
         <img
           className="blog_list_img"
@@ -22,7 +22,7 @@ const BlogItem = ({ item }) => {
   return (
     <S.BlogListWrapper>
       {renderBlogImages}
-      <S.BlogListContent key={item.id}>
+      <div className="blog_list_content" key={item.id}>
         <h2>{item.title}</h2>
         <p>
           Đã đăng vào lúc{" "}
@@ -33,15 +33,15 @@ const BlogItem = ({ item }) => {
           dangerouslySetInnerHTML={{ __html: item.content }}
         />
         <S.ShowMoreBtn>Xem thêm</S.ShowMoreBtn>
-      </S.BlogListContent>
+      </div>
     </S.BlogListWrapper>
   );
 };
 
 const BlogItemHomePage = ({ item }) => {
   const renderBlogImages = useMemo(() => {
-    if (!item.images?.length) return null;
-    return item.images?.map((item) => {
+    if (!item.blogImages?.length) return null;
+    return item.blogImages?.map((item) => {
       return (
         <img
           className="blog_list_img"
@@ -55,25 +55,29 @@ const BlogItemHomePage = ({ item }) => {
 
   return (
     <S.BlogListHomePageWrapper>
-      {renderBlogImages}
-      <S.BlogListHomePageContent key={item.id}>
-        <Tooltip className="blog_name" placement="topLeft" title={item.title}>
-          <h2>{item.title}</h2>
-        </Tooltip>
-        <time>Khoảng {moment(item.createdAt).fromNow()}</time>
-        <div
-          className="blog_content"
-          dangerouslySetInnerHTML={{ __html: item.content }}
-        />
-      </S.BlogListHomePageContent>
+      <div className="manage_listing_top">{renderBlogImages}</div>
+      <div className="manage_listing_middle">
+        <div className="manage_listing_middle_btn_list">
+          <span className="listing_middle_label">
+            <div
+              className="blog_content"
+              dangerouslySetInnerHTML={{ __html: item.content }}
+            />
+          </span>
+        </div>
+        <h4 className="blog_name">{item.title}</h4>
+        <p className="listing_middle_content">
+          Khoảng {moment(item.createdAt).fromNow()}
+        </p>
+      </div>
     </S.BlogListHomePageWrapper>
   );
 };
 
 const RelatedBlogItem = ({ item }) => {
   const renderBlogImages = useMemo(() => {
-    if (!item.images?.length) return null;
-    return item.images?.map((item) => {
+    if (!item.blogImages?.length) return null;
+    return item.blogImages?.map((item) => {
       return (
         <img
           className="img_100"
@@ -101,8 +105,8 @@ const RelatedBlogItem = ({ item }) => {
 
 const RelatedBlogDetailItem = ({ item }) => {
   const renderBlogImages = useMemo(() => {
-    if (!item.images?.length) return null;
-    return item.images?.map((item) => {
+    if (!item.blogImages?.length) return null;
+    return item.blogImages?.map((item) => {
       return (
         <img
           className="img_35"

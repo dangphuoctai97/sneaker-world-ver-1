@@ -22,14 +22,14 @@ const AdminCreateBlogPage = () => {
   }, []);
 
   const handleCreateBlog = async (values) => {
-    const { images, ...blogValues } = values;
+    const { blogImages, ...blogValues } = values;
     const newImages = [];
-    for (let i = 0; i < images.length; i++) {
-      const imgBase64 = await convertImageToBase64(images[i].originFileObj);
+    for (let i = 0; i < blogImages.length; i++) {
+      const imgBase64 = await convertImageToBase64(blogImages[i].originFileObj);
       await newImages.push({
-        name: images[i].name,
-        type: images[i].type,
-        thumbUrl: images[i].thumbUrl,
+        name: blogImages[i].name,
+        type: blogImages[i].type,
+        thumbUrl: blogImages[i].thumbUrl,
         url: imgBase64,
       });
     }
@@ -40,7 +40,7 @@ const AdminCreateBlogPage = () => {
           composer: userInfo.data.fullName,
           slug: slug(values.title),
         },
-        images: newImages,
+        blogImages: newImages,
         callback: {
           goToList: () => navigate(ROUTES.ADMIN.BLOG_LIST),
         },
@@ -52,7 +52,7 @@ const AdminCreateBlogPage = () => {
     content: "",
     composer: "",
     categoryId: undefined,
-    images: [],
+    blogImages: [],
   };
 
   return (
@@ -113,7 +113,7 @@ const AdminCreateBlogPage = () => {
           </Form.Item>
           <Form.Item
             label="Hình ảnh"
-            name="images"
+            name="blogImages"
             valuePropName="fileList"
             getValueFromEvent={(e) => {
               if (Array.isArray(e)) return e;
