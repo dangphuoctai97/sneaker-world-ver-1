@@ -55,7 +55,7 @@
       "content": "<p>1111111</p>",
       "slug": "deviate-nitro-elite-racer-sp-mens-running-sneakers",
       "createdAt": 1668477083247,
-      "updatedAt": 1668477360569,
+      "updatedAt": 1668597428368,
       "id": 3
     }
   ],
@@ -66,7 +66,7 @@
       "fullName": "Hiep",
       "role": "user",
       "createdAt": 1666191759181,
-      "updatedAt": 1668597079579,
+      "updatedAt": 1668653614012,
       "id": 1,
       "updatedBy": "Hiep-Admin"
     },
@@ -76,7 +76,7 @@
       "fullName": "Hiep-Admin",
       "role": "admin",
       "createdAt": 1666197747095,
-      "updatedAt": 1668597075988,
+      "updatedAt": 1668597375425,
       "id": 2,
       "updatedBy": "Hiep-Admin"
     }

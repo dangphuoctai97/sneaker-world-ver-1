@@ -400,9 +400,9 @@ const UserProductListPage = () => {
                   <LoadingWrapper />
                 ) : (
                   <>
-                    <h6 style={{ color: "royalblue" }}>
+                    <h3 style={{ color: "royalblue" }}>
                       Có {productList.meta.total} sản phẩm
-                    </h6>
+                    </h3>
                     <Row gutter={[16, 16]}>{renderProductList()}</Row>
                     {productList.data.length !== productList.meta.total && (
                       <Row justify="center">

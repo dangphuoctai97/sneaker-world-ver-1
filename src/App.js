@@ -7,7 +7,7 @@ import LoginLayout from "./layouts/LoginLayout";
 import UserLayout from "./layouts/UserLayout";
 import AdminLayout from "./layouts/AdminLayout";
 
-import AdminHomePage from "./pages/Admin/HomePage";
+import AdminDashboard from "./pages/Admin/Dashboard";
 import AdminProductListPage from "./pages/Admin/ProductListPage";
 import AdminCreateProductPage from "./pages/Admin/CreateProductPage";
 import AdminUpdateProductPage from "./pages/Admin/UpdateProductPage";
@@ -56,7 +56,7 @@ function App() {
         <Route element={<AdminLayout />}>
           <Route
             path={ROUTES.ADMIN.DASHBOARD}
-            element={<AdminHomePage />}
+            element={<AdminDashboard />}
           ></Route>
           <Route
             path={ROUTES.ADMIN.PRODUCT_LIST}

@@ -99,7 +99,7 @@ export default function Header(props) {
               {userInfo.data.id ? (
                 <Dropdown overlay={menu}>
                   <div className="userInfo">
-                    <h4>{userInfo.data.fullName}</h4>
+                    <h2>{userInfo.data.fullName}</h2>
                     <Avatar
                       size={40}
                       src={
@@ -123,6 +123,7 @@ export default function Header(props) {
         </Col>
         <Col span={2} />
       </Row>
+      <div className="background_image"></div>
     </S.HeaderContainer>
   );
 }

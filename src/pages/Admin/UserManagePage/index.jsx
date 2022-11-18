@@ -72,14 +72,8 @@ export default function AdminUserManagePage() {
       sorter: (a, b) => a.id - b.id,
       render: (_, record) => {
         return (
-          <Space
-            style={{
-              justifyContent: "center",
-              alignItems: "center",
-              width: 50,
-            }}
-          >
-            <h6>{record.id}</h6>
+          <Space>
+            <h3>{record.id}</h3>
           </Space>
         );
       },
@@ -91,7 +85,7 @@ export default function AdminUserManagePage() {
       render: (_, record) => {
         return (
           <Space>
-            <h6
+            <h3
               style={{
                 maxWidth: 200,
                 width: "fit-content",
@@ -103,7 +97,7 @@ export default function AdminUserManagePage() {
               }}
             >
               {record.role}
-            </h6>
+            </h3>
           </Space>
         );
       },
@@ -124,7 +118,7 @@ export default function AdminUserManagePage() {
                 borderRadius: "10px",
               }}
             /> */}
-            <h6
+            <h3
               style={{
                 maxWidth: 200,
                 width: "fit-content",
@@ -136,7 +130,7 @@ export default function AdminUserManagePage() {
               }}
             >
               {record.fullName}
-            </h6>
+            </h3>
           </Space>
         );
       },

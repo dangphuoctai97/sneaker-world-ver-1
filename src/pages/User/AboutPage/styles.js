@@ -83,4 +83,8 @@ export const MapContainer = styled.div`
   margin: 2rem 0;
   max-width: 1280px;
   margin: 0px auto;
+  .location_map {
+    width: 100%;
+    height: 700px;
+  }
 `;

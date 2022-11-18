@@ -2,15 +2,30 @@ import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
 
 export const SidebarContainer = styled.div`
-  position: absolute;
-  top: -1px;
+  z-index: 1;
+  position: fixed;
+  top: 70px;
   left: 0;
   bottom: 0;
   width: 200px;
   height: 100%;
-  background-color: #0b326b;
+  background-image: url(https://wallpapercave.com/wp/wp3340286.jpg);
+  background-attachment: cover;
+  background-position: center center;
+  background-size: cover;
   overflow: hidden;
   transition: all 0.3s;
+  .background_image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    z-index: -1;
+    opacity: 0.5;
+    background: #000;
+  }
 `;
 
 export const SidebarContent = styled.div`
@@ -26,14 +41,13 @@ export const SidebarItem = styled(Link)`
   cursor: pointer;
 
   &:hover {
-    background-color: midnightblue;
-    color: white;
+    background-color: rgba(255, 255, 255, 0.7);
+    color: rgb(40, 40, 40);
   }
 
   ${(props) =>
     props.$active &&
     css`
-      border-right: 5px solid #3face4;
-      background-color: #578ea2;
+      background-color: rgba(0, 0, 0, 0.8);
     `}
 `;

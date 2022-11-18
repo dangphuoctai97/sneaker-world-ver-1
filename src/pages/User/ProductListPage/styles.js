@@ -14,6 +14,10 @@ export const CustomCard = styled(Card)`
 
 export const FilterTag = styled(Tag)`
   margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2px 6px;
 `;
 
 // export const CustomCollapsePanel = styled(Collapse.Panel)`
