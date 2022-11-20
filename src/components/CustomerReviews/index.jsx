@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { Space, Rate, Col } from "antd";
+import { Space, Rate, Col, Avatar } from "antd";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, FreeMode, A11y, Autoplay } from "swiper";
 import moment from "moment";
@@ -11,27 +11,27 @@ const CustomerReviews = ({ reviewList }) => {
     if (!reviewList.data.length) return null;
     return reviewList.data?.map((item) => {
       return (
-        <SwiperSlide key={item.id}>
-          <S.ProductRating>
-            <div className="product_rating_avata">
-              <S.RatingAvatarImg
-                size={{ md: 40, sm: 32 }}
-                src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-              />
-              <div className="product_rating_main_author-name">
-                {item.user.fullName}
-              </div>
+        <SwiperSlide className="product_rating_slider" key={item.id}>
+          <div className="product_rating_container">
+            <Avatar
+              shape="radio"
+              className="product_rating_avatar"
+              src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+            />
+            <div className="product_rating_author_name">
+              {item.user.fullName}
             </div>
-            <div className="product_rating_main">
-              <div className="product_user_rating">
-                <Rate value={item.rate} disabled style={{ fontSize: 14 }} />
-              </div>
-              <div className="product_rating_time">
-                {moment(item.createdAt).fromNow()}
-              </div>
-              <div className="product_rating_content">{item.comment}</div>
-            </div>
-          </S.ProductRating>
+            <Rate
+              className="product_user_rating"
+              value={item.rate}
+              disabled
+              style={{ fontSize: 14 }}
+            />
+            <p className="product_rating_time">
+              {moment(item.createdAt).fromNow()}
+            </p>
+            <div className="product_rating_content">{item.comment}</div>
+          </div>
         </SwiperSlide>
       );
     });
@@ -39,12 +39,12 @@ const CustomerReviews = ({ reviewList }) => {
 
   return (
     <>
-      <Swiper
+      <S.ProductRatingSwiper
         style={{
           "--swiper-navigation-color": "royalblue",
         }}
         modules={[Navigation, A11y, Autoplay, FreeMode]}
-        spaceBetween={15}
+        spaceBetween={0}
         slidesPerView={6}
         autoplay={{ delay: 1500 }}
         speed={800}
@@ -53,7 +53,7 @@ const CustomerReviews = ({ reviewList }) => {
         freeMode={true}
       >
         {renderReviewList}
-      </Swiper>
+      </S.ProductRatingSwiper>
     </>
   );
 };

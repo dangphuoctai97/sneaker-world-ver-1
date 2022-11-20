@@ -41,7 +41,7 @@ export const SidebarItem = styled(Link)`
   cursor: pointer;
 
   &:hover {
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: rgb(210, 178, 84, 80%);
     color: rgb(40, 40, 40);
   }
 

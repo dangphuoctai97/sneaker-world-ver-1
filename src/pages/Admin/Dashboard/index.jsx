@@ -116,7 +116,7 @@ const AdminDashboard = () => {
                   <p className="inform_title">Đánh giá trung bình</p>
 
                   <h3 className="inform_info">
-                    <Rate value={4} />
+                    <Rate value={4} disabled />
                     <br />
                     <b style={{ fontWeight: 400, fontSize: 15 }}>
                       50 / 100 <small> review tích cực</small>
