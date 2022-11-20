@@ -40,6 +40,7 @@ const AdminProductListPage = () => {
         params: {
           page: page,
           limit: ADMIN_TABLE_LIMIT,
+          order: "id.desc",
         },
       })
     );
@@ -88,22 +89,27 @@ const AdminProductListPage = () => {
       dataIndex: "name",
       key: "name",
       render: (_, record) => {
-        return record.images?.slice(0, 1).map((item) => {
-          return (
-            <Space key={item.id}>
-              <Image
-                preview={{
-                  visible: false,
-                }}
-                onClick={() => setVisible(true)}
-                src={item?.url}
-                alt={item?.name}
-                style={{
-                  width: "80px",
-                  height: "auto",
-                  borderRadius: "10px",
-                }}
-              />
+        return (
+          <>
+            <Space>
+              {record.images?.slice(0, 1).map((item) => {
+                return (
+                  <Image
+                    key={item.id}
+                    preview={{
+                      visible: false,
+                    }}
+                    onClick={() => setVisible(true)}
+                    src={item?.url}
+                    alt={item?.name}
+                    style={{
+                      width: "80px",
+                      height: "auto",
+                      borderRadius: "10px",
+                    }}
+                  />
+                );
+              })}
               <div
                 style={{
                   display: "none",
@@ -125,8 +131,8 @@ const AdminProductListPage = () => {
               </div>
               <h4>{record.name}</h4>
             </Space>
-          );
-        });
+          </>
+        );
       },
     },
     {

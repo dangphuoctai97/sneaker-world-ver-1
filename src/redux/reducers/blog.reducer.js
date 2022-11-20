@@ -233,6 +233,7 @@ const blogReducer = createReducer(initialState, {
       },
     };
   },
+  
   [REQUEST(BLOG_ACTION.CLEAR_BLOG_DETAIL)]: (state, action) => {
     return {
       ...state,

@@ -1,14 +1,5 @@
 import { useEffect } from "react";
-import {
-  Button,
-  Table,
-  Space,
-  Pagination,
-  Select,
-  Row,
-  Col,
-  Image,
-} from "antd";
+import { Button, Table, Space, Pagination, Image } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import moment from "moment";
 import { generatePath, useNavigate } from "react-router-dom";

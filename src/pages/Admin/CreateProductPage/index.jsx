@@ -222,12 +222,12 @@ const AdminCreateProductPage = () => {
               if (Array.isArray(e)) return e;
               return e?.fileList;
             }}
-            // rules={[
-            //   {
-            //     required: true,
-            //     message: "This field is required!",
-            //   },
-            // ]}
+            rules={[
+              {
+                required: true,
+                message: "This field is required!",
+              },
+            ]}
           >
             <Upload
               onPreview={onPreview}

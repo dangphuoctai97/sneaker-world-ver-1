@@ -11,6 +11,9 @@ import AdminDashboard from "./pages/Admin/Dashboard";
 import AdminProductListPage from "./pages/Admin/ProductListPage";
 import AdminCreateProductPage from "./pages/Admin/CreateProductPage";
 import AdminUpdateProductPage from "./pages/Admin/UpdateProductPage";
+import AdminCategoryListPage from "./pages/Admin/CategoryListPage";
+import AdminCreateCategoryPage from "./pages/Admin/CreateCategoryPage";
+import AdminUpdateCategoryPage from "./pages/Admin/UpdateCategoryPage";
 import AdminBlogListPage from "./pages/Admin/BlogListPage";
 import AdminCreateBlogPage from "./pages/Admin/CreateBlogPage";
 import AdminUpdateBlogPage from "./pages/Admin/UpdateBlogPage";
@@ -69,6 +72,18 @@ function App() {
           <Route
             path={ROUTES.ADMIN.UPDATE_PRODUCT}
             element={<AdminUpdateProductPage />}
+          ></Route>
+          <Route
+            path={ROUTES.ADMIN.CATEGORY_LIST}
+            element={<AdminCategoryListPage />}
+          ></Route>
+          <Route
+            path={ROUTES.ADMIN.CREATE_CATEGORY}
+            element={<AdminCreateCategoryPage />}
+          ></Route>
+          <Route
+            path={ROUTES.ADMIN.UPDATE_CATEGORY}
+            element={<AdminUpdateCategoryPage />}
           ></Route>
           <Route
             path={ROUTES.ADMIN.BLOG_LIST}

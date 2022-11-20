@@ -62,7 +62,7 @@ export const HeaderContent = styled.div`
         align-items: center;
         color: royalblue;
         overflow: hidden;
-        background: linear-gradient(to right, #f6432e, #95de64 50%, #fff 50%);
+        background: linear-gradient(to right, #f6432e, royalblue 50%, #fff 50%);
         background-clip: text;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
@@ -91,6 +91,12 @@ export const DropdownContainer = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    :hover {
+      .user_icon,
+      h2 {
+        color: rgb(210, 178, 84, 80%);
+      }
+    }
     .user_icon {
       font-size: 24px;
       color: #fff;

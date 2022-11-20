@@ -2,10 +2,11 @@ import { ROUTES } from "../../constants/routes";
 import { MdSpaceDashboard, MdManageAccounts } from "react-icons/md";
 import { FaHome } from "react-icons/fa";
 import { GiShop, GiScrollQuill } from "react-icons/gi";
+import { MdOutlineCategory } from "react-icons/md";
 
 export const SIDEBAR_ITEMS = [
   {
-    title: "Homepage",
+    title: "User Homepage",
     path: ROUTES.USER.HOME,
     icon: <FaHome style={{ fontSize: 30, marginRight: 10 }} />,
   },
@@ -18,6 +19,11 @@ export const SIDEBAR_ITEMS = [
     title: "User Manage",
     path: ROUTES.ADMIN.USER_MANAGE,
     icon: <MdManageAccounts style={{ fontSize: 26, marginRight: 10 }} />,
+  },
+  {
+    title: "Category Manage",
+    path: ROUTES.ADMIN.CATEGORY_LIST,
+    icon: <MdOutlineCategory style={{ fontSize: 26, marginRight: 10 }} />,
   },
   {
     title: "Product Manage",
