@@ -15,3 +15,6 @@ export const setCheckoutInfoAction = createAction(
 export const setCheckoutPaymentAction = createAction(
   REQUEST(CART_ACTION.SET_CHECKOUT_PAYMENT)
 );
+export const resetCartListAction = createAction(
+  REQUEST(CART_ACTION.RESET_CART_LIST)
+);

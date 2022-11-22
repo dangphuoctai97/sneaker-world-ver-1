@@ -48,7 +48,7 @@ export default function Header(props) {
         {
           key: "userProfile",
           label: (
-            <Link to={null}>
+            <Link to={ROUTES.USER.PROFILE}>
               <span style={{ color: "royalblue" }}>thông tin tài khoản</span>
             </Link>
           ),

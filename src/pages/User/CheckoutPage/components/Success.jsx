@@ -1,10 +1,19 @@
+import { useEffect } from "react";
 import { Row, Button, Image, Space, Col } from "antd";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
+import { resetCartListAction } from "../../../../redux/actions";
 import { ROUTES } from "../../../../constants";
 
 const Success = ({ setStep }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(resetCartListAction());
+  }, []);
+
   return (
     <>
       <Row justify="center" style={{ marginTop: "28px" }}>
