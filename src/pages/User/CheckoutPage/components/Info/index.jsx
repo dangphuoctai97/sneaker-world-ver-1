@@ -18,7 +18,6 @@ import {
   getDistrictListAction,
   getWardListAction,
   setCheckoutInfoAction,
-  get,
 } from "../../../../../redux/actions";
 
 import * as S from "./styles";

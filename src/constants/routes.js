@@ -9,6 +9,7 @@ export const ROUTES = {
     PRODUCT_LIST: "/products",
     PRODUCT_DETAILS: "/products/:id",
     CHECKOUT: "/checkout",
+    PROFILE: "/profile",
   },
   ADMIN: {
     DASHBOARD: "/admin/dashboard",

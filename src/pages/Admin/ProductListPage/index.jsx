@@ -79,7 +79,7 @@ const AdminProductListPage = () => {
               width: 50,
             }}
           >
-            <h3>{record.id}</h3>
+            <h4>{record.id}</h4>
           </Space>
         );
       },

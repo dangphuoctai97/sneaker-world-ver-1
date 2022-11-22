@@ -15,9 +15,7 @@
       "amount": 1,
       "price": 1,
       "gender": 1,
-      "size": [
-        36
-      ],
+      "size": [36],
       "isNew": true,
       "discount": 1,
       "content": "<p>1</p>",
@@ -25,6 +23,35 @@
       "createdAt": 1668785785528,
       "updatedAt": 1668785785528,
       "id": 1
+    },
+    {
+      "name": "Future Z 4.2 TT Soccer Cleats JR",
+      "categoryId": 1,
+      "amount": 1,
+      "price": 2000000,
+      "gender": 1,
+      "size": [37],
+      "isNew": true,
+      "discount": 20,
+      "content": "<p>aaa</p>",
+      "slug": "future-z-42-tt-soccer-cleats-jr",
+      "createdAt": 1668477038056,
+      "updatedAt": 1668477358608,
+      "id": 2
+    },
+    {
+      "name": "Deviate Nitro Elite Racer SP Men's Running Sneakers",
+      "categoryId": 2,
+      "amount": 20,
+      "price": 1000000,
+      "gender": 2,
+      "size": [36, 37, 38, 39],
+      "discount": 25,
+      "content": "<p>1111111</p>",
+      "slug": "deviate-nitro-elite-racer-sp-mens-running-sneakers",
+      "createdAt": 1668477083247,
+      "updatedAt": 1668597428368,
+      "id": 3
     }
   ],
   "users": [
@@ -40,17 +67,59 @@
     },
     {
       "email": "hieple-admin@gmail.com",
-      "password": "$2a$10$0SMG/nWAJSMFKKQapXbPFOc8j.6VL4MBLxSfhbajKMf0VbFBSWSxi",
+      "password": "$2a$10$AwdNuUOUApDObOTdxYYOEu8N/RVz65H0OCgXBsYgXC6aKmSzEVRxi",
       "fullName": "Hiep-Admin",
       "role": "admin",
       "createdAt": 1666197747095,
-      "updatedAt": 1668761858247,
+      "updatedAt": 1668597375425,
       "id": 2,
-      "updatedBy": "Hiep-Admin"
+      "updatedBy": "Hiep-Admin",
+      "newPassword": "123456",
+      "confirmNewPassword": "123456"
+    }
+  ],
+  "blogs": [
+    {
+      "title": "Cách xỏ (buộc) dây giày thể thao chuẩn không cần chỉnh",
+      "categoryId": 1,
+      "content": "<p><span style=\"color: rgb(39, 39, 39);\">Dây giày là một thành phần không thể thiếu, và vô cùng quan trọng đối với bất kỳ đôi giày sneaker nào. Tuy nhiên không phải ai cũng biết cách xỏ (buộc) dây giày cho đúng, việc xỏ dây giày không chuẩn dễ dẫn đến tình trạng đau mắt cá chân, giày dễ bị tụt gót. Do đó hôm nay Runner inn sẽ hướng dẫn các bạn từng bước chi tiết cách xỏ dây giày.</span></p><h2>Các bước buộc dây giày thể thao</h2><p><strong>* Trong suốt quá trình làm, bạn cần ghi nhớ xỏ lỗ giày từ trong ra ngoài nhé. Bạn có thể đặt giày đối diện, mũi giày hướng về mặt cho tiện việc xỏ lỗ.</strong></p><h3>Bước #1</h3><p>Đầu tiên các bạn đưa dây giày luồn vào 2 nút cuối cùng ở phần mũi giày.</p><h3>Bước #2</h3><p>Tiếp theo, bạn nắm lấy đầu dây giày của lỗ bên trái, xỏ vào lỗ thứ hai ( từ dưới mũi giày đếm lên) ở bên phải giày.</p><h3>Bước #3</h3><p>Sau đó bạn lại nắm lấy đầu dây giày của lỗ bên phải, xỏ vào lỗ thứ hai ở bên trái ( tương tự như ở trên).</p><h3>Bước #4</h3><p>Lắp lại bước 2 và bước 3 ở trên cho đến khi nào chạm đến lỗ cuối cùng của giày thì thôi.</p><h3>Bước #5</h3><p>Lúc này bạn xỏ 2 dây vào 2 lỗ trên cùng ( không cần phải chéo nhau như các bước làm nãy giờ), và&nbsp;<strong>xỏ hướng từ ngoài vào trong</strong>, chừa lại một khoảng, tạo ra hình vòng dây ở mỗi bên.</p><h3>Bước #6</h3><p>Lấy dây ở bên trái, xỏ qua vòng dây vừa tạo ở bên phải, lặp lại cho dây ở bên phải. Sau đó kéo dây giày lên để cố định lại.</p><h3>Bước #7</h3><p>Cuối cùng các bạn buộc thắt nút như bình thường là xong.</p><p><span style=\"color: rgb(39, 39, 39);\">Như vậy các bạn đã có thể tự xỏ dây giày một cách chuẩn nhất, không còn phải lúng túng, lóng nga lóng ngóng với mớ dây nhợ phiền phức này. Ngoài ra các bạn cũng có thể thử loại giày Slip-on, nếu bạn cảm thấy quá phiền mỗi khi cởi ra mang vào đều phải cột dây. Hay bạn thèm khát sự tiện lợi, chỉ cần xỏ giày vào là đi, thì Slip-on sinh ra là dành cho bạn.</span></p>",
+      "composer": "Hiep-Admin",
+      "slug": "cach-xo-buoc-day-giay-the-thao-chuan-khong-can-chinh",
+      "createdAt": 1668477277189,
+      "updatedAt": 1668494415217,
+      "id": 2
+    },
+    {
+      "title": "chia se 1",
+      "categoryId": 1,
+      "content": "<h3><strong>The standard Lorem Ipsum passage, used since the 1500s</strong></h3><p class=\"ql-align-justify\">\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\"</p><h3><strong>Section 1.10.32 of \"de Finibus Bonorum et Malorum\", written by Cicero in 45 BC</strong></h3><p class=\"ql-align-justify\">\"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?\"</p><h3><strong>1914 translation by H. Rackham</strong></h3><p class=\"ql-align-justify\">\"But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure?\"</p><h3><strong>Section 1.10.33 of \"de Finibus Bonorum et Malorum\", written by Cicero in 45 BC</strong></h3><p class=\"ql-align-justify\">\"At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.\"</p><h3><strong>1914 translation by H. Rackham</strong></h3><p class=\"ql-align-justify\">\"On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil and pain. These cases are perfectly simple and easy to distinguish. In a free hour, when our power of choice is untrammelled and when nothing prevents our being able to do what we like best, every pleasure is to be welcomed and every pain avoided. But in certain circumstances and owing to the claims of duty or the obligations of business it will frequently occur that pleasures have to be repudiated and annoyances accepted. The wise man therefore always holds in these matters to this principle of selection: he rejects pleasures to secure other greater pleasures, or else he endures pains to avoid worse pains.\"</p><p><br></p>",
+      "composer": "Hiep-Admin",
+      "slug": "chia-se-1",
+      "createdAt": 1668477672052,
+      "updatedAt": 1668477672052,
+      "id": 3
+    },
+    {
+      "title": "review ",
+      "categoryId": 2,
+      "content": "<h3><strong>The standard Lorem Ipsum passage, used since the 1500s</strong></h3><p class=\"ql-align-justify\">\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\"</p><h3><strong>Section 1.10.32 of \"de Finibus Bonorum et Malorum\", written by Cicero in 45 BC</strong></h3><p class=\"ql-align-justify\">\"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?\"</p><h3><strong>1914 translation by H. Rackham</strong></h3><p class=\"ql-align-justify\">\"But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure?\"</p><h3><strong>Section 1.10.33 of \"de Finibus Bonorum et Malorum\", written by Cicero in 45 BC</strong></h3><p class=\"ql-align-justify\">\"At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.\"</p><h3><strong>1914 translation by H. Rackham</strong></h3><p class=\"ql-align-justify\">\"On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil and pain. These cases are perfectly simple and easy to distinguish. In a free hour, when our power of choice is untrammelled and when nothing prevents our being able to do what we like best, every pleasure is to be welcomed and every pain avoided. But in certain circumstances and owing to the claims of duty or the obligations of business it will frequently occur that pleasures have to be repudiated and annoyances accepted. The wise man therefore always holds in these matters to this principle of selection: he rejects pleasures to secure other greater pleasures, or else he endures pains to avoid worse pains.\"</p><p><br></p>",
+      "composer": "Hiep-Admin",
+      "slug": "review",
+      "createdAt": 1668477696317,
+      "updatedAt": 1668477696317,
+      "id": 4
     }
   ],
   "blogs": [],
-  "favorites": [],
+  "favorites": [
+    {
+      "userId": 2,
+      "productId": 1,
+      "createdAt": 1668243585745,
+      "updatedAt": 1668243585745,
+      "id": 1
+    }
+  ],
   "guestOrders": [],
   "guestOrderProducts": [],
   "reviews": [

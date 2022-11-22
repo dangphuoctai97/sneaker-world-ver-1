@@ -68,6 +68,13 @@ const cartReducer = createReducer(initialState, {
       checkoutInfo: action.payload,
     };
   },
+
+  [REQUEST(CART_ACTION.RESET_CART_LIST)]: (state, action) => {
+    return {
+      ...state,
+      cartList: [],
+    };
+  },
 });
 
 export default cartReducer;

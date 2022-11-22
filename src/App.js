@@ -27,6 +27,7 @@ import BlogDetailPage from "./pages/User/BlogDetailPage";
 import CheckoutPage from "./pages/User/CheckoutPage";
 import UserProductListPage from "./pages/User/ProductListPage";
 import ProductDetailPage from "./pages/User/ProductDetailPage";
+import ProfilePage from "./pages/User/ProfilePage";
 
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
@@ -45,6 +46,7 @@ function App() {
 
     if (accessToken) {
       const decodeInfo = jwtDecode(accessToken);
+
       dispatch(getUserInfoAction({ id: decodeInfo.sub }));
     }
   }, []);
@@ -126,6 +128,7 @@ function App() {
             path={ROUTES.USER.PRODUCT_DETAILS}
             element={<ProductDetailPage />}
           ></Route>
+          <Route path={ROUTES.USER.PROFILE} element={<ProfilePage />}></Route>
         </Route>
         <Route element={<LoginLayout />}>
           <Route path={ROUTES.LOGIN} element={<LoginPage />}></Route>

@@ -17,7 +17,6 @@ import { BiCheck } from "react-icons/bi";
 import {
   orderProductAction,
   guestOrderProductAction,
-  getOrderList,
 } from "../../../../../redux/actions";
 import { BANK_LIST } from "./constants";
 import * as S from "./styles";
@@ -30,17 +29,8 @@ const Payment = ({ setStep }) => {
   const [checked, setChecked] = useState("");
   const dispatch = useDispatch();
   const { cartList, checkoutInfo } = useSelector((state) => state.cart);
-  console.log(
-    "🚀 ~ file: index.jsx ~ line 33 ~ Payment ~ checkoutInfo",
-    checkoutInfo
-  );
-  const { userInfo } = useSelector((state) => state.user);
 
-  useEffect(() => {
-    if (userInfo.data.id) {
-      dispatch(getOrderList({ userId: userInfo.data.id }));
-    }
-  }, [userInfo.data]);
+  const { userInfo } = useSelector((state) => state.user);
 
   const totalPrice = cartList
     .map((item) => item.price * item.quantity)
@@ -57,6 +47,8 @@ const Payment = ({ setStep }) => {
           status: "pending",
           products: cartList.map((item) => ({
             productId: item.productId,
+            productName: item.productName,
+            discount: item.discount,
             price: item.price,
             quantity: item.quantity,
           })),
@@ -67,6 +59,13 @@ const Payment = ({ setStep }) => {
         guestOrderProductAction({
           ...checkoutInfo,
           ...values,
+          totalPrice: totalPrice,
+          status: "pending",
+          products: cartList.map((item) => ({
+            productId: item.productId,
+            price: item.price,
+            quantity: item.quantity,
+          })),
         })
       );
     }
@@ -395,7 +394,7 @@ const Payment = ({ setStep }) => {
                                   <Row justify="end">
                                     <Button
                                       type="primary"
-                                      onClick={() => setStep(3)}
+                                      onClick={() => paymentForm.submit()}
                                     >
                                       Xác nhận
                                     </Button>
@@ -513,7 +512,7 @@ const Payment = ({ setStep }) => {
       </Row>
       <Row justify="space-between">
         <Button onClick={() => setStep(1)}>Quay lại</Button>
-        <Button type="primary" onClick={() => setStep(3)}>
+        <Button type="primary" onClick={() => paymentForm.submit()}>
           Đặt hàng
         </Button>
       </Row>
