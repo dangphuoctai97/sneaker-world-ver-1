@@ -21,6 +21,7 @@ const VideoSlider = () => {
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
+            srcDoc={item.srcDoc}
           ></iframe>
         </SwiperSlide>
       );
@@ -37,6 +38,7 @@ const VideoSlider = () => {
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
+            srcDoc={item.srcDoc}
           ></iframe>
         </SwiperSlide>
       );
@@ -67,6 +69,23 @@ const VideoSlider = () => {
         watchSlidesProgress={true}
         modules={[FreeMode, Navigation, Thumbs]}
         className="mySwiper"
+        breakpoints={{
+          0: {
+            slidesPerView: 1,
+          },
+          480: {
+            slidesPerView: 1,
+          },
+          768: {
+            slidesPerView: 2,
+          },
+          992: {
+            slidesPerView: 3,
+          },
+          1280: {
+            slidesPerView: 4,
+          },
+        }}
       >
         <Ratio aspectRatio="4x3">{renderSmallSlider()}</Ratio>
       </Swiper>

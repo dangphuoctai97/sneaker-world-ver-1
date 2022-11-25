@@ -22,7 +22,7 @@ const CustomerReviews = ({ reviewList }) => {
               {item.user.fullName}
             </div>
             <Rate
-              className="product_user_rating"
+              className="product_user_rating royalblue_color"
               value={item.rate}
               disabled
               style={{ fontSize: 14 }}
@@ -45,12 +45,29 @@ const CustomerReviews = ({ reviewList }) => {
         }}
         modules={[Navigation, A11y, Autoplay, FreeMode]}
         spaceBetween={0}
-        slidesPerView={6}
+        grabCursor={true}
         autoplay={{ delay: 1500 }}
         speed={800}
         loop={true}
         navigation
         freeMode={true}
+        breakpoints={{
+          480: {
+            slidesPerView: 2,
+          },
+          768: {
+            slidesPerView: 3,
+          },
+          992: {
+            slidesPerView: 4,
+          },
+          1280: {
+            slidesPerView: 5,
+          },
+          1680: {
+            slidesPerView: 6,
+          },
+        }}
       >
         {renderReviewList}
       </S.ProductRatingSwiper>

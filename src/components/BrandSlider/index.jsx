@@ -3,63 +3,51 @@ import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from "swiper";
 
+import { SLIDER_LINK } from "./constant";
 import * as S from "./styles";
 
 const BrandSlider = () => {
+  const renderBrands = () => {
+    return SLIDER_LINK?.map((item, i) => {
+      return (
+        <SwiperSlide key={i} className="swipper_wraper">
+          <div className="ratio_img">
+            <img src={item.path} alt="" />
+          </div>
+        </SwiperSlide>
+      );
+    });
+  };
   return (
-    <Swiper
-      modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
-      infiniti="true"
-      spaceBetween={0}
-      slidesPerView={6}
-      loop
-      autoplay={{ delay: 2000 }}
-      speed={800}
-      navigation
-      pagination={{ clickable: true }}
-      scrollbar={{ draggable: true }}
-    >
-      <S.SliderItem>
-        <Link>
-          <h3>Slide 1</h3>
-        </Link>
-      </S.SliderItem>
-      <S.SliderItem>
-        <Link>
-          <h3>Slide 2</h3>
-        </Link>
-      </S.SliderItem>
-      <S.SliderItem>
-        <Link>
-          <h3>Slide 3</h3>
-        </Link>
-      </S.SliderItem>
-      <S.SliderItem>
-        <Link>
-          <h3>Slide 4</h3>
-        </Link>
-      </S.SliderItem>
-      <S.SliderItem>
-        <Link>
-          <h3>Slide 5</h3>
-        </Link>
-      </S.SliderItem>
-      <S.SliderItem>
-        <Link>
-          <h3>Slide 6</h3>
-        </Link>
-      </S.SliderItem>
-      <S.SliderItem>
-        <Link>
-          <h3>Slide 7</h3>
-        </Link>
-      </S.SliderItem>
-      <S.SliderItem>
-        <Link>
-          <h3>Slide 8</h3>
-        </Link>
-      </S.SliderItem>
-    </Swiper>
+    <S.BrandSlider>
+      <Swiper
+        modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
+        loop={true}
+        spaceBetween={30}
+        autoplay={{ delay: 2000 }}
+        speed={800}
+        grabCursor={true}
+        breakpoints={{
+          480: {
+            slidesPerView: 2,
+          },
+          768: {
+            slidesPerView: 3,
+          },
+          992: {
+            slidesPerView: 4,
+          },
+          1280: {
+            slidesPerView: 5,
+          },
+          1680: {
+            slidesPerView: 6,
+          },
+        }}
+      >
+        {renderBrands()}
+      </Swiper>
+    </S.BrandSlider>
   );
 };
 export default BrandSlider;

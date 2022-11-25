@@ -158,6 +158,15 @@ const BlogDetailPage = () => {
                       <S.RelatedBlogContent>
                         {renderRelatedBlogList1()}
                       </S.RelatedBlogContent>
+                    </S.RelatedBlogContainer>
+                  </Col>
+                  <Col
+                    xs={24}
+                    sm={12}
+                    lg={24}
+                    style={{ paddingRight: 8, paddingLeft: 8 }}
+                  >
+                    <S.RelatedBlogContainer>
                       <div style={{ marginTop: 20 }} className="related_tag">
                         <div className="related_title">Chủ đề khác</div>
                       </div>
@@ -166,12 +175,6 @@ const BlogDetailPage = () => {
                       </S.RelatedBlogContent>
                     </S.RelatedBlogContainer>
                   </Col>
-                  <Col
-                    xs={24}
-                    sm={12}
-                    lg={24}
-                    style={{ paddingRight: 8, paddingLeft: 8 }}
-                  ></Col>
                 </Row>
               </Col>
             </Row>

@@ -99,14 +99,14 @@ const AdminUserUpdatePage = () => {
   return (
     <S.Wrapper>
       <S.TopWrapper>
-        <h3>Update Blog</h3>
+        <h3>Cập nhật người dùng</h3>
         <Button
           type="primary"
           onClick={() => {
             updateForm.submit();
           }}
         >
-          Update
+          Cập nhật
         </Button>
       </S.TopWrapper>
       <Spin spinning={userDetail.loading}>
@@ -143,7 +143,7 @@ const AdminUserUpdatePage = () => {
                 <Form.Item
                   label="Vai trò"
                   name="role"
-                  help="Bạn không thể set vai trò của mình"
+                  help="Bạn không thể sửa vai trò của mình"
                   validateStatus="error"
                 >
                   <Select disabled></Select>

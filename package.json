@@ -31,7 +31,7 @@
     "slick-carousel": "^1.8.1",
     "slug": "^8.2.2",
     "styled-components": "^5.3.6",
-    "swiper": "^8.4.4",
+    "swiper": "^8.4.5",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

@@ -22,6 +22,7 @@ export const CartItemWrapper = styled.div`
   border-radius: 2px;
   padding: 8px;
   margin-bottom: 16px;
+  background-color: #fff;
 
   &:hover {
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;

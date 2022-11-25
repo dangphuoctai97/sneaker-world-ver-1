@@ -3,8 +3,6 @@ import { Row, Col, Form, Input, Button } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { FreeMode, Scrollbar, Mousewheel } from "swiper";
 
 import TopWrapper from "../../../components/TopWrapper";
 import { ROUTES, TITLES } from "../../../constants/";
@@ -81,15 +79,17 @@ export default function AboutPage() {
             <CustomerReviews reviewList={reviewList} />
           </S.ReviewContainer>
           <S.MapContainer>
-            <iframe
-              className="location_map"
-              title="gg_map"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d61349.62126488034!2d108.17168657577378!3d16.047248394438395!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314219c792252a13%3A0xfc14e3a044436487!2zxJDDoCBO4bq1bmcsIEjhuqNpIENow6J1LCDEkMOgIE7hurVuZywgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1668495073150!5m2!1svi!2s"
-              frameBorder="0"
-              allowFullScreen=""
-              aria-hidden="false"
-              tabIndex="0"
-            />
+            <div className="ratio_img">
+              <iframe
+                className="location_map"
+                title="gg_map"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d61349.62126488034!2d108.17168657577378!3d16.047248394438395!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314219c792252a13%3A0xfc14e3a044436487!2zxJDDoCBO4bq1bmcsIEjhuqNpIENow6J1LCDEkMOgIE7hurVuZywgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1668495073150!5m2!1svi!2s"
+                frameBorder="0"
+                allowFullScreen=""
+                aria-hidden="false"
+                tabIndex="0"
+              />
+            </div>
           </S.MapContainer>
           <S.ContactForm>
             <Row>
@@ -97,30 +97,32 @@ export default function AboutPage() {
                 lg={{ span: 9, order: 1 }}
                 sm={{ span: 24, order: 2 }}
                 xs={{ span: 24, order: 2 }}
-                className="contact_info"
               >
-                <h1 className="form_title">Thông tin liên hệ</h1>
-                <p>
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                  Asperiores, eum. Repudiandae blanditiis consequuntur
-                </p>
-                <Row style={{ rowGap: 0 }}>
-                  <Col className="info_col" lg={24} md={12} xs={24} sm={24}>
-                    <span>Email: sneakerWorld@gmail.com</span>
-                  </Col>
-                  <Col className="info_col" lg={24} md={12} xs={24} sm={24}>
-                    <span>Phone: 0909999888</span>
-                  </Col>
-                  <Col className="info_col" lg={24} md={12} xs={24} sm={24}>
-                    <span>
-                      Address: Lorem ipsum dolor sit amet consectetur
-                      adipisicing elit.
-                    </span>
-                  </Col>
-                  <Col className="info_col" lg={24} md={12} xs={24} sm={24}>
-                    <span>Github: https://github.com/</span>
-                  </Col>
-                </Row>
+                <div className="contact_info_content">
+                  <h1 className="form_title">Thông tin liên hệ</h1>
+                  <p>
+                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                    Asperiores, eum. Repudiandae blanditiis consequuntur
+                  </p>
+                  <Row style={{ rowGap: 0 }}>
+                    <Col className="info_col" lg={24} md={12} xs={24} sm={24}>
+                      <span>Email: sneakerWorld@gmail.com</span>
+                    </Col>
+                    <Col className="info_col" lg={24} md={12} xs={24} sm={24}>
+                      <span>Phone: 0909999888</span>
+                    </Col>
+                    <Col className="info_col" lg={24} md={12} xs={24} sm={24}>
+                      <span>
+                        Address: Lorem ipsum dolor sit amet consectetur
+                        adipisicing elit.
+                      </span>
+                    </Col>
+                    <Col className="info_col" lg={24} md={12} xs={24} sm={24}>
+                      <span>Github: https://github.com/</span>
+                    </Col>
+                  </Row>
+                </div>
+                <div className="contact_info_background"> </div>
               </Col>
               <Col
                 lg={{ span: 15, order: 2 }}
@@ -152,7 +154,13 @@ export default function AboutPage() {
                       <Input />
                     </Form.Item>
                     <Row>
-                      <Col lg={12} sm={24} xs={24} style={{ paddingRight: 12 }}>
+                      <Col
+                        className="respon_padding_0"
+                        lg={12}
+                        sm={24}
+                        xs={24}
+                        style={{ paddingRight: 12 }}
+                      >
                         <Form.Item
                           label="Email"
                           name="email"
@@ -167,7 +175,13 @@ export default function AboutPage() {
                           <Input />
                         </Form.Item>
                       </Col>
-                      <Col lg={12} sm={24} xs={24} style={{ paddingLeft: 12 }}>
+                      <Col
+                        className="respon_padding_0"
+                        lg={12}
+                        sm={24}
+                        xs={24}
+                        style={{ paddingLeft: 12 }}
+                      >
                         <Form.Item
                           label="Số điện thoại"
                           name="phoneNumber"

@@ -1,8 +1,11 @@
 import styled from "styled-components";
-import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper } from "swiper/react";
+import { DEVICE } from "../../constants/device";
 
 export const ProductRatingSwiper = styled(Swiper)`
-  cursor: default;
+  .royalblue_color {
+    color: royalblue;
+  }
   :hover {
     .product_rating_slider {
       margin-top: 100px;
@@ -62,6 +65,7 @@ export const ProductRatingSwiper = styled(Swiper)`
         transform: scale(1.8);
         transition: all 300ms cubic-bezier(0.34, 1.61, 0.7, 1);
         .anticon-star {
+          cursor: grab;
           box-shadow: 0 5px 15px -8px rgb(0 0 0 / 24%),
             0 8px 10px -5px rgba(0 0 0 / 100%);
         }
@@ -101,6 +105,7 @@ export const ProductRatingSwiper = styled(Swiper)`
       flex: 1;
     }
     .product_rating_author_name {
+      margin-top: 10px;
       text-decoration: none;
       color: royalblue;
     }

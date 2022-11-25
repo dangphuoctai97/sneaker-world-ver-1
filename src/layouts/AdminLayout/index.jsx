@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Spin } from "antd";
 
 import Header from "../Admin/Header";
-import Sidebar from "../Sidebar";
+import AdminSidebar from "../Admin/Sidebar";
 
 import LoadingWrapper from "../../components/LoadingWrapper";
 import { ROUTES } from "../../constants/routes";
@@ -21,7 +21,7 @@ export default function AdminLayout() {
     <>
       <Header />
       <S.MainContainer>
-        <Sidebar />
+        <AdminSidebar />
         <S.MainContent>
           <Outlet />
         </S.MainContent>

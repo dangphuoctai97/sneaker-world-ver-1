@@ -63,14 +63,14 @@ const AdminUpdateCategoryPage = () => {
   return (
     <S.Wrapper>
       <S.TopWrapper>
-        <h3>Update Category</h3>
+        <h3>Cập nhật nhãn hàng</h3>
         <Button
           type="primary"
           onClick={() => {
             updateForm.submit();
           }}
         >
-          Update
+          Cập nhật
         </Button>
       </S.TopWrapper>
       <Spin spinning={categoryDetail.loading}>

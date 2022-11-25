@@ -27,7 +27,6 @@ const AdminCategoryListPage = () => {
         params: {
           page: 1,
           limit: ADMIN_TABLE_LIMIT,
-          order: "id.desc",
         },
       })
     );
@@ -52,7 +51,6 @@ const AdminCategoryListPage = () => {
         params: {
           page: categoryList.meta.page,
           limit: ADMIN_TABLE_LIMIT,
-          order: "id.desc",
         },
       })
     );
@@ -76,6 +74,7 @@ const AdminCategoryListPage = () => {
     ...item,
     key: item.id,
   }));
+
   const tableColumn = [
     {
       title: "Thứ tự",
@@ -97,7 +96,7 @@ const AdminCategoryListPage = () => {
       },
     },
     {
-      title: "Name",
+      title: "Tên",
       dataIndex: "name",
       key: "name",
       render: (_, record) => {
@@ -154,7 +153,7 @@ const AdminCategoryListPage = () => {
       },
     },
     {
-      title: "Action",
+      title: "Hành động",
       dataIndex: "action",
       key: "action",
       render: (_, record) => {
@@ -167,7 +166,7 @@ const AdminCategoryListPage = () => {
                 )
               }
             >
-              Update
+              Sửa
             </Button>
             <Button
               onClick={() => (
@@ -178,7 +177,7 @@ const AdminCategoryListPage = () => {
                 </>
               )}
             >
-              Delete
+              Xoá
             </Button>
           </Space>
         );
@@ -193,18 +192,18 @@ const AdminCategoryListPage = () => {
       ) : (
         <S.Wrapper>
           <S.TopWrapper>
-            <h2>Quản lý hãng sản phẩm</h2>
+            <h2>Quản lý hãng nhãn hàng</h2>
             <Button
               type="primary"
               onClick={() => navigate(ROUTES.ADMIN.CREATE_CATEGORY)}
             >
-              Create Category
+              Tạo nhãn hàng
             </Button>
           </S.TopWrapper>
           <Table
             rowKey="id"
             columns={tableColumn}
-            dataSource={tableData}
+            dataSource={tableData || null}
             pagination={false}
             style={{ flex: 1 }}
           />

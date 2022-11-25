@@ -1,6 +1,5 @@
 import styled, { css } from "styled-components";
-import { Carousel } from "antd";
-
+import { DEVICE } from "../../../constants/device";
 export const BlogListContainer = styled.div`
   background-color: rgb(239, 239, 239);
   margin: 10px auto;
@@ -24,6 +23,9 @@ export const BlogListContent = styled.div`
 `;
 
 export const RelatedBlogContainer = styled.div`
+  @media ${DEVICE.TABLET}, ${DEVICE.MOBILE} {
+    display: none;
+  }
   margin-top: 11.5px;
   & .related_tag {
     position: relative;

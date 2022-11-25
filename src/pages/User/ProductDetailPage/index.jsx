@@ -12,9 +12,9 @@ import {
   Form,
   Input,
   Rate,
-  Avatar,
+  Badge,
 } from "antd";
-import { useParams, Link } from "react-router-dom";
+import { useParams, useLocation, Link, generatePath } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import {
@@ -31,13 +31,19 @@ import {
   unFavoriteProductAction,
   postReviewAction,
   getReviewListAction,
+  getProductListAction,
+  getCategoryListAction,
 } from "../../../redux/actions";
-import ReviewItem from "./components/ReviewItem";
 import SyncSlider from "../../../components/SyncSlider";
+import ReviewItem from "./components/ReviewItem";
+import ImageSlider from "./components/ImageSlider";
 import TopWrapper from "../../../components/TopWrapper";
+import LoadingWrapper from "../../../components/LoadingWrapper";
+import ProductItem from "../../../components/ProductItem";
 import { ROUTES, TITLES } from "../../../constants";
 import { BREADCRUMB } from "./constants";
 import { calcDiscount } from "../../../utils/product";
+import { PRODUCT_RELATED_LIMIT } from "../../../constants/pagination";
 
 import * as S from "./styles";
 
@@ -53,9 +59,10 @@ const ProductDetailPage = () => {
   });
 
   const [error, setError] = useState(false);
-  const { productDetail } = useSelector((state) => state.product);
+  const { productDetail, productList } = useSelector((state) => state.product);
   const { userInfo } = useSelector((state) => state.user);
   const { reviewList } = useSelector((state) => state.review);
+  const { state } = useLocation();
 
   const isLike = userInfo.data.id
     ? productDetail.data.favorites?.some(
@@ -69,6 +76,36 @@ const ProductDetailPage = () => {
 
     document.title = TITLES.USER.PRODUCT_DETAILS;
   }, [productId]);
+
+  useEffect(() => {
+    if (state?.categoryId?.length) {
+      dispatch(
+        getProductListAction({
+          params: {
+            categoryId: state.categoryId,
+            page: 1,
+            limit: PRODUCT_RELATED_LIMIT,
+          },
+        })
+      );
+    } else {
+      dispatch(
+        getProductListAction({
+          params: {
+            page: 1,
+            limit: PRODUCT_RELATED_LIMIT,
+          },
+        })
+      );
+    }
+    dispatch(
+      getCategoryListAction({
+        params: {
+          page: 1,
+        },
+      })
+    );
+  }, [state]);
 
   const handleNotification = () => {
     notification.open({
@@ -130,9 +167,75 @@ const ProductDetailPage = () => {
     }
   };
 
+  const handlePostReview = (values) => {
+    dispatch(
+      postReviewAction({
+        ...values,
+        userId: userInfo.data.id,
+        productId: productDetail.data.id,
+      })
+    );
+  };
+
+  const handleRating = () => {
+    const rating = reviewList.data.map((item) => {
+      if (item.rate === undefined) {
+        return 0;
+      }
+      return item.rate;
+    });
+
+    const sumRating = rating.reduce((a, b) => parseInt(a) + parseInt(b), 0);
+
+    const avgRating = Math.round(sumRating / rating.length);
+    return avgRating;
+  };
+
+  const renderProductList = () => {
+    const compareProduct = productList.data.filter((item) => {
+      return (
+        item.categoryId === productDetail?.data?.categoryId &&
+        item.id !== productId
+      );
+    });
+    return compareProduct?.map((item) => {
+      return (
+        <Col
+          style={{ marginTop: "20px" }}
+          xs={24}
+          sm={12}
+          lg={24}
+          xl={12}
+          xxl={12}
+          key={item.id}
+        >
+          {item.isNew ? (
+            <Link
+              to={generatePath(ROUTES.USER.PRODUCT_DETAILS, {
+                id: `${item.slug}.${item.id}`,
+              })}
+            >
+              <Badge.Ribbon color="red" text="Mới">
+                <ProductItem item={item} />
+              </Badge.Ribbon>
+            </Link>
+          ) : (
+            <Link
+              to={generatePath(ROUTES.USER.PRODUCT_DETAILS, {
+                id: `${item.slug}.${item.id}`,
+              })}
+            >
+              <ProductItem item={item} />
+            </Link>
+          )}
+        </Col>
+      );
+    });
+  };
+
   const TAB_ITEMS = [
     {
-      label: <h2>Mô tả</h2>,
+      label: <h2 style={{ color: "#333" }}>Mô tả</h2>,
       key: "1",
       children: (
         <S.ProductContent
@@ -141,16 +244,17 @@ const ProductDetailPage = () => {
       ),
     },
     {
-      label: <h2>Cách chọn size giày</h2>,
+      label: <h2 style={{ color: "#333" }}>Cách chọn size giày</h2>,
       key: "3",
       children: (
         <>
-          <p>
+          <p style={{ color: "#333" }}>
             Để chọn size giày phù hợp với chân của mình, bạn có thể làm theo
             cách sau:
           </p>
-          <p>
-            <b>Bước 1: </b> Đo chiều dài bàn chân theo huớng dẫn ở hình dưới:
+          <p style={{ color: "#333" }}>
+            <b style={{ color: "#333" }}>Bước 1: </b> Đo chiều dài bàn chân theo
+            huớng dẫn ở hình dưới:
           </p>
           <Row justify="center">
             <Image
@@ -175,11 +279,11 @@ const ProductDetailPage = () => {
       ),
     },
     {
-      label: <h2>Review</h2>,
+      label: <h2 style={{ color: "#333" }}>Đánh giá</h2>,
       key: "2",
       children: (
         <Row>
-          <Col span={12}>
+          <Col span={24}>
             {userInfo.data.id ? (
               <S.ProductRatingForm>
                 <h2 className="rating_header">ĐÁNH GIÁ SẢN PHẨM</h2>
@@ -208,8 +312,42 @@ const ProductDetailPage = () => {
             )}
             <S.ProductRatingContainer>
               <div className="rating_overview">
-                <div className="rating_overview_briefing">4.9 tren 5</div>
-                <div className="rating_overview_filter">rating filter</div>
+                <div className="rating_overview_briefing">
+                  <Rate
+                    className="royalblue_color"
+                    value={handleRating()}
+                    disabled
+                  />
+                </div>
+                {handleRating() > 0 ? (
+                  <div className="rating_overview_filter">
+                    <span
+                      className="royalblue_color"
+                      style={{ fontSize: "1.875rem" }}
+                    >
+                      {handleRating()}
+                    </span>{" "}
+                    <span
+                      className="royalblue_color"
+                      style={{ fontSize: "1.125rem" }}
+                    >
+                      trên 5 sao
+                    </span>
+                  </div>
+                ) : (
+                  <div className="rating_overview_filter">
+                    <span
+                      className="royalblue_color"
+                      style={{ fontSize: "1.875rem" }}
+                    ></span>{" "}
+                    <span
+                      className="royalblue_color"
+                      style={{ fontSize: "1.125rem" }}
+                    >
+                      Chưa có đánh giá
+                    </span>
+                  </div>
+                )}
               </div>
               <ReviewItem reviewList={reviewList} />
             </S.ProductRatingContainer>
@@ -218,17 +356,6 @@ const ProductDetailPage = () => {
       ),
     },
   ];
-
-  const handlePostReview = (values) => {
-    dispatch(
-      postReviewAction({
-        ...values,
-        userId: userInfo.data.id,
-        productId: productDetail.data.id,
-      })
-    );
-  };
-
   return (
     <>
       <TopWrapper
@@ -246,139 +373,241 @@ const ProductDetailPage = () => {
         ]}
         height={200}
       />
-      <Row gutter={[16, 16]}>
-        <Col span={2}></Col>
-        <Col span={20}>
-          <Row gutter={[16, 16]}>
-            <Col span={12}>
-              <Card>
-                <SyncSlider images={productDetail.data.images} />
-              </Card>
-            </Col>
-            <Col span={12}>
-              <Card>
-                <S.ProductTitle>{productDetail.data.name}</S.ProductTitle>
-                {productDetail.data.discount > 0 ? (
-                  <S.NewProductPrice>
-                    {`${calcDiscount(
-                      productDetail.data.price,
-                      productDetail.data.discount
-                    ).toLocaleString()} ₫ - `}
-                    <S.OldProductPrice>{`${productDetail.data.price?.toLocaleString()} ₫`}</S.OldProductPrice>
-                  </S.NewProductPrice>
-                ) : (
-                  <S.NewProductPrice>{`${productDetail.data.price?.toLocaleString()} ₫`}</S.NewProductPrice>
-                )}
-                <Space>
-                  {productDetail.data.category?.id ===
-                    productDetail.data.categoryId && (
-                    <S.ProductInfo>
-                      {`Thương hiệu: ${productDetail.data.category?.name.toUpperCase()}`}
-                    </S.ProductInfo>
-                  )}
-                  <S.ProductInfo style={{ marginLeft: "50px" }}>
-                    {`Giới tính: ${
-                      productDetail.data.gender === 1 ? "Nam" : "Nữ"
-                    }`}
-                  </S.ProductInfo>
-                </Space>
-                <S.ProductInfo>{`Số lượng còn lại: ${productDetail.data.amount}`}</S.ProductInfo>
-                <S.ProductInfo>
-                  Size:{" "}
-                  {productDetail.data.size?.map((item) => {
-                    return (
-                      <Radio.Group
-                        key={item}
-                        size="large"
-                        buttonStyle="solid"
-                        style={{ marginLeft: "4px" }}
-                        value={productInfos.size}
-                        onChange={(e) => {
-                          setError(false);
-                          setProductInfos({
-                            ...productInfos,
-                            size: e.target.value,
-                          });
-                        }}
-                      >
-                        <Radio.Button value={item}>{item}</Radio.Button>
-                      </Radio.Group>
-                    );
-                  })}
-                  <div>
-                    {error ? (
-                      <S.MessageError>Vui lòng chọn size</S.MessageError>
+      {productDetail.data.loading ? (
+        <LoadingWrapper />
+      ) : (
+        <Row gutter={[16, 16]}>
+          <Col span={2}></Col>
+          <Col span={20}>
+            <S.ProductInfo>
+              <Row gutter={[16, 16]}>
+                <Col
+                  xs={24}
+                  sm={24}
+                  lg={24}
+                  xl={12}
+                  xxl={12}
+                  className="product_img"
+                >
+                  <SyncSlider images={productDetail.data.images} />
+                  {/* <ImageSlider item={productDetail.data} /> */}
+                </Col>
+                <Col
+                  xs={24}
+                  sm={24}
+                  lg={24}
+                  xl={12}
+                  xxl={12}
+                  className="product_discription"
+                >
+                  <Col>
+                    <div className="product_name">
+                      {productDetail.data.name}
+                    </div>
+                    <div className="product_rate">
+                      <Rate
+                        className="royalblue_color"
+                        value={handleRating()}
+                        disabled
+                      />{" "}
+                      <p> {reviewList.data.length} khách hàng đã đánh giá</p>
+                    </div>
+                    {productDetail.data.discount > 0 ? (
+                      <div className="product_price">
+                        <p className="new_price">
+                          {`${calcDiscount(
+                            productDetail.data.price,
+                            productDetail.data.discount
+                          ).toLocaleString()} ₫ -`}
+                        </p>{" "}
+                        <p className="price_old">
+                          {`  ${productDetail.data.price?.toLocaleString()} ₫`}
+                        </p>
+                      </div>
                     ) : (
-                      ""
+                      <p className="new_price">{`${productDetail.data.price?.toLocaleString()} ₫`}</p>
                     )}
+                    <Space>
+                      {productDetail.data.category?.id ===
+                        productDetail.data.categoryId && (
+                        <div className="product_detail">
+                          {`Thương hiệu: ${productDetail.data.category?.name.toUpperCase()}`}
+                        </div>
+                      )}
+                      <div
+                        className="product_detail"
+                        style={{ marginLeft: "50px" }}
+                      >
+                        {`Giới tính: ${
+                          productDetail.data.gender === 1 ? "Nam" : "Nữ"
+                        }`}
+                      </div>
+                    </Space>
+                    <div className="product_detail">{`Số lượng còn lại: ${productDetail.data.amount}`}</div>
+                    <div className="product_size">
+                      <b>Size: </b>
+                      <div className="size_select">
+                        {productDetail.data.size?.map((item) => {
+                          return (
+                            <Radio.Group
+                              style={{ paddingRight: "10px" }}
+                              key={item}
+                              size="large"
+                              buttonStyle="solid"
+                              value={productInfos.size}
+                              onChange={(e) => {
+                                setError(false);
+                                setProductInfos({
+                                  ...productInfos,
+                                  size: e.target.value,
+                                });
+                              }}
+                            >
+                              <Radio.Button value={item}>{item}</Radio.Button>
+                            </Radio.Group>
+                          );
+                        })}
+                      </div>
+                      <div>
+                        {error ? (
+                          <S.MessageError>Vui lòng chọn size</S.MessageError>
+                        ) : (
+                          ""
+                        )}
+                      </div>
+                    </div>
+                    <div className="action_container">
+                      <Row gutter={(0, 0)}>
+                        <Col flex={3}>
+                          <Row>
+                            <InputNumber
+                              style={{
+                                marginRight: "10px",
+                                marginTop: "10px",
+                                marginBottom: "10px",
+                              }}
+                              defaultValue={1}
+                              size="large"
+                              onChange={(value) =>
+                                setProductInfos({
+                                  ...productInfos,
+                                  quantity: value,
+                                })
+                              }
+                              value={productInfos.quantity}
+                              min={1}
+                              max={productDetail.data.amount}
+                            />
+                            <S.CustomBtn
+                              style={{
+                                marginTop: "10px",
+                                marginBottom: "10px",
+                              }}
+                              size="large"
+                              onClick={() => handleAddToCart()}
+                            >
+                              <AiOutlineShoppingCart
+                                style={{ marginRight: 8 }}
+                              />
+                              Thêm vào giỏ hàng
+                            </S.CustomBtn>
+                          </Row>
+                        </Col>
+                        <Col style={{ flex: "0 2 auto" }} flex={2}>
+                          <S.FavoritetBtn
+                            style={{ marginTop: "10px", marginBottom: "10px" }}
+                            ghost={isLike}
+                            danger={isLike}
+                            size="large"
+                            onClick={() => handleToggleFavorite()}
+                            icon={isLike ? <HeartFilled /> : <HeartOutlined />}
+                          >
+                            <span className="liked_count">
+                              {!isLike ? (
+                                <p>
+                                  {" "}
+                                  {productDetail.data?.favorites?.length ||
+                                    " "}{" "}
+                                  Thêm yêu thích
+                                </p>
+                              ) : (
+                                <p>
+                                  {" "}
+                                  {productDetail.data?.favorites?.length ||
+                                    " "}{" "}
+                                  Đã yêu thích
+                                </p>
+                              )}
+                            </span>
+                          </S.FavoritetBtn>
+                        </Col>
+                      </Row>
+                    </div>
+                  </Col>
+                  <Col>
+                    <div className="policy_content">
+                      <div className="policy_title">Chính sách</div>
+                      <ul className="policy_content">
+                        <li className="policy_item">
+                          <S.CheckIcon />
+                          Ship COD toàn quốc
+                        </li>
+                        <li className="policy_item">
+                          <S.CheckIcon />
+                          Giảm Giá Toàn Bộ Sản Phẩm Lên Đến 60%
+                        </li>
+                        <li className="policy_item">
+                          <S.CheckIcon />
+                          Nhận hàng và kiểm tra trước khi thanh toán
+                        </li>
+                        <li className="policy_item">
+                          <S.CheckIcon />
+                          Miễn phí vận chuyển trong nội thành Đà Nẵng
+                        </li>
+                      </ul>
+                    </div>
+                  </Col>
+                </Col>
+              </Row>
+            </S.ProductInfo>
+            <S.ProductDetail>
+              <Row>
+                <Col
+                  className="product_review"
+                  xs={24}
+                  sm={24}
+                  lg={16}
+                  xl={13}
+                  xxl={14}
+                >
+                  <Card>
+                    <Tabs centered defaultActiveKey="1" items={TAB_ITEMS} />
+                  </Card>
+                </Col>
+                <Col
+                  className="product_related_col"
+                  xs={24}
+                  sm={24}
+                  lg={8}
+                  xl={11}
+                  xxl={10}
+                >
+                  <div className="product_related">
+                    <div className="product_related_title">
+                      <p>Giày {productDetail.data?.category?.name}</p>
+                      <h2>Sản phẩm tương tự</h2>
+                    </div>
+                    <Row style={{ marginTop: "-20px" }} gutter={(16, 16)}>
+                      {renderProductList()}
+                    </Row>
                   </div>
-                </S.ProductInfo>
-
-                <Space style={{ marginTop: 8 }}>
-                  <InputNumber
-                    defaultValue={1}
-                    size="large"
-                    onChange={(value) =>
-                      setProductInfos({
-                        ...productInfos,
-                        quantity: value,
-                      })
-                    }
-                    value={productInfos.quantity}
-                    min={1}
-                    max={productDetail.data.amount}
-                  />
-                  <S.CustomBtn size="large" onClick={() => handleAddToCart()}>
-                    <AiOutlineShoppingCart style={{ marginRight: 8 }} />
-                    Thêm vào giỏ hàng
-                  </S.CustomBtn>
-                  <S.FavoritetBtn
-                    ghost={isLike}
-                    danger={isLike}
-                    size="large"
-                    onClick={() => handleToggleFavorite()}
-                    icon={isLike ? <HeartFilled /> : <HeartOutlined />}
-                  >
-                    <span className="liked_count">
-                      {productDetail.data?.favorites?.length || 0} liked
-                    </span>
-                  </S.FavoritetBtn>
-                </Space>
-                <Card style={{ marginTop: "16px", border: "3px groove" }}>
-                  <S.PolicyTitle>Chính sách</S.PolicyTitle>
-                  <S.PolicyContent>
-                    <S.PolicyItem>
-                      <S.CheckIcon />
-                      Ship COD toàn quốc
-                    </S.PolicyItem>
-                    <S.PolicyItem>
-                      <S.CheckIcon />
-                      Giảm Giá Toàn Bộ Sản Phẩm Lên Đến 60%
-                    </S.PolicyItem>
-                    <S.PolicyItem>
-                      <S.CheckIcon />
-                      Nhận hàng và kiểm tra trước khi thanh toán
-                    </S.PolicyItem>
-                    <S.PolicyItem>
-                      <S.CheckIcon />
-                      Miễn phí vận chuyển trong nội thành Đà Nẵng
-                    </S.PolicyItem>
-                  </S.PolicyContent>
-                </Card>
-              </Card>
-            </Col>
-          </Row>
-          <Row justify="center">
-            <Col span={24}>
-              <Card>
-                <Tabs centered defaultActiveKey="1" items={TAB_ITEMS} />
-              </Card>
-            </Col>
-          </Row>
-        </Col>
-
-        <Col span={2}></Col>
-      </Row>
+                </Col>
+              </Row>
+            </S.ProductDetail>
+          </Col>
+          <Col span={2}></Col>
+        </Row>
+      )}
     </>
   );
 };

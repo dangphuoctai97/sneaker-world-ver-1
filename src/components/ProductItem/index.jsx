@@ -1,30 +1,61 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { Tooltip, Image, Tag } from "antd";
 
 import * as S from "./styles";
 
 const ProductItem = ({ item }) => {
+  const [imageChange, setImageChange] = useState(null);
   const calcDiscount = (currentPrice, discount) => {
     return currentPrice - (currentPrice * discount) / 100;
   };
+
   const renderProductListImages = useMemo(() => {
     if (!item.images?.length) return null;
-    return item.images?.slice(0, 1).map((item) => {
-      return (
-        <Image
-          className="product_list_img"
-          preview={false}
-          key={item.id}
-          src={item.url}
-          alt={item.name}
-        />
-      );
-    });
+    return (
+      <div className="product_list_img_ratio" key={item.id}>
+        {item.images?.slice(0, 1).map((item) => {
+          return (
+            <img
+              key={item.id}
+              className="product_list_img visible_img"
+              src={item.url}
+              alt={item.name}
+            />
+          );
+        })}
+        {item.images.length > 1
+          ? item.images?.slice(1, 2).map((item) => {
+              return (
+                <img
+                  key={item.id}
+                  className="product_list_img hidden_img"
+                  src={item.url}
+                  alt={item.name}
+                />
+              );
+            })
+          : item.images?.map((item) => {
+              return (
+                <img
+                  key={item.id}
+                  className="product_list_img hidden_img"
+                  src={item.url}
+                  alt={item.name}
+                />
+              );
+            })}
+      </div>
+    );
   }, [item]);
+
   return (
-    <S.ProductContainer>
+    <S.ProductContainer
+      imageChange={imageChange}
+      onMouseOver={() => setImageChange(true)}
+      onMouseOut={() => setImageChange(false)}
+    >
       {renderProductListImages}
-      <S.ProductContent>
+      <div className="product_content">
         <Tooltip className="product_name" placement="topLeft" title={item.name}>
           <h3>{item.name}</h3>
         </Tooltip>
@@ -57,7 +88,7 @@ const ProductItem = ({ item }) => {
           </Tag>
           <h4>{item.category.name.toUpperCase()}</h4>
         </div>
-      </S.ProductContent>
+      </div>
     </S.ProductContainer>
   );
 };

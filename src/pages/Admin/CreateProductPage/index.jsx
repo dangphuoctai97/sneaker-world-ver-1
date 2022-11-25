@@ -93,7 +93,7 @@ const AdminCreateProductPage = () => {
   };
   return (
     <>
-      <h2>Create product form</h2>
+      <h2>Tạo sản phẩm mới</h2>
       <Card>
         <Form
           name="createProductForm"
@@ -103,7 +103,7 @@ const AdminCreateProductPage = () => {
           initialValues={initialValues}
         >
           <Form.Item
-            label="Product name"
+            label="Tên sản phẩm"
             name="name"
             rules={[
               {
@@ -115,7 +115,7 @@ const AdminCreateProductPage = () => {
             <Input />
           </Form.Item>
           <Form.Item
-            label="Category"
+            label="Tên hãng"
             name="categoryId"
             rules={[
               {
@@ -127,7 +127,7 @@ const AdminCreateProductPage = () => {
             <Select>{renderCategoryListOptions()}</Select>
           </Form.Item>
           <Form.Item
-            label="Amount"
+            label="Số lượng"
             name="amount"
             rules={[
               {
@@ -139,7 +139,7 @@ const AdminCreateProductPage = () => {
             <InputNumber min={1} />
           </Form.Item>
           <Form.Item
-            label="Price"
+            label="Giá"
             name="price"
             rules={[
               {
@@ -159,7 +159,7 @@ const AdminCreateProductPage = () => {
             />
           </Form.Item>
           <Form.Item
-            label="Gender"
+            label="Giới tính"
             name="gender"
             rules={[
               {
@@ -185,10 +185,10 @@ const AdminCreateProductPage = () => {
           >
             <Checkbox.Group options={SIZE_OPTIONS} />
           </Form.Item>
-          <Form.Item label="New Product" name="isNew" valuePropName="checked">
+          <Form.Item label="Sản phẩm mới" name="isNew" valuePropName="checked">
             <Checkbox />
           </Form.Item>
-          <Form.Item label="Discount" name="discount">
+          <Form.Item label="Giảm giá" name="discount">
             <InputNumber
               min={0}
               max={100}
@@ -215,7 +215,7 @@ const AdminCreateProductPage = () => {
             />
           </Form.Item>
           <Form.Item
-            label="Images"
+            label="Hình ảnh"
             name="images"
             valuePropName="fileList"
             getValueFromEvent={(e) => {
@@ -241,7 +241,7 @@ const AdminCreateProductPage = () => {
             </Upload>
           </Form.Item>
           <Button type="primary" htmlType="submit">
-            Create product
+            Tạo sản phẩm
           </Button>
         </Form>
       </Card>

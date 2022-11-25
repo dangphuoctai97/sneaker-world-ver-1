@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { DEVICE } from "../../../constants/device";
 
 export const AboutContainer = styled.div`
   padding: 0.5rem 0px;
@@ -14,7 +15,7 @@ export const AboutContainer = styled.div`
 `;
 export const IntroduceContainer = styled.div`
   p {
-    font-size: 18px;
+    font-size: 16px;
   }
   background-color: #fff;
   padding: 20px;
@@ -28,7 +29,11 @@ export const ContactForm = styled.div`
   max-width: 1280px;
   margin: 0px auto;
   & {
-    .contact_info {
+    .contact_info_content {
+      z-index: 999;
+      color: white;
+      padding: 1rem 3rem;
+      position: relative;
       h1 {
         color: #fff;
         margin-bottom: 10px;
@@ -39,17 +44,30 @@ export const ContactForm = styled.div`
       span {
         color: #fff;
       }
-      padding: 1rem 3rem;
+    }
+    .contact_info_background {
+      z-index: 998;
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       border-top-left-radius: 4px;
       border-bottom-left-radius: 4px;
-      color: white;
-      filter: contrast();
+      filter: brightness(40%);
       background-image: url(https://wallpaperaccess.com/full/281072.jpg);
       background-attachment: fixed;
       background-position: 60% bottom;
       background-size: cover;
     }
+
     .contact_form {
+      & .respon_padding_0 {
+        @media ${DEVICE.TABLET} {
+          padding: 0 !important;
+        }
+      }
       background-color: #fff;
       h1 {
         color: royalblue;
@@ -72,9 +90,11 @@ export const ContactForm = styled.div`
   }
 `;
 export const SliderContainer = styled.div`
+  position: relative;
   margin: 2rem 0;
   max-width: 1280px;
   margin: 0px auto;
+  height: 100%;
 `;
 export const ReviewContainer = styled.div`
   padding: 20px 40px;
@@ -83,8 +103,17 @@ export const MapContainer = styled.div`
   margin: 2rem 0;
   max-width: 1280px;
   margin: 0px auto;
-  .location_map {
-    width: 100%;
-    height: 700px;
+  .ratio_img {
+    position: relative;
+    padding-top: 52.5%;
+    .location_map {
+      max-width: 100%;
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
   }
 `;

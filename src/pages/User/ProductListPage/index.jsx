@@ -36,6 +36,7 @@ import LoadingWrapper from "../../../components/LoadingWrapper";
 import ProductItem from "../../../components/ProductItem";
 import * as S from "./styles";
 import { ROUTES, TITLES } from "../../../constants/";
+import { SIZE_OPTIONS } from "../../Admin//CreateProductPage/constants";
 
 const UserProductListPage = () => {
   const [filterParams, setFilterParams] = useState({
@@ -44,11 +45,13 @@ const UserProductListPage = () => {
     keyword: "",
     price: [MIN_PRICE, MAX_PRICE],
     order: undefined,
+    // size: [],
   });
 
   const dispatch = useDispatch();
   const { productList } = useSelector((state) => state.product);
-  const { state } = useLocation();
+  const { state, search } = useLocation();
+
   const { categoryList } = useSelector((state) => state.category);
 
   useEffect(() => {
@@ -64,6 +67,30 @@ const UserProductListPage = () => {
         })
       );
       setFilterParams({ ...filterParams, categoryId: state.categoryId });
+    }
+    if (search === "?gender=1") {
+      dispatch(
+        getProductListAction({
+          params: {
+            gender: 1,
+            page: 1,
+            limit: PRODUCT_LIST_LIMIT,
+          },
+        })
+      );
+      setFilterParams({ ...filterParams, gender: 1 });
+    }
+    if (search === "?gender=2") {
+      dispatch(
+        getProductListAction({
+          params: {
+            gender: 2,
+            page: 1,
+            limit: PRODUCT_LIST_LIMIT,
+          },
+        })
+      );
+      setFilterParams({ ...filterParams, gender: 2 });
     } else {
       dispatch(
         getProductListAction({
@@ -74,7 +101,13 @@ const UserProductListPage = () => {
         })
       );
     }
-    dispatch(getCategoryListAction());
+    dispatch(
+      getCategoryListAction({
+        params: {
+          page: 1,
+        },
+      })
+    );
   }, [state]);
 
   const handleShowMore = () => {
@@ -175,6 +208,23 @@ const UserProductListPage = () => {
     );
   };
 
+  const handleClearSizeFilter = () => {
+    setFilterParams({
+      ...filterParams,
+      size: [],
+    });
+    dispatch(
+      getProductListAction({
+        params: {
+          ...filterParams,
+          size: [],
+          page: 1,
+          limit: PRODUCT_LIST_LIMIT,
+        },
+      })
+    );
+  };
+
   const renderFilterCategory = () => {
     return filterParams.categoryId.map((filterItem) => {
       const categoryData = categoryList.data.find(
@@ -220,6 +270,26 @@ const UserProductListPage = () => {
     );
   };
 
+  // const renderFilterSize = () => {
+  //   return filterParams.size?.map((filterItem) => {
+  //     const sizeData = productList.data.find((item) => {
+  //       return item.size === filterItem;
+  //     });
+  //     if (!sizeData) return null;
+  //     return (
+  //       <S.FilterTag
+  //         style={{ marginTop: 10 }}
+  //         color="royalblue"
+  //         key={filterItem}
+  //         closable
+  //         onClose={() => handleClearSizeFilter(filterItem)}
+  //       >
+  //         {sizeData.size}
+  //       </S.FilterTag>
+  //     );
+  //   });
+  // };
+
   const renderFilterPrice = () => {
     if (
       filterParams.price[0] === MIN_PRICE &&
@@ -241,14 +311,14 @@ const UserProductListPage = () => {
   const renderProductList = () => {
     return productList.data.map((item) => {
       return (
-        <Col span={6} key={item.id}>
+        <Col xs={24} sm={12} lg={12} xl={8} xxl={6} key={item.id}>
           {item.isNew ? (
             <Link
               to={generatePath(ROUTES.USER.PRODUCT_DETAILS, {
                 id: `${item.slug}.${item.id}`,
               })}
             >
-              <Badge.Ribbon color="red" text="New">
+              <Badge.Ribbon color="red" text="Mới">
                 <ProductItem item={item} />
               </Badge.Ribbon>
             </Link>
@@ -276,6 +346,16 @@ const UserProductListPage = () => {
     });
   };
 
+  const renderSizeOptions = () => {
+    return SIZE_OPTIONS?.map((item, index) => {
+      return (
+        <Col span={24} key={index}>
+          <Checkbox value={item.value}>{item.label}</Checkbox>
+        </Col>
+      );
+    });
+  };
+
   return (
     <>
       <TopWrapper breadcrumb={[...BREADCRUMB]} height={200} />
@@ -284,7 +364,7 @@ const UserProductListPage = () => {
           <Col span={2} />
           <Col span={20}>
             <Row gutter={[16, 16]}>
-              <Col span={6}>
+              <Col xs={0} lg={8} xl={6} xxl={6}>
                 <S.CustomCard
                   size="small"
                   style={{
@@ -314,6 +394,7 @@ const UserProductListPage = () => {
                     {renderFilterCategory()}
                     {renderFilterGender()}
                     {renderFilterPrice()}
+                    {/* {renderFilterSize()} */}
                     {filterParams.keyword && (
                       <S.FilterTag
                         color="royalblue"
@@ -365,20 +446,31 @@ const UserProductListPage = () => {
                         onChange={(value) => handleFilter("price", value)}
                       />
                     </Collapse.Panel>
+                    {/* <Collapse.Panel
+                      style={{ position: "relative" }}
+                      header={"Size"}
+                    >
+                      <Checkbox.Group
+                        onChange={(value) => handleFilter("size", value)}
+                        value={filterParams.size}
+                      >
+                        <Row>{renderSizeOptions()}</Row>
+                      </Checkbox.Group>
+                    </Collapse.Panel> */}
                   </Collapse>
                 </S.CustomCard>
               </Col>
-              <Col span={18}>
+              <Col xs={24} lg={16} xl={18} xxl={18}>
                 <Row style={{ marginBottom: "16px" }} gutter={[16, 16]}>
-                  <Col span={18}>
+                  <Col xs={24} lg={16} xl={18} xxl={18}>
                     <Input.Search
-                      placeholder="input search text"
+                      placeholder="Tìm sản phẩm"
                       enterButton
                       onChange={(e) => handleFilter("keyword", e.target.value)}
                       value={filterParams.keyword}
                     />
                   </Col>
-                  <Col span={6}>
+                  <Col xs={24} lg={8} xl={6} xxl={6}>
                     <Select
                       defaultValue={{
                         label: "Sắp xếp theo...",
@@ -403,7 +495,9 @@ const UserProductListPage = () => {
                     <h3 style={{ color: "royalblue" }}>
                       Có {productList.meta.total} sản phẩm
                     </h3>
-                    <Row gutter={[16, 16]}>{renderProductList()}</Row>
+                    <Row style={{ marginTop: "20px" }} gutter={[16, 16]}>
+                      {renderProductList()}
+                    </Row>
                     {productList.data.length !== productList.meta.total && (
                       <Row justify="center">
                         <Button

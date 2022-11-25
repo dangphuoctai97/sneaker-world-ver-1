@@ -165,7 +165,7 @@ export default function AdminUserManagePage() {
       },
     },
     {
-      title: "Action",
+      title: "Hành động",
       dataIndex: "action",
       key: "action",
       render: (_, record) => {
@@ -178,11 +178,9 @@ export default function AdminUserManagePage() {
                 )
               }
             >
-              Update
+              Sửa
             </Button>
-            <Button onClick={(id) => handleDeleteUser(record.id)}>
-              Delete
-            </Button>
+            <Button onClick={(id) => handleDeleteUser(record.id)}>Xoá</Button>
           </Space>
         );
       },

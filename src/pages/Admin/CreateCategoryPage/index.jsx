@@ -39,7 +39,7 @@ const AdminCreateCategoryPage = () => {
 
   return (
     <>
-      <h2>Create blog form</h2>
+      <h2>Tạo nhãn hàng mới</h2>
       <Card>
         <Form
           form={createForm}
@@ -62,7 +62,7 @@ const AdminCreateCategoryPage = () => {
             <Input />
           </Form.Item>
           <Button type="primary" htmlType="submit">
-            Create Category
+            Tạo nhãn hàng
           </Button>
         </Form>
       </Card>

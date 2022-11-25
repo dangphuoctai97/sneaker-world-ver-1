@@ -1,24 +1,56 @@
 import styled, { css } from "styled-components";
 import { Button } from "antd";
 import { Link } from "react-router-dom";
+import { DEVICE } from "../../../constants/device";
 
 export const CarouselContainer = styled.div`
-  & .carouselContent {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  .swiper {
+    margin-left: auto;
+    margin-right: auto;
     position: relative;
+    overflow: hidden;
+    list-style: none;
+    padding: 0;
+    z-index: 1;
     width: 100%;
-    height: 600px;
-    padding-top: 25%;
-
-    & img {
-      position: absolute;
-      top: 0px;
-      left: 0px;
+    .swiper_wrapper {
+      position: relative;
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      z-index: 1;
+      display: flex;
+      transition-property: -webkit-transform;
+      transition-property: transform;
+      transition-property: transform, -webkit-transform;
+      box-sizing: content-box;
+    }
+  }
+  .swiper-slide {
+    .ratio_video {
+      position: relative;
+      @media ${DEVICE.DESKTOP_XXL} {
+        padding-top: 32.5%;
+      }
+      @media ${DEVICE.DESKTOP_XL} {
+        padding-top: 42.5%;
+      }
+      @media ${DEVICE.TABLET} {
+        padding-top: 52.5%;
+      }
+      @media ${DEVICE.MOBILE} {
+        padding-top: 62.5%;
+      }
+
+      & video {
+        filter: brightness(80%);
+        max-width: 100%;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
     }
   }
 `;
@@ -56,6 +88,9 @@ export const Container = styled.div`
     text-shadow: 3px 3px 3px #000;
   }
   & .title_underline {
+    @media ${DEVICE.MOBILE} {
+      font-size: 20px;
+    }
     position: relative;
     font-size: 28px;
     -webkit-box-align: center;
@@ -155,9 +190,9 @@ export const CollectionContainer = styled.div`
   }
   margin: 20px 20px;
   & .collection_content {
+    padding-top: 100%;
     margin-top: 20px;
     position: relative;
-    padding-top: 100%;
     border-radius: 10px;
     overflow: hidden;
     cursor: pointer;
@@ -247,13 +282,10 @@ export const RegisterContainer = styled.div`
     }
   }
   margin: 20px 0;
-  background-image: url(https://i0.wp.com/www.sneakerhdwallpapers.com/wallpapers/2018/air-jordan-11-retro-og-concords-wallpaper-preview.jpg);
-  background-attachment: fixed;
-  background-position: center center;
-  background-size: cover;
-  padding: 190px 0px;
+
   position: relative;
   .register_content {
+    z-index: 999;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -268,6 +300,15 @@ export const RegisterContainer = styled.div`
       padding-top: 20px;
       color: rgb(255, 255, 255);
     }
+  }
+  .register_background {
+    z-index: 998;
+    filter: brightness(40%);
+    background-image: url(https://i0.wp.com/www.sneakerhdwallpapers.com/wallpapers/2018/air-jordan-11-retro-og-concords-wallpaper-preview.jpg);
+    background-attachment: fixed;
+    background-position: center center;
+    background-size: cover;
+    padding: 190px 0px;
   }
 `;
 export const BlogContainer = styled.div`
@@ -291,6 +332,14 @@ export const ReviewContainer = styled.div`
 `;
 
 export const ShowMoreBtn = styled(Button)`
+  @media ${DEVICE.TABLET} {
+    padding: 15px 20px;
+    font-size: 16px;
+  }
+  @media ${DEVICE.MOBILE} {
+    padding: 12px 15px;
+    font-size: 14px;
+  }
   background-color: #fff;
   display: inline-flex;
   align-items: center;

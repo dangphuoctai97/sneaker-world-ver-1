@@ -57,7 +57,7 @@ const AdminCreateBlogPage = () => {
 
   return (
     <>
-      <h2>Create blog form</h2>
+      <h2>Tạo bài viết mới</h2>
       <Card>
         <Form
           form={createForm}
@@ -119,6 +119,12 @@ const AdminCreateBlogPage = () => {
               if (Array.isArray(e)) return e;
               return e?.fileList;
             }}
+            rules={[
+              {
+                required: true,
+                message: "This field is required!",
+              },
+            ]}
           >
             <Upload
               onPreview={onPreview}
@@ -140,7 +146,7 @@ const AdminCreateBlogPage = () => {
           </Form.Item>
 
           <Button type="primary" htmlType="submit">
-            Create Blog
+            Tạo bài viết
           </Button>
         </Form>
       </Card>
