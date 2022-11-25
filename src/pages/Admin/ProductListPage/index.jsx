@@ -85,7 +85,7 @@ const AdminProductListPage = () => {
       },
     },
     {
-      title: "Name",
+      title: "Tên",
       dataIndex: "name",
       key: "name",
       render: (_, record) => {
@@ -136,19 +136,19 @@ const AdminProductListPage = () => {
       },
     },
     {
-      title: "Category",
+      title: "Hãng",
       dataIndex: "category",
       key: "category",
       render: (category) => category.name.toUpperCase(),
     },
     {
-      title: "Price",
+      title: "Giá",
       dataIndex: "price",
       key: "price",
       render: (price) => `${price.toLocaleString()} VND`,
     },
     {
-      title: "Gender",
+      title: "Giới tính",
       dataIndex: "gender",
       key: "gender",
       render: (gender) => (gender === 1 ? "Nam" : "Nữ"),
@@ -170,29 +170,29 @@ const AdminProductListPage = () => {
       ),
     },
     {
-      title: "Amount",
+      title: "Số lượng",
       dataIndex: "amount",
       key: "amount",
     },
     {
-      title: "New Product",
+      title: "Sản phẩm mới",
       dataIndex: "isNew",
       key: "isNew",
       render: (isNew) =>
         isNew === true && (
           <Tag color="royalblue" key={isNew}>
-            New
+            Mới
           </Tag>
         ),
     },
     {
-      title: "Discount",
+      title: "Giảm giá",
       dataIndex: "discount",
       key: "discount",
       render: (discount) => (discount === undefined ? 0 : `${discount}%`),
     },
     {
-      title: "Action",
+      title: "Hành động",
       dataIndex: "action",
       key: "action",
       render: (_, record) => {
@@ -205,10 +205,10 @@ const AdminProductListPage = () => {
                 )
               }
             >
-              Update
+              Sửa
             </Button>
             <Button onClick={(id) => handleDeleteProduct(record.id)}>
-              Delete
+              Xoá
             </Button>
           </Space>
         );
@@ -228,7 +228,7 @@ const AdminProductListPage = () => {
               type="primary"
               onClick={() => navigate(ROUTES.ADMIN.CREATE_PRODUCT)}
             >
-              Create Product
+              Tạo sản phẩm
             </Button>
           </S.TopWrapper>
           <Table

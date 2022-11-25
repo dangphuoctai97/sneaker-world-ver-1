@@ -139,14 +139,14 @@ const AdminUpdateProductPage = () => {
   return (
     <S.Wrapper>
       <S.TopWrapper>
-        <h3>Update Product</h3>
+        <h3>Cập nhật sản phẩm</h3>
         <Button
           type="primary"
           onClick={() => {
             updateForm.submit();
           }}
         >
-          Update
+          Cập nhật
         </Button>
       </S.TopWrapper>
       <Spin spinning={productDetail.loading}>
@@ -158,7 +158,7 @@ const AdminUpdateProductPage = () => {
             onFinish={(values) => handleUpdateProduct(values)}
           >
             <Form.Item
-              label="Product name"
+              label="Tên sản phẩm"
               name="name"
               rules={[
                 {
@@ -170,7 +170,7 @@ const AdminUpdateProductPage = () => {
               <Input />
             </Form.Item>
             <Form.Item
-              label="Cateogry"
+              label="Tên hãng"
               name="categoryId"
               rules={[
                 {
@@ -182,7 +182,7 @@ const AdminUpdateProductPage = () => {
               <Select>{renderCategoryOptions}</Select>
             </Form.Item>
             <Form.Item
-              label="Amount"
+              label="Số lượng"
               name="amount"
               rules={[
                 {
@@ -194,7 +194,7 @@ const AdminUpdateProductPage = () => {
               <InputNumber />
             </Form.Item>
             <Form.Item
-              label="Price"
+              label="Giá"
               name="price"
               rules={[
                 {
@@ -213,7 +213,7 @@ const AdminUpdateProductPage = () => {
               />
             </Form.Item>
             <Form.Item
-              label="Gender"
+              label="Giới tính"
               name="gender"
               rules={[
                 {
@@ -239,10 +239,14 @@ const AdminUpdateProductPage = () => {
             >
               <Checkbox.Group options={SIZE_OPTIONS} />
             </Form.Item>
-            <Form.Item label="New Product" name="isNew" valuePropName="checked">
+            <Form.Item
+              label="Sản phẩm mới"
+              name="isNew"
+              valuePropName="checked"
+            >
               <Checkbox />
             </Form.Item>
-            <Form.Item label="Discount" name="discount">
+            <Form.Item label="Giảm giá" name="discount">
               <InputNumber
                 min={0}
                 max={100}
@@ -251,14 +255,14 @@ const AdminUpdateProductPage = () => {
                 parser={(value) => value.replace("%", "")}
               />
             </Form.Item>
-            <Form.Item label="Product content" name="content">
+            <Form.Item label="Nội dung" name="content">
               <ReactQuill
                 theme="snow"
                 onChange={(value) => updateForm.setFieldValue("content", value)}
               />
             </Form.Item>
             <Form.Item
-              label="Images"
+              label="Hình ảnh"
               name="images"
               valuePropName="fileList"
               getValueFromEvent={(e) => {

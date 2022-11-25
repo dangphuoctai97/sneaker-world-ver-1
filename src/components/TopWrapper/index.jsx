@@ -20,7 +20,9 @@ const TopWrapper = ({ titlePage, breadcrumb = [], height }) => {
 
   return (
     <S.TopContainer height={height}>
-      <Breadcrumb>{renderBreadcrumb()}</Breadcrumb>
+      <Breadcrumb className="breadcrumb_container">
+        {renderBreadcrumb()}
+      </Breadcrumb>
       {titlePage && <S.TopTitle>{titlePage}</S.TopTitle>}
     </S.TopContainer>
   );

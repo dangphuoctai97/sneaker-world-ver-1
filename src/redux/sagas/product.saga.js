@@ -29,6 +29,9 @@ function* getProductListSaga(action) {
           _sort: params.order.split(".")[0],
           _order: params.order.split(".")[1],
         }),
+        // ...(params.size && {
+        //   size: params.size,
+        // }),
       },
     });
     yield put({

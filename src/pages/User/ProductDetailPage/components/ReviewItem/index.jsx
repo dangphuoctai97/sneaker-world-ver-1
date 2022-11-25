@@ -15,7 +15,8 @@ const ReviewItem = ({ reviewList }) => {
               <div className="product_rating">
                 <div className="product_rating_avata">
                   <S.RatingAvatarImg
-                    size={{ md: 40, sm: 32 }}
+                    className="guest_img"
+                    shape="radius"
                     src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
                   />
                 </div>
@@ -24,7 +25,12 @@ const ReviewItem = ({ reviewList }) => {
                     {item.user.fullName}
                   </div>
                   <div className="product_user_rating">
-                    <Rate value={item.rate} disabled style={{ fontSize: 14 }} />
+                    <Rate
+                      className="royalblue_color"
+                      value={item.rate}
+                      disabled
+                      style={{ fontSize: 14 }}
+                    />
                   </div>
                   <div className="product_rating_time">
                     {moment(item.createdAt).fromNow()}

@@ -74,6 +74,7 @@ const BlogListPage = () => {
       })
     );
   };
+  
   const renderBlogList = () => {
     return blogList.data?.map((item) => {
       return (
@@ -151,6 +152,8 @@ const BlogListPage = () => {
             xs={24}
             sm={24}
             lg={17}
+            xl={17}
+            xxl={17}
             style={{ paddingRight: 8, paddingLeft: 8 }}
           >
             <Row
@@ -209,7 +212,7 @@ const BlogListPage = () => {
               </>
             )}
           </Col>
-          <Col xs={24} sm={24} lg={7}>
+          <Col xs={24} sm={24} lg={7} xl={7} xxl={7}>
             <Row
               style={{
                 marginLeft: "-8px",
@@ -217,40 +220,34 @@ const BlogListPage = () => {
               }}
               gutter={[16, 16]}
             >
-              <Col
-                xs={24}
-                sm={12}
-                lg={24}
-                style={{ paddingRight: 8, paddingLeft: 8 }}
-              >
-                {blogList.loading ? (
-                  <LoadingWrapper />
-                ) : (
-                  <>
-                    <S.RelatedBlogContainer>
-                      <div className="related_tag">
-                        <div className="related_title">Chia sẻ kinh nghiệm</div>
-                      </div>
-                      <S.RelatedBlogContent>
-                        {renderRelatedBlogList1()}
-                      </S.RelatedBlogContent>
-
-                      <div style={{ marginTop: 20 }} className="related_tag">
-                        <div className="related_title">Review sản phẩm</div>
-                      </div>
-                      <S.RelatedBlogContent>
-                        {renderRelatedBlogList2()}
-                      </S.RelatedBlogContent>
-                    </S.RelatedBlogContainer>
-                  </>
-                )}
-              </Col>
-              <Col
-                xs={24}
-                sm={12}
-                lg={24}
-                style={{ paddingRight: 8, paddingLeft: 8 }}
-              ></Col>
+              {blogList.loading ? (
+                <LoadingWrapper />
+              ) : (
+                <>
+                  <S.RelatedBlogContainer>
+                    <Row>
+                      <Col xs={24} sm={24} lg={24} xl={24} xxl={24}>
+                        <div className="related_tag">
+                          <div className="related_title">
+                            Chia sẻ kinh nghiệm
+                          </div>
+                        </div>
+                        <S.RelatedBlogContent>
+                          {renderRelatedBlogList1()}
+                        </S.RelatedBlogContent>
+                      </Col>
+                      <Col xs={24} sm={24} lg={24} xl={24} xxl={24}>
+                        <div style={{ marginTop: 20 }} className="related_tag">
+                          <div className="related_title">Review sản phẩm</div>
+                        </div>
+                        <S.RelatedBlogContent>
+                          {renderRelatedBlogList2()}
+                        </S.RelatedBlogContent>
+                      </Col>
+                    </Row>
+                  </S.RelatedBlogContainer>
+                </>
+              )}
             </Row>
           </Col>
         </Row>

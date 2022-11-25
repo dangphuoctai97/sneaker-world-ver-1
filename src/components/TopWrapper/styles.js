@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import topWrapperImage from "../../assets/images/topwrapper-background.png";
+import { DEVICE } from "../../constants/device";
 
 export const TopContainer = styled.div`
   user-select: none;
@@ -14,6 +15,14 @@ export const TopContainer = styled.div`
   background-size: cover;
   background-position: 50% 40%;
   background-repeat: no-repeat;
+  @media ${DEVICE.MOBILE_SM} {
+    .breadcrumb_container {
+      ol {
+        flex-flow: column wrap;
+      }
+    }
+  }
+
   &::after {
     content: "";
     position: absolute;

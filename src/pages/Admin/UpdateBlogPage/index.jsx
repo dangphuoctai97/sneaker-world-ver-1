@@ -110,14 +110,14 @@ const AdminUpdateBlogPage = () => {
   return (
     <S.Wrapper>
       <S.TopWrapper>
-        <h3>Update Blog</h3>
+        <h3>Cập nhật bài viết</h3>
         <Button
           type="primary"
           onClick={() => {
             updateForm.submit();
           }}
         >
-          Update
+          Cập nhật
         </Button>
       </S.TopWrapper>
       <Spin spinning={blogDetail.loading}>
@@ -131,7 +131,7 @@ const AdminUpdateBlogPage = () => {
             onFinish={(values) => handleUpdateBlog(values)}
           >
             <Form.Item
-              label="Blog title"
+              label="Tiêu đề"
               name="title"
               rules={[
                 {
@@ -157,7 +157,7 @@ const AdminUpdateBlogPage = () => {
                 <Select.Option value={2}>Review sản phẩm</Select.Option>
               </Select>
             </Form.Item>
-            <Form.Item label="Blog content" name="content">
+            <Form.Item label="Nội dung" name="content">
               <ReactQuill
                 theme="snow"
                 onChange={(value) => updateForm.setFieldValue("content", value)}
@@ -185,7 +185,7 @@ const AdminUpdateBlogPage = () => {
                       marginTop: 8,
                     }}
                   >
-                    Upload
+                    Tải ảnh lên
                   </div>
                 </div>
               </Upload>

@@ -48,6 +48,7 @@ export default function RegisterPage() {
     <S.LoginContainer>
       <S.LoginForm>
         <Form
+          className="register_form"
           form={registerForm}
           name="registerForm"
           layout="vertical"

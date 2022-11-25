@@ -14,7 +14,7 @@ export const HEADER_ITEMS = [
     path: ROUTES.USER.BLOG_LIST,
   },
   {
-    title: "Liên hệ",
+    title: "Giới thiệu",
     path: ROUTES.USER.ABOUT,
   },
 ];

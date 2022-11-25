@@ -20,6 +20,10 @@ export const BlogDetailContent = styled.div`
   background-color: rgb(255, 255, 255);
   border-radius: 4px;
   border-top: 2px solid rgb(217, 217, 217);
+  img {
+    width: 100%;
+    padding: 5px;
+  }
 `;
 
 export const RelatedBlogContainer = styled.div`

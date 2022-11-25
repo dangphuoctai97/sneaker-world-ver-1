@@ -51,6 +51,7 @@ export default function LoginPage() {
     <S.LoginContainer>
       <S.LoginForm>
         <Form
+          className="login_form"
           form={loginForm}
           name="loginForm"
           layout="vertical"
@@ -78,7 +79,7 @@ export default function LoginPage() {
           <Form.Item name="remember" valuePropName="checked">
             <Checkbox>Remember me</Checkbox>
           </Form.Item>
-          <div style={{ marginBottom: 16 }}>
+          <div className="register_navigate" style={{ marginBottom: 16 }}>
             Bạn chưa có tài khoản? <Link to={ROUTES.REGISTER}>Đăng ký</Link>
           </div>
           <Button

@@ -45,12 +45,12 @@ const Cart = ({ setStep }) => {
     <>
       <Row style={{ marginTop: "24px" }}>
         <Col span={2}></Col>
-        <Col span={20}>
-          <Row gutter={[16, 16]}>
-            <Col span={17}>
+        <Col span={20} >
+          <Row  gutter={[16, 16]}>
+            <Col  span={17}>
               {cartList.length > 0 ? (
                 cartList.map((item) => {
-                  return <CartItem key={item.productId} cartInfo={item} />;
+                  return <CartItem style={{ backgroundColor: "#fff" }} key={item.productId} cartInfo={item} />;
                 })
               ) : (
                 <Empty

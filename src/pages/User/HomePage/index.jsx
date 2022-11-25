@@ -1,6 +1,14 @@
 import React, { Fragment, useEffect, useMemo } from "react";
-import { Col, Row, Carousel, Badge } from "antd";
-import { useNavigate, Link, generatePath, useParams } from "react-router-dom";
+import { Col, Row, Badge } from "antd";
+import {
+  useNavigate,
+  Link,
+  generatePath,
+  useParams,
+  createSearchParams,
+  Navigate,
+} from "react-router-dom";
+import { Swiper, SwiperSlide } from "swiper/react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   getProductListAction,
@@ -15,6 +23,8 @@ import BrandSlider from "../../../components/BrandSlider";
 import ProductItem from "../../../components/ProductItem";
 import LoadingWrapper from "../../../components/LoadingWrapper";
 import { BlogItemHomePage } from "../../../components/BlogItem";
+import { CAROUSEL_LINK } from "./constant";
+import video_carousel from "../../../assets/videos/video_carousel.mp4";
 import {
   HOMEPAGE_PRODUCT_LIST_LIMIT,
   BLOG_LIST_LIMIT,
@@ -39,7 +49,6 @@ const UserHomePage = () => {
         params: {
           page: 1,
           limit: HOMEPAGE_PRODUCT_LIST_LIMIT,
-          order: "id.desc",
         },
       })
     );
@@ -48,26 +57,38 @@ const UserHomePage = () => {
         params: {
           page: 1,
           limit: BLOG_LIST_LIMIT,
-          order: "id.desc",
         },
       })
     );
 
-    dispatch(getCategoryListAction());
+    dispatch(
+      getCategoryListAction({
+        params: {
+          page: 1,
+        },
+      })
+    );
     dispatch(getReviewListAction({ productId: id }));
   }, [id]);
+
+  const useNavigateSearch = () => {
+    const navigate = useNavigate();
+    return (pathname, params) =>
+      navigate(`${pathname}?${createSearchParams(params)}`);
+  };
+  const navigateSearch = useNavigateSearch();
 
   const renderNewProductList = () => {
     return productList.data.map((item) => {
       return (
         item.isNew && (
-          <Col span={6} key={item.id}>
+          <Col xs={24} sm={12} lg={8} xl={6} xxl={6} key={item.id}>
             <Link
               to={generatePath(ROUTES.USER.PRODUCT_DETAILS, {
                 id: `${item.slug}.${item.id}`,
               })}
             >
-              <Badge.Ribbon color="red" text="New">
+              <Badge.Ribbon color="red" text="Mới">
                 <ProductItem item={item} />
               </Badge.Ribbon>
             </Link>
@@ -80,15 +101,15 @@ const UserHomePage = () => {
   const renderBestSellerList = () => {
     return productList.data.map((item) => {
       return (
-        item.discount >= 20 && (
-          <Col span={6} key={item.id}>
+        item.discount > 0 && (
+          <Col xs={24} sm={12} lg={8} xl={6} xxl={6} key={item.id}>
             <Link
               to={generatePath(ROUTES.USER.PRODUCT_DETAILS, {
                 id: `${item.slug}.${item.id}`,
               })}
             >
               {item.isNew ? (
-                <Badge.Ribbon color="red" text="New">
+                <Badge.Ribbon color="red" text="Mới">
                   <ProductItem item={item} />
                 </Badge.Ribbon>
               ) : (
@@ -103,7 +124,7 @@ const UserHomePage = () => {
   const renderBlogList = useMemo(() => {
     return blogList.data?.map((item) => {
       return (
-        <Col span={8} key={item.id}>
+        <Col xs={24} sm={12} lg={12} xl={8} xxl={8} key={item.id}>
           <Link
             to={generatePath(ROUTES.USER.BLOG_DETAILS, {
               id: `${item.slug}.${item.id}`,
@@ -118,6 +139,16 @@ const UserHomePage = () => {
     });
   }, [blogList.data]);
 
+  const renderCarousel = () => {
+    return CAROUSEL_LINK?.map((item, i) => {
+      return (
+        <SwiperSlide key={i}>
+          <img src={item.path} alt="" />
+        </SwiperSlide>
+      );
+    });
+  };
+
   return (
     <Fragment>
       {productList.loading ? (
@@ -125,39 +156,37 @@ const UserHomePage = () => {
       ) : (
         <S.Container>
           <S.CarouselContainer>
-            <Carousel
-              autoplay
-              dots={false}
-              pauseOnHover={true}
-              draggable
-              effect="scrollx"
+            <Swiper
+              modules={[]}
+              centeredSlides={true}
+              slidesPerView={1}
+              allowSlideNext={false}
+              allowSlidePrev={false}
+              coverflowEffect={{
+                rotate: 50,
+                stretch: 0,
+                depth: 100,
+                modifier: 1,
+                slideShadows: true,
+              }}
+              loop={true}
+              className="mySwiper"
             >
-              <div className="carouselContent">
-                <img
-                  src="https://runner-web.surge.sh/static/media/slide2.094dfa5e.jpg"
-                  alt=""
-                />
+              <div className="swipper_wraper">
+                <SwiperSlide>
+                  <div className="ratio_video">
+                    <video src={video_carousel} autoPlay muted loop />
+                  </div>
+                </SwiperSlide>
               </div>
-              <div className="carouselContent">
-                <img
-                  src="https://runner-web.surge.sh/static/media/slide3.d8ec659d.png"
-                  alt=""
-                />
-              </div>
-              <div className="carouselContent">
-                <img
-                  src="https://runner-web.surge.sh/static/media/slide4.fca25a5e.png"
-                  alt=""
-                />
-              </div>
-            </Carousel>
+            </Swiper>
           </S.CarouselContainer>
 
           <S.ProductListContainer>
             <S.ContainerTiltle>
               <span className="title_underline">Sản phẩm mới</span>
             </S.ContainerTiltle>
-            <Row style={{ textAlign: "center" }}>
+            <Row style={{ textAlign: "center", marginTop: "20px" }}>
               <Col span={2}></Col>
               <Col span={20}>
                 <Row gutter={[16, 16]}>{renderNewProductList()}</Row>
@@ -173,9 +202,9 @@ const UserHomePage = () => {
           </S.ProductListContainer>
           <S.BestSellerContainer>
             <S.ContainerTiltle>
-              <span className="title_underline">Sản phẩm bán chạy</span>
+              <span className="title_underline">Sản phẩm đang khuyến mãi</span>
             </S.ContainerTiltle>
-            <Row style={{ textAlign: "center" }}>
+            <Row style={{ textAlign: "center", marginTop: "20px" }}>
               <Col span={2}></Col>
               <Col span={20}>
                 <Row gutter={[16, 16]}>{renderBestSellerList()}</Row>
@@ -208,8 +237,13 @@ const UserHomePage = () => {
               <span className="title_underline">Bộ sưu tập</span>
             </S.ContainerTiltle>
             <Row gutter={[8, 8]}>
-              <Col span={8}>
-                <div className="collection_content">
+              <Col xs={24} lg={8} xl={8} xxl={8}>
+                <div
+                  className="collection_content"
+                  onClick={() =>
+                    navigateSearch(ROUTES.USER.PRODUCT_LIST, { gender: "1" })
+                  }
+                >
                   <img
                     src="https://runner-web.surge.sh/static/media/categorymen.17448f1d.jpeg"
                     alt=""
@@ -219,8 +253,13 @@ const UserHomePage = () => {
                   </div>
                 </div>
               </Col>
-              <Col span={8}>
-                <div className="collection_content">
+              <Col xs={24} lg={8} xl={8} xxl={8}>
+                <div
+                  className="collection_content"
+                  onClick={() =>
+                    navigateSearch(ROUTES.USER.PRODUCT_LIST, { gender: "2" })
+                  }
+                >
                   <img
                     src="https://runner-web.surge.sh/static/media/categorywoman.ad01e00d.jpeg"
                     alt=""
@@ -230,16 +269,18 @@ const UserHomePage = () => {
                   </div>
                 </div>
               </Col>
-              <Col span={8}>
-                <div className="collection_content">
-                  <img
-                    src="https://cf.shopee.vn/file/e21671f7f4520e3e9668278dec07aaad"
-                    alt=""
-                  />
-                  <div className="collection_title">
-                    <h2>Giày ngoại cỡ</h2>
+              <Col xs={24} lg={8} xl={8} xxl={8}>
+                <Link>
+                  <div className="collection_content">
+                    <img
+                      src="https://cf.shopee.vn/file/e21671f7f4520e3e9668278dec07aaad"
+                      alt=""
+                    />
+                    <div className="collection_title">
+                      <h2>Giày theo hãng</h2>
+                    </div>
                   </div>
-                </div>
+                </Link>
               </Col>
             </Row>
           </S.CollectionContainer>
@@ -255,6 +296,7 @@ const UserHomePage = () => {
                 thông báo về những sản phẩm mới nhất và những ưu đãi đặc biệt.
               </p>
             </div>
+            <div className="register_background"> </div>
           </S.RegisterContainer>
           <S.BlogContainer>
             <S.ContainerTiltle>

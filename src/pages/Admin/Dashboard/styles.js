@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Button } from "antd";
 
 export const DashboardPage = styled.div`
   .material_icon {
@@ -253,6 +254,20 @@ export const TrackBoardSection = styled.div`
         word-wrap: break-word;
       }
     }
+    .img_ratio {
+      margin-top: 100px;
+      position: relative;
+      padding-top: 40%;
+      img {
+        max-width: 100%;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
   }
 `;
 
@@ -438,5 +453,17 @@ export const ManageListingContainer = styled.div`
         margin: 0;
       }
     }
+  }
+`;
+export const CustomBtn = styled(Button)`
+  font-size: 16px;
+  color: #fff;
+  background-color: royalblue;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  &:hover {
+    background-color: #6486ed;
+    color: #fff;
   }
 `;

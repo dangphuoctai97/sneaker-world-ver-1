@@ -9,9 +9,12 @@ import logoImage from "../../../assets/images/sneaker-world-golden.png";
 import { HEADER_ITEMS } from "./constants";
 import { ROUTES } from "../../../constants/routes";
 import { logoutAction } from "../../../redux/actions";
+import { FaBars } from "react-icons/fa";
 import * as S from "./styles";
 
 export default function Header(props) {
+  const { isShowSidebar, setIsShowSidebar } = props;
+
   const { sticky } = props;
   const { pathname } = useLocation();
 
@@ -71,11 +74,16 @@ export default function Header(props) {
   return (
     <S.HeaderContainer sticky={sticky}>
       <Row>
-        <Col span={2} />
-        <Col span={20}>
-          <S.HeaderContent>
-            {/* <S.MobileMenu></S.MobileMenu> */}
-            <div className="navBarLogo">
+        <Col xs={1} lg={1} xl={1} xxl={2} />
+        <Col xs={22} lg={22} xl={22} xxl={20}>
+          <div className="header_content">
+            <div className="mobile_menu">
+              <Button
+                icon={<FaBars />}
+                onClick={() => setIsShowSidebar(!isShowSidebar)}
+              ></Button>
+            </div>
+            <div className="navbar_Logo">
               <span>
                 <Link to={ROUTES.USER.HOME}>
                   <img className="logo_img" src={logoImage} alt="" />
@@ -83,33 +91,25 @@ export default function Header(props) {
                 </Link>
               </span>
             </div>
-            <S.NavBar>
+            <div className="navbar_menu">
               <ul>{renderHeaderItems()}</ul>
-            </S.NavBar>
-            <S.ButtonContainer>
-              <S.CartBtn>
-                <Badge count={cartList.length}>
-                  <Button
-                    type="text"
-                    icon={<ShoppingCartOutlined />}
-                    onClick={() => navigate(ROUTES.USER.CHECKOUT)}
-                  ></Button>
-                </Badge>
-              </S.CartBtn>
+            </div>
+            <div className="user_container">
+              <Badge count={cartList.length}>
+                <Button
+                  className="cart_btn"
+                  type="text"
+                  icon={<ShoppingCartOutlined />}
+                  onClick={() => navigate(ROUTES.USER.CHECKOUT)}
+                ></Button>
+              </Badge>
               {userInfo.data.id ? (
                 <Dropdown overlay={menu}>
-                  <div className="userInfo">
+                  <div className="user_info">
                     <h2>{userInfo.data.fullName}</h2>
                     <Avatar
-                      size={40}
-                      src={
-                        <Image
-                          src="https://joeschmoe.io/api/v1/random"
-                          style={{
-                            width: 40,
-                          }}
-                        />
-                      }
+                      className="user_avatar"
+                      src={<Image src="https://joeschmoe.io/api/v1/random" />}
                     />
                   </div>
                 </Dropdown>
@@ -118,10 +118,10 @@ export default function Header(props) {
                   Đăng nhập
                 </S.LoginBtn>
               )}
-            </S.ButtonContainer>
-          </S.HeaderContent>
+            </div>
+          </div>
         </Col>
-        <Col span={2} />
+        <Col xs={1} lg={1} xl={1} xxl={2} />
       </Row>
       <div className="background_image"></div>
     </S.HeaderContainer>

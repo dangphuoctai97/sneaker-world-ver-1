@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { ROUTES, TITLES } from "../../../constants";
-import { Row, Col, Space, Tooltip, Button, Rate } from "antd";
+import { Row, Col, Form, Tooltip, Button, Rate, Input } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
 import {
   AiFillWarning,
@@ -8,6 +10,18 @@ import {
   AiFillDelete,
   AiFillEye,
 } from "react-icons/ai";
+import {
+  getProductDetailAction,
+  addToCartAction,
+  favoriteProductAction,
+  unFavoriteProductAction,
+  postReviewAction,
+  getReviewListAction,
+  getProductListAction,
+  getCategoryListAction,
+} from "../../../redux/actions";
+
+import ReviewItem from "../../User/ProductDetailPage/components/ReviewItem";
 import { HiLocationMarker } from "react-icons/hi";
 import { BsFillCartCheckFill } from "react-icons/bs";
 import { BiCommentDetail } from "react-icons/bi";
@@ -15,7 +29,20 @@ import { GoTasklist } from "react-icons/go";
 import { MdOutlineAttachMoney } from "react-icons/md";
 import * as S from "./styles";
 const AdminDashboard = () => {
+  const [reviewForm] = Form.useForm();
+  const { id } = useParams();
+  const { reviewList } = useSelector((state) => state.review);
+  const { productDetail, productList } = useSelector((state) => state.product);
+  const dispatch = useDispatch();
+
+  console.log(
+    "🚀 ~ file: index.jsx ~ line 32 ~ AdminDashboard ~ reviewList",
+    reviewList
+  );
+
   useEffect(() => {
+    dispatch(getProductDetailAction({ id: id }));
+    dispatch(getReviewListAction({ productId: id }));
     document.title = TITLES.ADMIN.DASHBOARD;
   }, []);
   return (
@@ -145,10 +172,14 @@ const AdminDashboard = () => {
                       <MdOutlineAttachMoney className="trackBoard_svg" />
                     </div>
                     <h4 className="trackBoard_title">Thống kê doanh thu</h4>
+                    <div className="img_ratio">
+                      <img
+                        src="https://www.ag-grid.com/static/a0c43454626bfb87835c5f3dce892713/chart-settings-still.png"
+                        alt=""
+                      />
+                    </div>
                   </div>
-                  <div className="trackBoard_bottom">
-                    <h4>chart</h4>
-                  </div>
+                  <div className="trackBoard_bottom"></div>
                 </div>
               </div>
             </S.TrackBoardSection>
@@ -164,7 +195,9 @@ const AdminDashboard = () => {
                     <h4 className="trackBoard_title">Thống kê đơn hàng</h4>
                   </div>
                   <div className="trackBoard_bottom">
-                    <h4>table</h4>
+                    <div className="img_ratio">
+                      <img src="https://i.stack.imgur.com/PmZSc.png" alt="" />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -181,7 +214,12 @@ const AdminDashboard = () => {
                     <h4 className="trackBoard_title">Thống kê sản phẩm</h4>
                   </div>
                   <div className="trackBoard_bottom">
-                    <h4>chart</h4>
+                    <div className="img_ratio">
+                      <img
+                        src="https://screenshots.codesandbox.io/93m1lpjrvr.png"
+                        alt=""
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -195,10 +233,25 @@ const AdminDashboard = () => {
                     <div className="trackBoard_symbol blue_background">
                       <BiCommentDetail className="trackBoard_svg" />
                     </div>
-                    <h4 className="trackBoard_title">Thống kê đánh giá</h4>
+                    <h4 className="trackBoard_title">Trả lời bình luận</h4>
                   </div>
                   <div className="trackBoard_bottom">
-                    <h4>chart</h4>
+                    <ReviewItem reviewList={reviewList} />
+                    <Form
+                      form={reviewForm}
+                      layout="vertical"
+                      className="rating_form"
+                      onFinish={(values) => {
+                        reviewForm.resetFields();
+                      }}
+                    >
+                      <Form.Item label="Trả lời bình luận" name="comment">
+                        <Input.TextArea autoSize={{ maxRows: 6, minRows: 2 }} />
+                      </Form.Item>
+                      <S.CustomBtn htmlType="submit" block>
+                        Phản hồi
+                      </S.CustomBtn>
+                    </Form>
                   </div>
                 </div>
               </div>

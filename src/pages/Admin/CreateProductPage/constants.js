@@ -44,3 +44,39 @@ export const SIZE_OPTIONS = [
     value: 43,
   },
 ];
+
+export const SIZE_OPTIONS_FILTER = [
+  {
+    value: 36,
+  },
+  {
+    value: 37,
+  },
+  {
+    value: 38,
+  },
+  {
+    value: 39,
+  },
+  {
+    value: 39.5,
+  },
+  {
+    value: 40,
+  },
+  {
+    value: 40.5,
+  },
+  {
+    value: 41,
+  },
+  {
+    value: 41.5,
+  },
+  {
+    value: 42,
+  },
+  {
+    value: 43,
+  },
+];

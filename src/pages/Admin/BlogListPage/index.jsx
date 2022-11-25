@@ -149,7 +149,7 @@ const AdminBlogListPage = () => {
       },
     },
     {
-      title: "Action",
+      title: "Hành động",
       dataIndex: "action",
       key: "action",
       render: (_, record) => {
@@ -162,11 +162,9 @@ const AdminBlogListPage = () => {
                 )
               }
             >
-              Update
+              Sửa
             </Button>
-            <Button onClick={(id) => handleDeleteBlog(record.id)}>
-              Delete
-            </Button>
+            <Button onClick={(id) => handleDeleteBlog(record.id)}>Xoá</Button>
           </Space>
         );
       },
@@ -187,7 +185,7 @@ const AdminBlogListPage = () => {
               type="primary"
               onClick={() => navigate(ROUTES.ADMIN.CREATE_BLOG)}
             >
-              Create Blog
+              Tạo bài viết
             </Button>
           </S.TopWrapper>
           <Table

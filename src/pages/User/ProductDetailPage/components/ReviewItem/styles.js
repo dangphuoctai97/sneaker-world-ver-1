@@ -7,7 +7,22 @@ export const ProductRating = styled.div`
   padding: 1.5625rem;
   margin-top: 0.9375rem;
   overflow: visible;
-
+  &:hover {
+    .product_rating {
+      box-shadow: 0 10px 10px 0 rgb(65, 105, 225, 40%);
+    }
+    .product_rating_avata {
+      width: 6rem;
+      transform: translateX(20px);
+      transition: all 300ms cubic-bezier(0.34, 1.61, 0.7, 1);
+    }
+    .product_rating_main {
+      margin-left: 10px;
+      padding-right: 34px;
+      transform: translateX(15px);
+      transition: all 300ms cubic-bezier(0.34, 1.61, 0.7, 1);
+    }
+  }
   .product_rating_list {
     display: block;
   }
@@ -15,12 +30,12 @@ export const ProductRating = styled.div`
     display: block;
   }
   .product_rating {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.09);
+    border-bottom: 3px solid rgba(0, 0, 0, 0.09);
     display: flex;
     padding: 1rem 0 1rem 1.25rem;
   }
   .product_rating_avata {
-    width: 2.5rem;
+    width: 3rem;
     margin-right: 0.625rem;
     text-align: center;
     display: block;
@@ -32,7 +47,7 @@ export const ProductRating = styled.div`
   .product_rating_main_author-name {
     text-decoration: none;
     color: rgba(0, 0, 0, 0.87);
-    font-size: 0.75rem;
+    font-size: 1rem;
   }
   .product_rating_time {
     margin-top: 0.75rem;
@@ -60,8 +75,8 @@ export const ProductRating = styled.div`
 
 export const RatingAvatarImg = styled(Avatar)`
   border-radius: 50%;
-  width: 50;
-  height: 50;
+  width: 100%;
+  height: auto;
 `;
 export const CustomBtn = styled(Button)`
   font-size: 16px;

@@ -21,6 +21,7 @@ export const CustomerSlider = () => {
       <Swiper
         modules={[Pagination]}
         direction={"vertical"}
+        grabCursor={true}
         pagination={{
           clickable: true,
         }}
@@ -29,7 +30,7 @@ export const CustomerSlider = () => {
         loop={true}
         className="mySwiper"
       >
-        <Ratio aspectRatio="16x9">{renderSlider()}</Ratio>
+        {renderSlider()}
       </Swiper>
     </S.CustomerSlider>
   );
@@ -37,10 +38,12 @@ export const CustomerSlider = () => {
 
 export const CustomerSliderHomePage = () => {
   const renderSlider = () => {
-    return SLIDER_LINK?.map((item, i) => {
+    return SLIDER_LINK?.map((item, index) => {
       return (
-        <SwiperSlide key={i}>
-          <img src={item.path} alt="" />
+        <SwiperSlide key={index} className="swipper_wraper">
+          <div className="ratio_img">
+            <img src={item.path} alt="" />
+          </div>
         </SwiperSlide>
       );
     });
@@ -66,7 +69,7 @@ export const CustomerSliderHomePage = () => {
         }}
         className="mySwiper"
       >
-        <Ratio aspectRatio="16x9">{renderSlider()}</Ratio>
+        {renderSlider()}
       </Swiper>
     </S.CustomerSliderHomePage>
   );

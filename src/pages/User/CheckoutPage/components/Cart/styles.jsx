@@ -9,11 +9,13 @@ export const CartInfo = styled.div`
   flex-direction: column;
   padding: 8px 16px;
   border: 1px solid rgb(222, 226, 230);
+  background-color: #fff;
 `;
 
 export const CartInfoContent = styled.div`
   display: flex;
   flex-direction: column;
+  
 `;
 
 export const PayMentBtn = styled(Button)`
@@ -32,6 +34,7 @@ export const PayMentBtn = styled(Button)`
 export const ListItem = styled(List.Item)`
   display: flex;
   justify-content: space-between;
+  
 `;
 
 export const EmptyDescription = styled.span`
@@ -40,6 +43,7 @@ export const EmptyDescription = styled.span`
   left: 0;
   right: 0;
   font-size: 20px;
+  
 `;
 
 export const EmptyBtn = styled(Button)`
@@ -51,6 +55,7 @@ export const EmptyBtn = styled(Button)`
   font-size: 20px;
   background-color: royalblue;
   color: #fff;
+  
 
   &:hover {
     background-color: #6486ed;
