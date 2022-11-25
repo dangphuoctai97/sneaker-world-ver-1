@@ -54,6 +54,13 @@ export const SidebarContainer = styled.div`
       }
     }
   }
+  .login_btn {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+  }
 `;
 
 export const SidebarContent = styled.div`
@@ -88,7 +95,7 @@ export const LoginBtn = styled(Button)`
   align-items: center;
   font-size: 18px;
   padding: 18px 20px;
-  margin: 20px;
+  margin: 20px auto;
   color: rgb(0, 40, 120);
   background-color: geekblue;
   border: 1px solid royalblue;

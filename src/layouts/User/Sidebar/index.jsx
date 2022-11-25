@@ -40,9 +40,11 @@ function UserSidebar(props) {
           <h2>{userInfo.data.fullName}</h2>
         </div>
       ) : (
-        <S.LoginBtn onClick={() => navigate(ROUTES.LOGIN)}>
-          Đăng nhập
-        </S.LoginBtn>
+        <div className="login_btn">
+          <S.LoginBtn onClick={() => navigate(ROUTES.LOGIN)}>
+            Đăng nhập
+          </S.LoginBtn>
+        </div>
       )}
       <S.SidebarContent>{renderSidebarItems()}</S.SidebarContent>
       <div className="background_image"></div>

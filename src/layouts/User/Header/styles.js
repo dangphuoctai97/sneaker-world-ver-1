@@ -74,9 +74,7 @@ export const HeaderContainer = styled.header`
     }
   }
   .mobile_menu {
-    @media ${DEVICE.DESKTOP_XXL} {
-      display: none;
-    }
+    display: none;
     @media ${DEVICE.TABLET} {
       display: block;
     }

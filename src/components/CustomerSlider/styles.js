@@ -3,6 +3,7 @@ import { DEVICE } from "../../constants/device";
 
 export const CustomerSlider = styled.div`
   cursor: pointer;
+  height: 70vh;
   @media ${DEVICE.DESKTOP_XXL} {
     height: 70vh;
   }
@@ -14,6 +15,9 @@ export const CustomerSlider = styled.div`
   }
   @media ${DEVICE.MOBILE} {
     height: 30vh;
+  }
+  @media (min-width: 1280) {
+    height: 70vh;
   }
   width: 100%;
   .swiper {
